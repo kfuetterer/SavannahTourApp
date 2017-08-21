@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Friend Finder</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="apiRoutes.js"></script>
+    <script src="htmlRoutes.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="resultsModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button id="closeButton" type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h2 class="modal-title"><strong>Best Match</strong></h2>
+                    </div>
+                    <div class="modal-body">
+                        <h2 id="matchName"></h2>
+                        <img id="matchImg" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
+                    </div>
+                    <div class="modal-footer">
+                        <button id="closeButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<h2>Survey Questions</h2>
+		<hr>
+		<h3><strong>About You</strong></h3>
+		<h4>Name (Required)</h4>
+		<input type="text" name="" id="name" class="form-control" required >
+		<h4>Link to Photo Image (Required)</h4>
+		<input type="text" name="" id="photo" class="form-control" required >
+		<hr>
+		<h3><strong>Question 1</strong></h3>
+		<h4>How much do you enjoy outdoor activities?</h4>
+	 	<select data-placeholder="" class="chosen-select" id="q1">
+	 		<option value=""></option>
+            <option value="1">1 (Not Prefer)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Prefer)</option>
+      	</select>
+
+		<h3><strong>Question 2</strong></h3>
+		<h4>You can't spend a day without coffee and you can't spend a night without alcohol.</h4>
+	 	<select data-placeholder="" class="chosen-select" id="q2">
+	 		<option value=""></option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+      	</select>
+
+		<h3><strong>Question 3</strong></h3>
+		<h4>When socializing you prefer the company of the opposite sex.</h4>
+	 	<select data-placeholder="" class="chosen-select" id="q3">
+	 		<option value=""></option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+      	</select>
+
+		<h3><strong>Question 4</strong></h3>
+		<h4>You enjoy challenging yourself in multiple aspects.</h4>
+	 	<select data-placeholder="" class="chosen-select" id="q4">
+	 		<option value=""></option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+      	</select>
+
+		<h3><strong>Question 5</strong></h3>
+		<h4>You enjoy dancing.</h4>
+	 	<select data-placeholder="" class="chosen-select" id="q5">
+	 		<option value=""></option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+      	</select>
+
+		<h3><strong>Question 6</strong></h3>
+		<h4>You love kids.</h4>
+	 	<select data-placeholder="" class="chosen-select" id="q6">
+	 		<option value=""></option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+      	</select>
+
+		<h3><strong>Question 7</strong></h3>
+		<h4>You prefer listening rather than talking.</h4>
+	 	<select data-placeholder="" class="chosen-select" id="q7">
+	 		<option value=""></option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+      	</select>
+
+		<h3><strong>Question 8</strong></h3>
+		<h4>You don't know where your keys right now.</h4>
+	 	<select data-placeholder="" class="chosen-select" id="q8">
+	 		<option value=""></option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+      	</select>
+
+		<h3><strong>Question 9</strong></h3>
+		<h4>Netflix cheating is morally okay.</h4>
+	 	<select data-placeholder="" class="chosen-select" id="q9">
+	 		<option value=""></option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+      	</select>
+
+		<h3><strong>Question 10</strong></h3>
+		<h4>Grammar is extremely important to you.</h4>
+	 	<select data-placeholder="" class="chosen-select" id="q10">
+	 		<option value=""></option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+      	</select>
+		<br>
+		<br>
+		<button type="submit" data-toggle="modal" data-target="#resultsModal" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>Submit</button>
+		<hr>
+	    <footer class="footer">
+	        <div class="container">
+		        <p><a href="/api/friends">API Friends List</a></p>
+	        </div>
+	    </footer>
+	</div>
+</body>
+<script>
+    $("#submit").on("click", function(event) {
+        event.preventDefault();
+        var addFriend = {
+            name: $("#name").val().trim(),
+            photo: $("#photo").val().trim(),
+            q1: $("#q1").val().trim(),
+            q2: $("#q2").val().trim(),
+            q3: $("#q3").val().trim(),
+            q4: $("#q4").val().trim(),
+            q5: $("#q5").val().trim(),
+            q6: $("#q6").val().trim(),
+            q7: $("#q7").val().trim(),
+            q8: $("#q8").val().trim(),
+            q9: $("#q9").val().trim(),
+            q10: $("#q10").val().trim()
+        };
+        $.post("/api/new", addFriend)
+        .done(function() {
+            $.get("/api/results", function(data) {
+                $("#matchName").html(data.name);
+                $("#matchImg").html(data.photo);
+            });
+        });
+    });
+</script>
+</html>
