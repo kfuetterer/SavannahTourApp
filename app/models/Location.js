@@ -27,7 +27,7 @@ var LocationSchema = new Schema({
     required: false
   },
   pos: {
-    type: String?
+    type: String,
     required: false
   }
 });

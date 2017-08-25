@@ -28,7 +28,7 @@ db.once("open", function() {
 });
 
 api.get("/friendsoftour", function(req, response) {
-    db.FriendsofTour.find({}, function (err, friends) {
+    db.FriendsofTour.find({}, function (err, friendsoftour) {
         if (err) return handleError(err);
     });
 });
@@ -43,7 +43,7 @@ api.post("/new/location", function(req, res) {
     var newLocation = req.body;
     console.log(newLocation);
 
-    connection.query("INSERT INTO Location SET ?", { name:newLocation.name, type:newLocation.type, address:newLocation.address, description:newLocation.description, image:newLocation.image}, function (err, res) { });
+    connection.query("INSERT INTO Location SET ?", { name:newLocation.name, type:newLocation.type, map:newLocation.map, address:newLocation.address, description:newLocation.description, image:newLocation.image, pos:newLocation.pos}, function (err, res) { });
     res.json(newLocation);
 });
 
