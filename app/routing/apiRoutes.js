@@ -27,24 +27,25 @@ db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
 
-api.get("/friendsoftour", function(req, response) {
-    db.FriendsofTour.find({}, function (err, friendsoftour) {
-        if (err) return handleError(err);
+module.exports = function(app) {
+
+    api.get("/friendsoftour", function(req, response) {
+        db.FriendsofTour.find({}, function (err, friendsoftour) {
+            if (err) return handleError(err);
+        });
     });
-});
 
-api.get("/locations", function(req, response) {
-    db.Location.find({}, function (err, locations) {
-        if (err) return handleError(err);
+    api.get("/locations", function(req, response) {
+        db.Location.find({}, function (err, locations) {
+            if (err) return handleError(err);
+        });
     });
-});
 
-api.post("/new/location", function(req, res) {
-    var newLocation = req.body;
-    console.log(newLocation);
+    api.post("/new/location", function(req, res) {
+        var newLocation = req.body;
+        console.log(newLocation);
 
-    connection.query("INSERT INTO Location SET ?", { name:newLocation.name, type:newLocation.type, map:newLocation.map, address:newLocation.address, description:newLocation.description, image:newLocation.image, pos:newLocation.pos}, function (err, res) { });
-    res.json(newLocation);
-});
-
-module.exports = api;
+        connection.query("INSERT INTO Location SET ?", { name:newLocation.name, type:newLocation.type, map:newLocation.map, address:newLocation.address, description:newLocation.description, image:newLocation.image, pos:newLocation.pos}, function (err, res) { });
+        res.json(newLocation);
+    });
+};

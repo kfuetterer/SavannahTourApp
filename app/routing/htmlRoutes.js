@@ -10,7 +10,8 @@ html.use(bodyParser.text());
 html.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 html.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/home.html"));
+   
+   res.sendFile(path.join(__dirname, "../public/home.html"));
 });
 
 module.exports = html;
