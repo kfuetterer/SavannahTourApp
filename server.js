@@ -10,7 +10,6 @@ var PORT = 3000;
 var app = express();
 
 app.use('/', require('./app/routing/htmlRoutes'));
-app.use('/api', require('./app/routing/apiRoutes'));
 
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({
