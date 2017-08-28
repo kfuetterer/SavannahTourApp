@@ -8,7 +8,6 @@ const ajax = {
                 error(response.message)
             }
             else {
-                console.log("Sign-up successful");
                 success(response)
                 }
             })
@@ -20,7 +19,6 @@ const ajax = {
                 error(response.message)
             }
             else {
-                console.log("Sign-in successful");
                 success(response)
                 }
             })
@@ -33,7 +31,6 @@ const ajax = {
                 error(response.message)
             }
             else {
-                console.log("Locations fetch successful");
                 success(response)
             }
         })
@@ -47,7 +44,6 @@ const ajax = {
                 error(response.message)
             }
             else {
-                console.log("Location post successful");
                 success(response)  
             }    
         })
@@ -56,8 +52,6 @@ const ajax = {
     // remove a location
     // here, we only need song_id
     removeLocation: ( locationId, error, success ) => { 
-
-        console.log("Location", locationId);
         $.get(`${api}/api/remove/location/${locationId}`, (response) => {
           
             if (!response.success) {
@@ -80,13 +74,12 @@ const ajax = {
         });        
     },
 
-    addFriend: ( error, success ) => {
+    addFriend: ( friend, error, success ) => {
         $.post(`${api}/api/new/friend`, friend, (response) => {
             if (response.error){
                 error(response)
             }
             else {
-                console.log("Friend post successful", response);
                 success(response)
             }
         })
@@ -98,7 +91,6 @@ const ajax = {
                 error(response)
             }
             else {
-                console.log("Friend deletion successful", response);
                 success(response)
             }
         })
@@ -110,10 +102,20 @@ const ajax = {
                 error(response)
             }
             else {
-                console.log("Friends search successful");
                 // response will be object where data is in 'data' key
                 success(response)
             }
             }) 
-        }
+        },
+
+    updateFriend: ( friend, error, success ) => {
+        $.post(`${api}/api/update/friend/`, (response)=> {
+            if (!response.success) {
+                error(response.message)
+            }
+            else {
+                success(response)
+            }
+        });        
+    },
 }
