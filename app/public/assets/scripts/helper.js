@@ -240,7 +240,16 @@ $("#addLocationButton").on("click",function(){
         //success callback
         function(response){
             console.log(response);
-            renderLocations(response);
+            ajax.getLocations( 
+                //error callback
+                function(response){
+                    console.log(response)
+                },
+                // success callback
+                function(response) {
+                    renderLocations(response);
+                }
+            );    
         });    
             
     }); // end click function for adding location button
@@ -287,7 +296,16 @@ $("#addLocationButton").on("click",function(){
             //success callback
             function(response){
                 console.log(response);
-                renderLocations(response);
+                ajax.getLocations( 
+                    //error callback
+                    function(response){
+                        console.log(response)
+                    },
+                    // success callback
+                    function(response) {
+                        renderLocations(response);
+                    }
+                );
             });    
     }); // end click function for updating Location item
 
@@ -304,4 +322,3 @@ function renderLocations(locations) {
 function renderFriends(friends) {
      console.log("Rendering friends list",friends.data)
  };
-
