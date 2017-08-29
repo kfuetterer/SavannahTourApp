@@ -292,3 +292,16 @@ $("#addLocationButton").on("click",function(){
     }); // end click function for updating Location item
 
 })// end doc ready
+
+/*************
+ * Other helper functions 
+ * ***************/
+
+function renderLocations(locations) {
+     console.log(locations);
+ };
+
+function renderFriends(friends) {
+     console.log(friends)
+ };
+
