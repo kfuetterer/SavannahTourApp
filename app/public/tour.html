@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Savannah Tour of Homes and Gardens</title>
+    <link href="https://fonts.googleapis.com/css?family=Gilda+Display" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates" rel="stylesheet">
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <!-- bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- app stylesheet -->
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+    <!-- database functions -->
+    <script src="assets/scripts/ajax.js"></script>
+    <!-- helper functions -->
+    <script src="assets/scripts/helper.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center" id="heading">Savannah Tour 
+            <br> of Homes and Gardens</h1>
+        <br>
+        <!-- new user sign up inputs -->
+        <div class="pull-right">
+            <div class="input-group">
+                <div>Sign up</div>
+                <input id="signupUser" type="text" class="form-control" placeholder="Username">
+            </div>
+            <div class="input-group">
+                <input id="signupPass" type="password" class="form-control" placeholder="Password">
+            </div>
+            <div id="signupButton" class="btn btn-primary" type="submit">Submit</div>
+
+            <!-- user sign in inputs -->
+            <div class="input-group">
+                <div>Already a user? Sign in</div>
+                <input id="signinUser" type="text" class="form-control" placeholder="Username">
+            </div>
+            <div class="input-group">
+                <input id="signinPass" type="password" class="form-control" placeholder="Password">
+            </div>
+            <div id="signinButton" class="btn btn-primary" type="submit">Submit</div>
+        </div>
+
+        <!-- Add location button -->
+        <div class="text-center">
+            <button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-credit-card"></span> Add Location</button>
+        </div>
+
+        <div class="text-center">
+            <button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="addFriendofTourModal" onclick="$( '#addFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-credit-card"></span> Add Friend of Tour</button>
+        </div>
+
+        <div class="text-center">
+            <button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteLocationModal').modal('show')"><span class="glyphicon glyphicon-credit-card"></span> Delete Location</button>
+        </div>
+
+        <div class="text-center">
+            <button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="deleteFriendofTourModal" onclick="$( '#deleteFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-credit-card"></span> Delete Friend of Tour</button>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+
+                <!-- get locations -->
+                <div class="btn btn-primary" id="locationsButton">Locations List</div>
+
+                <!-- get friends of tour list -->
+                <div class="btn btn-success" id="friendsButton">Friends of Tour List</div>
+            </div>
+        </footer>
+    </div>
+
+
+
+    <!-- "Add Location" Modal -->
+    <div id="addLocationModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add a location</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <input id="locName" name="locName" type="text" class="form-control" placeholder="Name">
+
+                            <div id="type" class="btn-group">
+                                <p>Type:
+                                    <label class="radio-inline active">
+                                    <input name="type" type="radio" value="stop" checked="">
+                                    Tour Stop
+                                </label>
+
+                                    <label class="radio-inline">
+                                    <input name="type" type="radio" value="sponsor">
+                                    Sponsor
+                                </label>
+                                </p>
+                            </div>
+
+
+                            <div id="shouldMap" class="btn-group">
+                                <p>Map?
+                                    <label class="radio-inline active">
+                                    <input type="radio" value=true name="mapOpt" checked="">
+                                    Yes
+                                </label>
+                                    <label class="radio-inline">
+                                    <input type="radio" value=false name="mapOpt">
+                                    No
+                                </label>
+                                </p>
+                            </div>
+
+
+                            <input id="locAddress" type="text" class="form-control" placeholder="Address">
+
+                            <div class="form-group">
+                                <textarea class="form-control" rows="5" id="locDesc" placeholder="Description"></textarea>
+                            </div>
+
+                            <!-- to do: replace URL input with image uploading -->
+                            <input id="locImage" type="text" class="form-control" placeholder="Image (URL)">
+
+                            <p>Position:</p>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <input id="locPosLat" type="text" class="form-control" placeholder="Latitude">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <input id="locPosLng" type="text" class="form-control" placeholder="Longitude">
+                            </div>
+
+                        </div>
+                        <!-- end col-lg-12 -->
+                    </div>
+                    <!-- end row -->
+                </div>
+
+                <div class="modal-footer">
+                    <button id="addLocationButton" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- end Add Location modal -->
+
+</body>
+
+</html>

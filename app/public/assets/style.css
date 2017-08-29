@@ -1,14 +1,23 @@
-h1 {
-    font-family: 'Montserrat', sans-serif;
+#heading {
+    font-family: 'Montserrat Alternates', sans-serif;
+    color: white;
+    font-size: 80px;
 }
 
-h3 {
-    font-family: 'Gilda Display', serif;
+h3, p {
+    font-family: 'Open Sans', sans-serif;
 }
 
 body {
     background-image: url("images/savannahHomepage.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
+
+.sign {
+    color: white;
+}
+
 
 .btn {
     cursor: pointer
