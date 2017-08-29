@@ -298,10 +298,10 @@ $("#addLocationButton").on("click",function(){
  * ***************/
 
 function renderLocations(locations) {
-     console.log(locations);
+     console.log("Rendering locations",locations.data);
  };
 
 function renderFriends(friends) {
-     console.log(friends)
+     console.log("Rendering friends list",friends.data)
  };
 
