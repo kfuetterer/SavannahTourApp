@@ -4,8 +4,29 @@
     font-size: 80px;
 }
 
-h3, p {
+h3, h2, p, a {
     font-family: 'Open Sans', sans-serif;
+}
+
+.tab {
+    background-color:  #d3d3d3;
+}
+
+.nav-tabs > li.active > a {
+    font-family: 'Open Sans', sans-serif !important;
+    color: #3c5a78;
+    border-radius: 5px;
+}
+.nav-tabs > li > a {
+    font-family: 'Open Sans', sans-serif !important;
+    color: #575757;
+}
+
+.btn {
+    background-color: transparent;
+    border-width: 2px;
+    border-color: white;
+    border: solid;
 }
 
 body {
