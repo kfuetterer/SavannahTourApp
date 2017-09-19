@@ -9,16 +9,12 @@ h3, h2, p, a {
     color: white;
 }
 
-.tab {
-    background-color:  #d3d3d3;
-}
-
 .input-group {
     margin: 0 auto;
 }
 
 input {
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     padding: 20px !important; 
 }
 
@@ -26,27 +22,80 @@ input {
     text-align: center;
 }
 
-.nav-tabs > li.active > a {
+.nav-items > li.active > a {
     font-family: 'Open Sans', sans-serif !important;
-    color: #3c5a78;
-    border-radius: 5px;
+    border-radius: 5px !important;
 }
-.nav-tabs > li > a {
+.nav-items > li > a {
     font-family: 'Open Sans', sans-serif !important;
-    color: #575757;
 }
 
-.btn {
+.left-box {
+    float: left;
+    background-color: white;
+    border-width: 1.5px !important;
+    border: solid;
+    border-color: lightgray;
+    border-radius: 8px !important;
+    height: 500px;
+}
+
+.right-box {
+    float: left;
+    background-color: white;
+    border-width: 1.5px !important;
+    border: solid;
+    border-color: lightgray;
+    border-radius: 8px !important;
+    height: 350px;
+}
+
+.marginL {
+    margin-left: 40px;
+}
+
+.btn-tour {
+    border-radius: 8px !important;
+    background-color: transparent;
+    border-width: 2px;
+    border-color: darkgray !important;
+    border: solid;
+    font-size: 16px;
+    width: 160px;
+    height: 80px;
+    white-space: normal;
+}
+
+.side-button {
+    color: gray;
+    background-color: transparent;
+}
+
+.btn-home {
+    border-radius: 8px !important;
     background-color: transparent;
     border-width: 2px;
     border-color: white;
     border: solid;
 }
 
-body {
+#navtabs {
+    float: left;
+}
+
+.navtop {
+    margin: 30px 30px 10px 25px;
+    padding: 10px;
+}
+
+#homepage {
     background-image: url("images/savannahHomepage.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
+}
+
+#tourpage {
+    background-color: #f0f0f0;
 }
 
 .sign {
@@ -56,5 +105,5 @@ body {
 
 
 .btn {
-    cursor: pointer
+    cursor: pointer;
 }

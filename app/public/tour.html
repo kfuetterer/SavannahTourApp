@@ -22,45 +22,77 @@
     <script src="assets/scripts/helper.js"></script>
 </head>
 
-<body>
+<body id="tourpage">
+
+        <nav class="navbar navbar-inverse bg-faded">
+            <a class="navbar-brand" href="#">Savannah Tour of Homes and Gardens</a>
+            <br>
+            <ul class="navbar-nav" id="navtabs">
+                <li class="nav-item navtop">
+                    <a class="nav-link" href="#">TOUR STOPS</a>
+                </li>
+                <li class="nav-item navtop">
+                    <a class="nav-link" href="#">SPONSORS</a>
+                </li>
+                <li class="nav-item navtop">
+                    <a class="nav-link" href="#">FRIENDS OF THE TOUR</a>
+                </li>
+                <li class="nav-item navtop">
+                    <a class="nav-link" href="#">PROFILE</a>
+                </li>
+                <li class="nav-item navtop">
+                    <a class="nav-link" href="#">SETTINGS</a>
+                </li>
+            </ul>
+        </nav>
+
     <div class="container">
-        <br>
-        <ul class="nav nav-tabs nav-justified">
-            <li class="tab" role="presentation" class="active"><a href="#">Tour Stops</a></li>
-            <li class="tab" role="presentation"><a href="#">Sponsors</a></li>
-            <li class="tab" role="presentation"><a href="#">Friends of the Tour</a></li>
-        </ul>
         <div class="tab-content">
-            <!-- Add location button -->
-            <div class="text-center">
-                <button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-credit-card"></span> Add Location</button>
-            </div>
-
-            <div class="text-center">
-                <button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="addFriendofTourModal" onclick="$( '#addFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-credit-card"></span> Add Friend of Tour</button>
-            </div>
-
-            <div class="text-center">
-                <button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteLocationModal').modal('show')"><span class="glyphicon glyphicon-credit-card"></span> Delete Location</button>
-            </div>
-
-            <div class="text-center">
-                <button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="deleteFriendofTourModal" onclick="$( '#deleteFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-credit-card"></span> Delete Friend of Tour</button>
-            </div>
-
-            <footer class="footer">
-                <div class="container">
-
-                    <!-- get locations -->
-                    <div class="btn btn-primary" id="locationsButton">Locations List</div>
-
-                    <!-- get friends of tour list -->
-                    <div class="btn btn-success" id="friendsButton">Friends of Tour List</div>
+            <h1>Dashboard</h1>
+            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="card col-md-3">
+                        <div class="card-header">
+                            Overview
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">Locations List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Friends of Tour List</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-8 marginL">
+                        <div class="row">
+                            <div class="col-md-12 right-box">
+                                <h3>Control Panel</h3>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-credit-card"></span> Add Location</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn-tour btn btn-lg btn-success" data-toggle="modal" data-target="addFriendofTourModal" onclick="$( '#addFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-credit-card"></span> Add Friend of Tour</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteLocationModal').modal('show')"><span class="glyphicon glyphicon-credit-card"></span> Delete Location</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteFriendofTourModal" onclick="$( '#deleteFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-credit-card"></span> Delete Friend of Tour</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </footer>
+            </div>
+
         </div>
-
-
 
         <!-- "Add Location" Modal -->
         <div id="addLocationModal" class="modal fade" role="dialog">
