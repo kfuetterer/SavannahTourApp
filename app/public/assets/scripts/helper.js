@@ -1,7 +1,9 @@
 $(document).ready(function(){
+    $('.dropdown-toggle').dropdown()
 
-    // add listeners to buttons
-
+    $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+    });
     /*****************
         USER SIGN UP and SIGN IN BUTTONS
     ******************/ 
