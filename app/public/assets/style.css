@@ -49,7 +49,7 @@ input {
     border: solid;
     border-color: darkgray;
     border-radius: 8px !important;
-    height: 450px;
+    height: 600px;
     width: 100%;
 }
 
@@ -113,6 +113,10 @@ input {
     border: solid;
     border-color: lightgray;
     border-radius: 8px !important;
+}
+
+.tab-content {
+    padding: 50px;
 }
 
 .darkGray-box {
