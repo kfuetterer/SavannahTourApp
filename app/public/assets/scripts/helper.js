@@ -1,9 +1,9 @@
 $(document).ready(function(){
-    $('.dropdown-toggle').dropdown()
+    //$('.dropdown-toggle').dropdown()
 
-    $(".nav-tabs a").click(function(){
-        $(this).tab('show');
-    });
+    // $(".nav-tabs a").click(function(){
+    //     $(this).tab('show');
+    // });
     /*****************
         USER SIGN UP and SIGN IN BUTTONS
     ******************/ 
