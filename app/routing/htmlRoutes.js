@@ -9,9 +9,12 @@ html.use(bodyParser.urlencoded({ extended: true }));
 html.use(bodyParser.text());
 html.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-html.get("/", function(req, res) {
-   
-   res.sendFile(path.join(__dirname, "../public/home.html"));
+html.get("/", function(req, res) { 
+    res.sendFile(path.join(__dirname, "../public/home.html"));
+});
+
+html.get("/tour", function(req, res){
+    res.sendFile(path.join(__dirname, "../public/tour.html"));
 });
 
 module.exports = html;

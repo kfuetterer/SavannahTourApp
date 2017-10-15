@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Savannah Tour of Homes and Gardens</title>
+    <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <!-- bootstrap JS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <!-- app stylesheet -->
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+    <!-- database functions -->
+    <script src="assets/scripts/ajax.js"></script>
+    <!-- helper functions -->
+    <script src="assets/scripts/helper.js"></script>
+</head>
+
+<body class="darkGray-box">
+        <br>
+        <br>
+        <div id="tourpage">
+            <div class="row">
+                <div class="col-md-3">
+                    <!--make image disappear when browser size gets smaller-->
+                    <img src="assets/images/STHG_logo_white.png" alt="some_text" style="margin: 20px; width: 100%">
+                </div>
+                <div class="col-md-1 col-sm-1 col-xs-12">
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-header">
+                                Control Panel
+                            </div>
+                            <div class="card-body">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a id="home-tab" role="tab" data-toggle="tab"class="nav-link active" href="#home">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="tourstops-tab" role="tab" data-toggle="tab" class="nav-link" href="#tourstops">Tour Stops</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="sponsors-tab" role="tab" data-toggle="tab" class="nav-link" href="#sponsors">Sponsors</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="friendsoftour-tab" role="tab" data-toggle="tab" class="nav-link" href="#friendsoftour">Friends of Tour</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="profile-tab" role="tab" data-toggle="tab" class="nav-link" href="#profile">Profile</a>
+                                    </li>
+                                </ul>
+                                <br>
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Location</button>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <button type="button" class="btn-tour btn btn-lg btn-success" data-toggle="modal" data-target="addFriendofTourModal" onclick="$( '#addFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-user"></span> Add Friend of Tour</button>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteLocationModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Location</button>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteFriendofTourModal" onclick="$( '#deleteFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Friend of Tour</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="tourstops" role="tabpanel" aria-labelledby="tourstops-tab">
+                                        <p class="content">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="sponsors" role="tabpanel" aria-labelledby="sponsors-tab">
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Sponsor Type
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="#allsponsors">All Sponsors</a>
+                                                <a class="dropdown-item" href="#locationsponsors">Sponsors with locations</a>
+                                                <a class="dropdown-item" href="#nolocationsponsors">Sponsors without locations</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="friendsoftour" role="tabpanel" aria-labelledby="friendsoftour-tab">
+                                        <p class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. </p>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+        </div>
+        
+        <!-- "Add Location" Modal -->
+        <div id="addLocationModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add a location</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <input id="locName" name="locName" type="text" class="form-control" placeholder="Name">
+
+                                <div id="type" class="btn-group">
+                                    <p>Type:
+                                        <label class="radio-inline active">
+                                        <input name="type" type="radio" value="stop" checked="">
+                                        Tour Stop
+                                    </label>
+
+                                        <label class="radio-inline">
+                                        <input name="type" type="radio" value="sponsor">
+                                        Sponsor
+                                    </label>
+                                    </p>
+                                </div>
+
+
+                                <div id="shouldMap" class="btn-group">
+                                    <p>Map?
+                                        <label class="radio-inline active">
+                                        <input type="radio" value=true name="mapOpt" checked="">
+                                        Yes
+                                    </label>
+                                        <label class="radio-inline">
+                                        <input type="radio" value=false name="mapOpt">
+                                        No
+                                    </label>
+                                    </p>
+                                </div>
+
+
+                                <input id="locAddress" type="text" class="form-control" placeholder="Address">
+
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="5" id="locDesc" placeholder="Description"></textarea>
+                                </div>
+
+                                <!-- to do: replace URL input with image uploading -->
+                                <input id="locImage" type="text" class="form-control" placeholder="Image (URL)">
+
+                                <p>Position:</p>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <input id="locPosLat" type="text" class="form-control" placeholder="Latitude">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <input id="locPosLng" type="text" class="form-control" placeholder="Longitude">
+                                </div>
+
+                            </div>
+                            <!-- end col-lg-12 -->
+                        </div>
+                        <!-- end row -->
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="addLocationButton" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end Add Location modal -->
+
+</body>
+
+</html>
