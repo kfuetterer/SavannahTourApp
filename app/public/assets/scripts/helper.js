@@ -147,9 +147,8 @@ $(".updateFriendButton").on("click", function(){
                     console.log("There was an error:",response.message);
                 },
                 // success callback
-                function(response) {
-                    console.log(response);
-                    renderFriends(response);
+                function(response){
+                    renderFriends(response)
                 }
             );   
         });
@@ -173,7 +172,14 @@ $(".removeFriendButton").on("click",function(){
             // success callback
             function(response) {
                 console.log("Successful:",response);
-                renderFriends(response);
+                ajax.getFriends( 
+                    //error callback
+                    function(response){
+                        console.log(response);
+                    },
+                    //success callback
+                    renderFriends(response)
+                );
             }
         );
     });
@@ -246,9 +252,7 @@ $("#addLocationButton").on("click",function(){
                     console.log(response)
                 },
                 // success callback
-                function(response) {
-                    renderLocations(response);
-                }
+               renderLocations(response)
             );    
         });    
             
@@ -302,9 +306,7 @@ $("#addLocationButton").on("click",function(){
                         console.log(response)
                     },
                     // success callback
-                    function(response) {
-                        renderLocations(response);
-                    }
+                    renderLocations(response)
                 );
             });    
     }); // end click function for updating Location item
