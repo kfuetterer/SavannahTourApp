@@ -1,0 +1,147 @@
+#heading {
+    font-family: 'EB Garamond', serif;
+    color: white;
+    font-size: 80px;
+}
+
+h3, h2, p, button {
+    font-family: 'EB Garamond', serif;
+    color: white;
+}
+
+a, input {
+    font-family: 'EB Garamond', serif;
+    color: darkslategray;
+}
+
+.content {
+    font-family: 'EB Garamond', serif;
+    color: darkslategray;
+}
+
+.input-group {
+    margin: 0 auto;
+}
+
+input {
+    border-radius: 8px !important;
+    padding: 20px !important; 
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.left-box {
+    float: left;
+    background-color: white;
+    border-width: 1.5px !important;
+    border: solid;
+    border-color: lightgray;
+    border-radius: 8px !important;
+    height: 500px;
+}
+
+.card {
+    float: left;
+    background-color: white;
+    border-width: 1.5px !important;
+    border: solid;
+    border-color: darkgray;
+    border-radius: 8px !important;
+    height: 600px;
+    width: 100%;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.white {
+    color: white !important;
+}
+
+.btn-tour {
+    border-radius: 8px !important;
+    border-width: 1.5px !important;
+    border: solid;
+    border-color: lightgray;
+    font-size: 16px;
+    width: 100%;
+    height: 60px;
+    white-space: normal;
+    margin: 20px 20px -10px 20px;
+}
+
+.btn-warning {
+    background-color: #f0ad4e !important;
+    color: white !important;
+}
+
+.side-button {
+    color: gray;
+    background-color: transparent;
+}
+
+.btn-home {
+    border-radius: 8px !important;
+    border-width: 2px !important;
+}
+
+#navtabs {
+    float: left;
+}
+
+.navtop {
+    margin: 30px 30px 10px 25px;
+    padding: 10px;
+}
+
+#homepage {
+    background-image: url("images/savannahHomepage.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+#tourpage {
+    background-color: rgba(169,169,169,.7);
+    width: 90%;
+    height: 80%;
+    padding: 50px;
+    margin: 0 auto;
+    border-width: 1.5px !important;
+    border: solid;
+    border-color: lightgray;
+    border-radius: 8px !important;
+}
+
+.tab-content {
+    padding: 50px;
+}
+
+.darkGray-box {
+    /*make image disappear and turn into darkgray background when browser gets smaller*/
+    background-image: url("images/savannahHomepage.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.sign {
+    color: white;
+    text-align: center;
+}
+
+.signin {
+    height: 30px;
+    width: 300px;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.card-header {
+    color: darkslategray;
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+}
