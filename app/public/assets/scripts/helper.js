@@ -1,9 +1,76 @@
 $(document).ready(function(){
-    $('.dropdown-toggle').dropdown()
 
-    $(".nav-tabs a").click(function(){
-        $(this).tab('show');
+        // "name": name,
+        // "type": type,
+        // "map": map,
+        // "address": address,
+        // "description": description,
+        // "image": image,
+        // "pos": pos
+
+    $("#tourstops-tab").on("click", function(event){
+        ajax.getLocations( 
+            // error callback
+            function(response) {
+                console.log("There was an error:",response.message);
+            },
+            // success callback
+            function(response) {
+                console.log(response);
+
+                var table = document.getElementById("tourstopdata");
+
+                for(var i = 0; i < response.data.length; i++){
+                    if (response.data[i].type === "stop") {
+                        table += "<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>";
+                    }
+                }
+            }
+        )       
+    })
+
+    $("#sponsors-tab").on("click", function(event){
+        ajax.getLocations( 
+            // error callback
+            function(response) {
+                console.log("There was an error:",response.message);
+            },
+            // success callback
+            function(response) {
+                console.log(response);
+
+                //only retrieve type: sponsor, for all sponsors
+                //only retrieve type: sponsor, map: true, for all sponsors with tourstops
+                //only retrieve type: sponsor, map: false, for all sponsors without tourstops
+
+                var table = document.getElementById("sponsorsdata");
+                
+                $("#dropdownAllSponsors").on("click", function (event) {
+                    for(var i = 0; i < response.data.length; i++){
+                        if (response.data[i].type === "sponsor") {
+                            table += "<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>";
+                        }
+                    }
+                });
+
+                $("#dropdownSponsorWLocations").on("click", function (event) {
+                    for(var i = 0; i < response.data.length; i++){
+                        if (response.data[i].type === "sponsor" && response.data[i].map === "true") {
+                            table += "<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>";
+                        }
+                    }
+                });
+                
+                $("dropdownSponsorNoLocations").on("click", function (event) {
+                    for(var i = 0; i < response.data.length; i++){
+                        if (response.data[i].type === "sponsor" && response.data[i].map === "false") {
+                            table += "<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>";
+                        }
+                    }
+                });
+            });
     });
+
     /*****************
         USER SIGN UP and SIGN IN BUTTONS
     ******************/ 

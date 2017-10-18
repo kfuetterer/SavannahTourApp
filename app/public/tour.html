@@ -8,7 +8,9 @@
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <!-- bootstrap JS -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <!-- app stylesheet -->
     <link rel="stylesheet" type="text/css" href="assets/style.css">
     <!-- database functions -->
@@ -72,7 +74,34 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="tourstops" role="tabpanel" aria-labelledby="tourstops-tab">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>name</th>
+                                                    <th>type</th>
+                                                    <th>address</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tourstopdata">
+                                                <tr>
+                                                    <td>stuff</td>
+                                                    <td>stuff</td>
+                                                    <td>stuff</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                         <p class="content">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Location</button>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="updateLocationModal" onclick="$( '#updateLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Update Location</button>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteLocationModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Location</button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="sponsors" role="tabpanel" aria-labelledby="sponsors-tab">
                                         <div class="dropdown">
@@ -80,11 +109,22 @@
                                                 Sponsor Type
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#allsponsors">All Sponsors</a>
-                                                <a class="dropdown-item" href="#locationsponsors">Sponsors with locations</a>
-                                                <a class="dropdown-item" href="#nolocationsponsors">Sponsors without locations</a>
+                                                <a id="dropdownAllSponsors" class="dropdown-item" href="#">All Sponsors</a>
+                                                <a id="dropdownSponsorWLocations" class="dropdown-item" href="#">Sponsors with locations</a>
+                                                <a id="dropdownSponsorNoLocations" class="dropdown-item" href="#">Sponsors without locations</a>
                                             </div>
                                         </div>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>name</th>
+                                                    <th>type</th>
+                                                    <th>address</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="sponsorsdata">
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <div class="tab-pane fade" id="friendsoftour" role="tabpanel" aria-labelledby="friendsoftour-tab">
                                         <p class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. </p>
