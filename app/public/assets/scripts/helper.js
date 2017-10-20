@@ -18,11 +18,12 @@ $(document).ready(function(){
             function(response) {
                 console.log(response);
 
-                var table = document.getElementById("tourstopdata");
-
+                var tableBody = $("#tourstopdata").children().eq(1);
+                $(tableBody).empty();
+                
                 for(var i = 0; i < response.data.length; i++){
                     if (response.data[i].type === "stop") {
-                        table += "<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>";
+                        $(tableBody).append("<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>");
                     }
                 }
             }
@@ -44,7 +45,7 @@ $(document).ready(function(){
                 //only retrieve type: sponsor, map: false, for all sponsors without tourstops
 
                 var table = document.getElementById("sponsorsdata");
-                
+
                 $("#dropdownAllSponsors").on("click", function (event) {
                     for(var i = 0; i < response.data.length; i++){
                         if (response.data[i].type === "sponsor") {
