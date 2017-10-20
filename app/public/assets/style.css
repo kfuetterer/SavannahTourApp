@@ -49,12 +49,13 @@ input {
     border: solid;
     border-color: darkgray;
     border-radius: 8px !important;
-    height: 600px;
+    height: 80%;
     width: 100%;
 }
 
 .card-body {
     padding: 20px;
+    background-image: url("assets/images/STHG_logo_white.png");
 }
 
 .white {
@@ -64,13 +65,13 @@ input {
 .btn-tour {
     border-radius: 8px !important;
     border-width: 1.5px !important;
+    padding: 10px 0px 10px 0px;
     border: solid;
     border-color: lightgray;
     font-size: 16px;
     width: 100%;
     height: 60px;
     white-space: normal;
-    margin: 20px 20px -10px 20px;
 }
 
 .btn-warning {
@@ -99,7 +100,20 @@ input {
 
 #homepage {
     background-image: url("images/savannahHomepage.jpg");
-    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+@media only screen and (min-width: 400px) {
+    #homepage { 
+        background-image: url('images/savannahHomepage.jpg');
+        height: 600px;
+    }
+}
+
+#signuppage {
+    background-image: url("images/savannahHomepage.jpg");
+    width: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
@@ -116,7 +130,7 @@ input {
 }
 
 .tab-content {
-    padding: 50px;
+    padding: 20px;
 }
 
 .darkGray-box {

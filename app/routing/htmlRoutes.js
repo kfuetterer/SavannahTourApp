@@ -13,6 +13,10 @@ html.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/home.html"));
 });
 
+html.get("/signup", function(req, res) {
+    res.sendFile(path.join(__dirname,"../public/signup.html"));
+});
+
 html.get("/tour", function(req, res){
     res.sendFile(path.join(__dirname, "../public/tour.html"));
 });
