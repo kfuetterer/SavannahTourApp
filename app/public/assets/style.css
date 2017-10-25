@@ -9,6 +9,14 @@ h3, h2, p, button {
     color: white;
 }
 
+h3, p, button {
+    color: white;
+}
+
+h2 {
+    color: black;
+}
+
 a, input {
     font-family: 'EB Garamond', serif;
     color: darkslategray;

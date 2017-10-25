@@ -4,6 +4,8 @@
   "description": "Savannah Homes and Gardens Tour Application",
   "main": "server.js",
   "dependencies": {
+    "google-auth-library": "^0.11.0",
+    "googleapis": "^22.2.0"
   },
   "devDependencies": {},
   "scripts": {

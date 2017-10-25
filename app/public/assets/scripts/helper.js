@@ -1,5 +1,51 @@
 $(document).ready(function(){
 
+                                                $('#datepicker').datepicker({
+                                                    uiLibrary: 'bootstrap4',
+                                                    iconsLibrary: 'fontawesome'
+                                                });
+
+        //var CLIENT_ID = '439243599097-lerjf9s77a5l755l7rklijr6jb23ouu9.apps.googleusercontent.com';
+        //API KEY: AIzaSyCe-TswixIGT0FYQGnCqxUwWPj-urYA6HI
+
+    $('#calendar').fullCalendar({
+        googleCalendarApiKey: 'AIzaSyCe-TswixIGT0FYQGnCqxUwWPj-urYA6HI',
+        eventSources: [
+            {
+                googleCalendarId: 'u7lunt18utajm5dd2ifbqsiegk@group.calendar.google.com'
+            }
+        ],
+        editable: true,
+        weekMode: 'liquid',
+        defaultView: 'month',
+        header: {
+            left:   'today prev,next',
+            center: 'title',
+            right:  'month, agendaWeek, agendaDay'
+        },
+        eventRender: function (event, element) {
+            element.attr('href', 'javascript:void(0);');
+            element.click(function() {
+                $("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
+                $("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
+                $("#eventInfo").html(event.description);
+                $("#eventLink").attr('href', event.url);
+                $("#eventContent").dialog({ modal: true, title: event.title, width:350});
+            });
+        },
+        events: [
+
+        ]
+    });
+
+    $("events-tab").on("click", function(event){
+
+    });
+
+    var event={id:1 , title: 'New event', start:  new Date()};
+
+    $('#calendar').fullCalendar( 'renderEvent', event, true);
+
         // "name": name,
         // "type": type,
         // "map": map,
