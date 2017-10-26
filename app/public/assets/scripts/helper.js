@@ -59,19 +59,28 @@ $(function(){
         // "pos": pos
 
     $("#tourstops-tab").on("click", function(event){
-        console.log("Getting locations");
         
         // add load spinner
         $("#tourstops").append(loadSpinner);
+
         ajax.getLocations( 
+            
             // error callback
             function(response) {
+
+                // remove load spinner
+                $(loadSpinner).remove();
                 console.log("There was an error:",response.message);
+                // update error modal and show it
+                $("#errorDisplay").html("There was an error retrieving your data.");
+                $("#errorModal").modal("show");
             },
             // success callback
             function(response) {
                 console.log(response);
 
+                // remove load spinner
+                $(loadSpinner).remove();
                 var tourStopTableBody = $("#tourstopdata").children().eq(1);
                 $(tourStopTableBody).empty();
 
