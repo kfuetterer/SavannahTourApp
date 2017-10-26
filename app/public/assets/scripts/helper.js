@@ -1,11 +1,7 @@
 // load spinner
 var loadSpinner = $("<div>").attr("id","loadSpinner").html("<i class=\"fa fa-refresh fa-spin fa-3x fa-fw\"></i><span class=\"sr-only\">Loading...</span>");
-console.log(loadSpinner);
 
-// icons
-var deleteIcon = "<i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
-var editIcon = "<i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
-
+// doc ready function
 $(function(){
 
     // $('#datepicker').datepicker({
@@ -62,44 +58,7 @@ $(function(){
         // "image": image,
         // "pos": pos
 
-    $("#tourstops-tab").on("click", function(event){
-        
-        // add load spinner
-        $("#tourstops").append(loadSpinner);
-
-        ajax.getLocations( 
-            
-            // error callback
-            function(response) {
-
-                // remove load spinner
-                $(loadSpinner).remove();
-                console.log("There was an error:",response.message);
-                // update error modal and show it
-                $("#errorDisplay").html("There was an error retrieving your data.");
-                $("#errorModal").modal("show");
-            },
-            // success callback
-            function(response) {
-                console.log(response);
-
-                // remove load spinner
-                $(loadSpinner).remove();
-
-                var tourStopTableBody = $("#tourstopdata").children().eq(1);
-                $(tourStopTableBody).empty();
-
-                for(var i = 0; i < response.data.length; i++){
-                    if (response.data[i].type === "stop") {
-                        var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td></tr>");
-                        // add row to table
-                        tourStopTableBody.append(thisRow);
-                        
-                    }
-                }
-            }
-        )       
-    })
+    $("#tourstops-tab").on("click", getLocations);
 
     $("#sponsors-tab").on("click", function(event){
         ajax.getLocations( 
@@ -329,21 +288,76 @@ $(".removeFriendButton").on("click",function(){
  ****************/
 
 // get all locations
-$("#locationsButton").on("click",function(){
+function getLocations(){
+    
+    // add load spinner
+    $("#tourstops").append(loadSpinner);
+
     ajax.getLocations( 
+        
         // error callback
         function(response) {
+
+            // remove load spinner
+            $(loadSpinner).remove();
             console.log("There was an error:",response.message);
-        },
+            // update error modal and show it
+            $("#errorDisplay").html("There was an error retrieving your data.");
+            $("#errorModal").modal("show");
+        }, // end error callback
+
         // success callback
         function(response) {
             console.log(response);
-            // to do: need renderLocations() function that lists all locations; must include data-id attribute in location container for each location, and in update and remove buttons
-            renderLocations(response);
 
-        }
-    )
-}) // end click function for Friends of Tour list button
+            // remove load spinner
+            $(loadSpinner).remove();
+
+            var tourStopTableBody = $("#tourstopdata").children().eq(1);
+            $(tourStopTableBody).empty();
+
+            for(var i = 0; i < response.data.length; i++){
+                if (response.data[i].type === "stop") {
+
+                    // build contextual icons
+                    var deleteIcon = "<i data-action=\"delete\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
+                    var editIcon = "<i data-action=\"edit\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+
+                    // build row
+                    var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td></tr>");
+                    // add row to table
+                    tourStopTableBody.append(thisRow);
+                    
+                    // add click listeners to icons
+                    // delete
+                    $("[data-action='delete'").on("click", function(){
+                        $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-info' data-dismiss='modal'>Yes</div><div type='button' class='btn btn-info' data-dismiss='modal'>No</div>");
+
+                        //delete action
+                        $("#trueDelete").on("click", function(){
+                            // removeLocation method takes id, error callback, success callback
+                            ajax.removeLocation($(this).attr("data-id"), 
+                            // error callback
+                            function(response){
+                                console.log(response);
+                                // update error modal and show it
+                                $("#errorDisplay").html("There was an error deleting this tour stop.");
+                                $("#errorModal").modal("show");
+                            },
+                            //success callback
+                            function(response){
+                                getLocations();
+                            }
+                        ); // end removeLocation call
+                    }); // end "true delete" click
+
+                    $("#checkModal").modal("show");
+                    }) // end "delete" button click
+                } // end type is "stop" condition
+            } // end response "for" loop
+        } // end getLocations success callback
+    ) // end ajax.getLocations call      
+}; // end getLocations function
 
 // add location
 $("#addLocationButton").on("click",function(){

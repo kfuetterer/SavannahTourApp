@@ -50,7 +50,7 @@ const ajax = {
     },
 
     // remove a location
-    // here, we only need song_id
+    // here, we only need location _id
     removeLocation: ( locationId, error, success ) => { 
         $.get(`${api}/api/remove/location/${locationId}`, (response) => {
           

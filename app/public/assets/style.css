@@ -175,3 +175,9 @@ input {
     width: 30px;
     margin: 0 auto;
 }
+.fa-trash-o, .fa-pencil-square-o {
+    cursor: pointer;
+}
+.modal p, .modal .btn {
+    color: #444;
+}
