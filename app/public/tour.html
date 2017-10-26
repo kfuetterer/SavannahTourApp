@@ -98,12 +98,12 @@
                                             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Location</button>
                                             </div>
-                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                            <!-- <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="updateLocationModal" onclick="$( '#updateLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Update Location</button>
                                             </div>
                                             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteLocationModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Location</button>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="sponsors" role="tabpanel" aria-labelledby="sponsors-tab">
@@ -179,10 +179,11 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
+                                    <p>All fields are required</p>
 
-                                <input id="locName" name="locName" type="text" class="form-control" placeholder="Name">
+                                <input data-input="locName" id="locName" name="locName" type="text" class="form-control" placeholder="Name">
 
-                                <div id="type" class="btn-group">
+                                <div id="type" data-name="Type" data-boolean="radio" class="btn-group">
                                     <p>Type:
                                         <label class="radio-inline active">
                                         <input name="type" type="radio" value="stop" checked="">
@@ -197,7 +198,7 @@
                                 </div>
 
 
-                                <div id="shouldMap" class="btn-group">
+                                <div id="shouldMap" data-boolean="radio" data-name="Map?" class="btn-group">
                                     <p>Map?
                                         <label class="radio-inline active">
                                         <input type="radio" value=true name="mapOpt" checked="">
@@ -211,21 +212,21 @@
                                 </div>
 
 
-                                <input id="locAddress" type="text" class="form-control" placeholder="Address">
+                                <input data-input="locAddress" id="locAddress" type="text" class="form-control" placeholder="Address">
 
                                 <div class="form-group">
-                                    <textarea class="form-control" rows="5" id="locDesc" placeholder="Description"></textarea>
+                                    <textarea data-input="locDesc" class="form-control" rows="5" id="locDesc" placeholder="Description"></textarea>
                                 </div>
 
                                 <!-- to do: replace URL input with image uploading -->
-                                <input id="locImage" type="text" class="form-control" placeholder="Image (URL)">
+                                <input data-input="locImage" id="locImage" type="text" class="form-control" placeholder="Image (URL)">
 
                                 <p>Position:</p>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <input id="locPosLat" type="text" class="form-control" placeholder="Latitude">
+                                    <input data-input="locPosLat" id="locPosLat" type="text" class="form-control" placeholder="Latitude (like 32.0557311)">
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <input id="locPosLng" type="text" class="form-control" placeholder="Longitude">
+                                    <input data-input="locPosLng" id="locPosLng" type="text" class="form-control" placeholder="Longitude (like -81.1005919)">
                                 </div>
 
                             </div>
@@ -241,7 +242,6 @@
                 </div>
 
             </div>
-        </div>
     </div> <!-- /end Add Location modal -->
     
     <!-- "Edit Location" Modal -->
@@ -258,53 +258,54 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
+                            <p>All fields are required</p>
 
-                            <input id="locName" name="locName" type="text" class="form-control" placeholder="Name">
+                            <input data-input="editLocName" id="editLocName" name="editLocName" type="text" class="form-control" placeholder="Name">
 
-                            <div id="type" class="btn-group">
+                            <div id="editType" class="btn-group">
                                 <p>Type:
                                     <label class="radio-inline active">
-                                    <input name="type" type="radio" value="stop" checked="">
+                                    <input name="editType" type="radio" value="stop" checked="">
                                     Tour Stop
                                 </label>
 
                                     <label class="radio-inline">
-                                    <input name="type" type="radio" value="sponsor">
+                                    <input name="editType" type="radio" value="sponsor">
                                     Sponsor
                                 </label>
                                 </p>
                             </div>
 
 
-                            <div id="shouldMap" class="btn-group">
+                            <div id="editShouldMap" class="btn-group">
                                 <p>Map?
                                     <label class="radio-inline active">
-                                    <input type="radio" value=true name="mapOpt" checked="">
+                                    <input type="radio" value=true name="editMapOpt" checked="">
                                     Yes
                                 </label>
                                     <label class="radio-inline">
-                                    <input type="radio" value=false name="mapOpt">
+                                    <input type="radio" value=false name="editMapOpt">
                                     No
                                 </label>
                                 </p>
                             </div>
 
 
-                            <input id="locAddress" type="text" class="form-control" placeholder="Address">
+                            <input data-input="editLocAddress" id="editLocAddress" type="text" class="form-control" placeholder="Address">
 
                             <div class="form-group">
-                                <textarea class="form-control" rows="5" id="locDesc" placeholder="Description"></textarea>
+                                <textarea data-input="editLocDesc" class="form-control" rows="5" id="editLocDesc" placeholder="Description"></textarea>
                             </div>
 
                             <!-- to do: replace URL input with image uploading -->
-                            <input id="locImage" type="text" class="form-control" placeholder="Image (URL)">
+                            <input data-input="editLocImage" id="editLocImage" type="text" class="form-control" placeholder="Image (URL)">
 
                             <p>Position:</p>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <input id="locPosLat" type="text" class="form-control" placeholder="Latitude">
+                                <input data-input="editLocPosLat" id="editLocPosLat" type="text" class="form-control" placeholder="Latitude">
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <input id="locPosLng" type="text" class="form-control" placeholder="Longitude">
+                                <input data-input="editLocPosLng" id="editLocPosLng" type="text" class="form-control" placeholder="Longitude">
                             </div>
 
                         </div>
@@ -321,7 +322,7 @@
 
         </div>
     </div>
-</div>
+
 <!-- end Add Location modal -->
 
 <!-- "Error message" Modal -->
@@ -350,7 +351,6 @@
 
         </div>
     </div>
-</div>
 <!-- end error message modal -->
 
 <!-- "Action check" Modal -->
@@ -378,9 +378,8 @@
             </div>
 
         </div>
-    </div>
 </div>
-<!-- end error message modal -->
+<!-- end action check modal -->
 </body>
 
 </html>

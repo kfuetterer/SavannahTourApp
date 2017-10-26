@@ -308,8 +308,6 @@ function getLocations(){
 
         // success callback
         function(response) {
-            console.log(response);
-
             // remove load spinner
             $(loadSpinner).remove();
 
@@ -359,50 +357,79 @@ function getLocations(){
     ) // end ajax.getLocations call      
 }; // end getLocations function
 
-// add location
+// add location - click function for submit button on "add location" modal
 $("#addLocationButton").on("click",function(){
-    if ($("#locName").val()==="") 
-        return false
-        else {
-            var name = $("#locName").val();
-    
-            if ($("#locDesc").val()==="") 
-                return false
-                else {
-                    var description = $("#locDesc").val().trim();
-    
-                        var type = $("#type input:radio:checked").val();
-                        var map = $("#shouldMap input:radio:checked").val();
-                        var address = $("#locAddress").val().trim();        
-                        var image = $("#locImage").val().trim();
-                        var pos = {"lat": $("#locPosLat").val().trim(),"lng":$("#locPosLng").val().trim()}; 
-                        var thisLocation = 
-                        {
-                            "name": name,
-                            "type": type,
-                            "map": map,
-                            "address": address,
-                            "description": description,
-                            "image": image,
-                            "pos": pos
-                        };
-                    }
-                };
-        
-        console.log("location:",thisLocation);
-        ajax.postLocation( thisLocation,
-        //error callback
-        function(response){
-            console.log("Error:",response)
-        },
-    
-        //success callback
-        function(response){
-            console.log(response);
-            renderLocations(response);
-        });    
+    // validate form
+    var textInputs = $("#addLocationModal [data-input]");
+    var complete=true;
+
+    // loop through text values
+    textInputs.each(function(index,element){
+        if ($(element).val().trim() === "") {
+            // update error modal and show it
+            $("#errorDisplay").html("The value for " + $(element).attr("placeholder") + " cannot be empty.");
+            $("#errorModal").modal("show");
+            complete=false;
+            return false;
+            };
+        });
+
+    // did "complete" status stay true?
+    if (complete) {
+        thisLocation = {
+            "name": $("#locName").val().trim(),
+            "description": $("#locDesc").val().trim(),
+            "type": $("#type input:radio:checked").val(),
+            "map": $("#shouldMap input:radio:checked").val(),
+            "address": $("#locAddress").val().trim(),
+            "image": $("#locImage").val().trim(),
+            "pos": {
+                "lat": $("#locPosLat").val().trim(),
+                "lng":$("#locPosLng").val().trim()
+            }
+        };
+
+           // let's make sure this is what they want
+            var dataTable = $("<table class='checkData' table table-striped table-hover'>");
+            dataTable.append("<thead><tr><th>Info</th><th>Value</th></tr></thead>");
+            dataTable.append("<tbody>");
+
+            $.each( thisLocation, function( key, value) {
+                if ( key === "pos") {
+                    value = "lat: "+value.lat + ", lng: " + value.lng;
+                }
+                var row = $("<tr><td>" + key + "</td><td>" + value + "</td></tr>");
+                dataTable.children().eq(1).append(row);
+            });
+
+            // update and show check modal
+            $("#checkDisplay").html("<p>Is this what you want to post?</p>").append(dataTable);
+            $("#checkDisplay").append("<div type='button' id='truePost' class='btn btn-info' data-dismiss='modal'>Yes</div><div type='button' class='btn btn-info' data-dismiss='modal'>No</div>");
+
+            $("#checkModal").modal("show");
+
             
-    }); // end click function for adding location button
+            //true post action
+            $("#truePost").on("click", function(){
+
+            // postLocation method takes post object, error, success callbacks
+               
+            ajax.postLocation(thisLocation, 
+                // error callback
+                function(response){
+                    console.log(response);
+                    // update error modal and show it
+                    $("#errorDisplay").html("There was an error posting this location.");
+                    $("#errorModal").modal("show");
+                },
+                //success callback
+                function(response){
+                    getLocations();
+                }
+            ); // end postLocation call
+        }); // end "true post" click 
+    }; // end "is complete" condition
+}); // 
 
     // update location
     $("#updateLocationButton").on("click",function(){

@@ -181,3 +181,16 @@ input {
 .modal p, .modal .btn {
     color: #444;
 }
+#shouldMap {
+    display: block;
+}
+textarea {
+    font-family: 'EB Garamond', serif;
+}
+table.checkData {
+    table-layout: fixed;
+}
+table.checkData td {
+    max-height: 50px;
+    overflow: auto;
+}

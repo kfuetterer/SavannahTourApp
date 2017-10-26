@@ -38,7 +38,7 @@ const ajax = {
 
     // post a location
     postLocation: ( location, error, success ) => {
-
+        console.log("posting:",location);
         $.post(`${api}/api/new/location`, location, (response) => {
             if (!response.success) {
                 error(response.message)
