@@ -1,5 +1,6 @@
 // load spinner
-const loadSpinner = "<div id=\"loadSpinner\"><i class=\"fa fa-refresh fa-spin fa-3x fa-fw\"></i><span class=\"sr-only\">Loading...</span></div>";
+var loadSpinner = $("<div>").attr("id","loadSpinner").html("<i class=\"fa fa-refresh fa-spin fa-3x fa-fw\"></i><span class=\"sr-only\">Loading...</span>");
+console.log(loadSpinner);
 
 $(function(){
 
@@ -59,6 +60,9 @@ $(function(){
 
     $("#tourstops-tab").on("click", function(event){
         console.log("Getting locations");
+        
+        // add load spinner
+        $("#tourstops").append(loadSpinner);
         ajax.getLocations( 
             // error callback
             function(response) {
