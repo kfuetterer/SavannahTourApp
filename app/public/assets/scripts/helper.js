@@ -1,9 +1,12 @@
-$(document).ready(function(){
+// load spinner
+const loadSpinner = "<div id=\"loadSpinner\"><i class=\"fa fa-refresh fa-spin fa-3x fa-fw\"></i><span class=\"sr-only\">Loading...</span></div>";
 
-                                                $('#datepicker').datepicker({
-                                                    uiLibrary: 'bootstrap4',
-                                                    iconsLibrary: 'fontawesome'
-                                                });
+$(function(){
+
+    // $('#datepicker').datepicker({
+    //     uiLibrary: 'bootstrap4',
+    //     iconsLibrary: 'fontawesome'
+    // });
 
         //var CLIENT_ID = '439243599097-lerjf9s77a5l755l7rklijr6jb23ouu9.apps.googleusercontent.com';
         //API KEY: AIzaSyCe-TswixIGT0FYQGnCqxUwWPj-urYA6HI
@@ -55,6 +58,7 @@ $(document).ready(function(){
         // "pos": pos
 
     $("#tourstops-tab").on("click", function(event){
+        console.log("Getting locations");
         ajax.getLocations( 
             // error callback
             function(response) {
