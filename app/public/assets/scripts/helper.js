@@ -2,6 +2,10 @@
 var loadSpinner = $("<div>").attr("id","loadSpinner").html("<i class=\"fa fa-refresh fa-spin fa-3x fa-fw\"></i><span class=\"sr-only\">Loading...</span>");
 console.log(loadSpinner);
 
+// icons
+var deleteIcon = "<i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
+var editIcon = "<i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+
 $(function(){
 
     // $('#datepicker').datepicker({
@@ -81,12 +85,16 @@ $(function(){
 
                 // remove load spinner
                 $(loadSpinner).remove();
+
                 var tourStopTableBody = $("#tourstopdata").children().eq(1);
                 $(tourStopTableBody).empty();
 
                 for(var i = 0; i < response.data.length; i++){
                     if (response.data[i].type === "stop") {
-                        $(tourStopTableBody).append("<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>");
+                        var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td></tr>");
+                        // add row to table
+                        tourStopTableBody.append(thisRow);
+                        
                     }
                 }
             }

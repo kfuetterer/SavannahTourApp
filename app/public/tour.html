@@ -85,8 +85,8 @@
                                         <table class="table" id="tourstopdata">
                                             <thead>
                                                 <tr>
+                                                    <th>actions</th>
                                                     <th>name</th>
-                                                    <th>type</th>
                                                     <th>address</th>
                                                 </tr>
                                             </thead>
@@ -324,6 +324,35 @@
 </div>
 <!-- end Add Location modal -->
 
+<!-- "Error message" Modal -->
+<div id="errorModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Hmmm... Something's amiss</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="errorDisplay" class="col-lg-12">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="addLocationButton" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end error message modal -->
 </body>
 
 </html>
