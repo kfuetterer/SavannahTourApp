@@ -38,7 +38,7 @@ const ajax = {
 
     // post a location
     postLocation: ( location, error, success ) => {
-
+        console.log("posting:",location);
         $.post(`${api}/api/new/location`, location, (response) => {
             if (!response.success) {
                 error(response.message)
@@ -50,7 +50,7 @@ const ajax = {
     },
 
     // remove a location
-    // here, we only need song_id
+    // here, we only need location _id
     removeLocation: ( locationId, error, success ) => { 
         $.get(`${api}/api/remove/location/${locationId}`, (response) => {
           
