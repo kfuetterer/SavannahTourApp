@@ -1,11 +1,49 @@
 $(document).ready(function(){
-<<<<<<< HEAD
-    //$('.dropdown-toggle').dropdown()
+    $('#datepicker').datepicker({
+        uiLibrary: 'bootstrap4',
+        iconsLibrary: 'fontawesome'
+    });
 
-    // $(".nav-tabs a").click(function(){
-    //     $(this).tab('show');
-    // });
-=======
+        //var CLIENT_ID = '439243599097-lerjf9s77a5l755l7rklijr6jb23ouu9.apps.googleusercontent.com';
+        //API KEY: AIzaSyCe-TswixIGT0FYQGnCqxUwWPj-urYA6HI
+
+    $('#calendar').fullCalendar({
+        googleCalendarApiKey: 'AIzaSyCe-TswixIGT0FYQGnCqxUwWPj-urYA6HI',
+        eventSources: [
+            {
+                googleCalendarId: 'u7lunt18utajm5dd2ifbqsiegk@group.calendar.google.com'
+            }
+        ],
+        editable: true,
+        weekMode: 'liquid',
+        defaultView: 'month',
+        header: {
+            left:   'today prev,next',
+            center: 'title',
+            right:  'month, agendaWeek, agendaDay'
+        },
+        eventRender: function (event, element) {
+            element.attr('href', 'javascript:void(0);');
+            element.click(function() {
+                $("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
+                $("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
+                $("#eventInfo").html(event.description);
+                $("#eventLink").attr('href', event.url);
+                $("#eventContent").dialog({ modal: true, title: event.title, width:350});
+            });
+        },
+        events: [
+
+        ]
+    });
+
+    $("events-tab").on("click", function(event){
+
+    });
+
+    var event={id:1 , title: 'New event', start:  new Date()};
+
+    $('#calendar').fullCalendar( 'renderEvent', event, true);
 
         // "name": name,
         // "type": type,
@@ -25,12 +63,12 @@ $(document).ready(function(){
             function(response) {
                 console.log(response);
 
-                var tableBody = $("#tourstopdata").children().eq(1);
-                $(tableBody).empty();
-                
+                var tourStopTableBody = $("#tourstopdata").children().eq(1);
+                $(tourStopTableBody).empty();
+
                 for(var i = 0; i < response.data.length; i++){
                     if (response.data[i].type === "stop") {
-                        $(tableBody).append("<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>");
+                        $(tourStopTableBody).append("<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>");
                     }
                 }
             }
@@ -51,12 +89,12 @@ $(document).ready(function(){
                 //only retrieve type: sponsor, map: true, for all sponsors with tourstops
                 //only retrieve type: sponsor, map: false, for all sponsors without tourstops
 
-                var table = document.getElementById("sponsorsdata");
+                var sponsorTableBody = $("sponsorsdata").children().eq(1);
 
                 $("#dropdownAllSponsors").on("click", function (event) {
                     for(var i = 0; i < response.data.length; i++){
                         if (response.data[i].type === "sponsor") {
-                            table += "<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>";
+                            $(sponsorTableBody).append("<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>");
                         }
                     }
                 });
@@ -64,7 +102,7 @@ $(document).ready(function(){
                 $("#dropdownSponsorWLocations").on("click", function (event) {
                     for(var i = 0; i < response.data.length; i++){
                         if (response.data[i].type === "sponsor" && response.data[i].map === "true") {
-                            table += "<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>";
+                            $(sponsorTableBody).append("<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>");
                         }
                     }
                 });
@@ -72,14 +110,13 @@ $(document).ready(function(){
                 $("dropdownSponsorNoLocations").on("click", function (event) {
                     for(var i = 0; i < response.data.length; i++){
                         if (response.data[i].type === "sponsor" && response.data[i].map === "false") {
-                            table += "<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>";
+                            $(sponsorTableBody).append("<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>");
                         }
                     }
                 });
             });
     });
 
->>>>>>> upstream/master
     /*****************
         USER SIGN UP and SIGN IN BUTTONS
     ******************/ 

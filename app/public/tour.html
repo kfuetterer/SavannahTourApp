@@ -1,18 +1,36 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
-    <title>Savannah Tour of Homes and Gardens</title>
+    <meta name="viewport" content="width=device-width">
+	<title>Savannah Tour of Homes and Gardens</title>
     <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<<<<<<< HEAD
     <!-- tether -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <!-- bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+=======
+    <!-- popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" type="text/javascript"></script>
+
+    <link rel='stylesheet' href='fullcalendar-3.6.2/fullcalendar-3.6.2/fullcalendar.css' />
+    <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/lib/jquery.min.js'></script>
+    <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/lib/moment.min.js'></script>
+    <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/fullcalendar.js'></script>
+    <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/gcal.js'></script>
+
+    <script src="http://code.gijgo.com/1.5.1/js/gijgo.js" type="text/javascript"></script>
+    <link href="http://code.gijgo.com/1.5.1/css/gijgo.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+>>>>>>> upstream/master
     <!-- app stylesheet -->
     <link rel="stylesheet" type="text/css" href="assets/style.css">
     <!-- database functions -->
@@ -20,8 +38,13 @@
     <!-- helper functions -->
     <script src="assets/scripts/helper.js"></script>
 </head>
+	
+	
+	<!-- these scripts go just above the /body tag -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-<body class="darkGray-box">
+<body class="tourpage">
         <br>
         <br>
         <div id="tourpage">
@@ -34,7 +57,7 @@
                             <div class="card-body">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">
-                                        <a id="home-tab" role="tab" data-toggle="tab"class="nav-link active" href="#home">Home</a>
+                                        <a id="events-tab" role="tab" data-toggle="tab"class="nav-link active" href="#events">Events</a>
                                     </li>
                                     <li class="nav-item">
                                         <a id="tourstops-tab" role="tab" data-toggle="tab" class="nav-link" href="#tourstops">Tour Stops</a>
@@ -51,20 +74,16 @@
                                 </ul>
                                 <br>
                                 <div class="tab-content" id="pills-tabContent">
-                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        <div class="row">
-                                            <div class="col-md-3 col-sm-3 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Location</button>
-                                            </div>
-                                            <div class="col-md-3 col-sm-3 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-success" data-toggle="modal" data-target="addFriendofTourModal" onclick="$( '#addFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-user"></span> Add Friend of Tour</button>
-                                            </div>
-                                            <div class="col-md-3 col-sm-3 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteLocationModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Location</button>
-                                            </div>
-                                            <div class="col-md-3 col-sm-3 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteFriendofTourModal" onclick="$( '#deleteFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Friend of Tour</button>
+                                    <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="addEvent" onclick="$( '#addEvent').modal('show')">Add New Event</button>
+                                        <input id="datepicker" width="276" />
+                                        <br>
+                                        <br>
+                                        <div id="calendar">
+                                            <div id="eventContent" title="Event Details" style="display:none;">
+                                                <h2>Start: </h2><span id="startTime"></span><br>
+                                                <h2>End: </h2><span id="endTime"></span><br><br>
+                                                <p id="eventInfo"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -82,13 +101,13 @@
                                         </table>
                                         <p class="content">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
                                         <div class="row">
-                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Location</button>
                                             </div>
-                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="updateLocationModal" onclick="$( '#updateLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Update Location</button>
                                             </div>
-                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteLocationModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Location</button>
                                             </div>
                                         </div>
@@ -104,7 +123,7 @@
                                                 <a id="dropdownSponsorNoLocations" class="dropdown-item" href="#">Sponsors without locations</a>
                                             </div>
                                         </div>
-                                        <table class="table">
+                                        <table class="table" id="sponsorsdata">
                                             <thead>
                                                 <tr>
                                                     <th>name</th>
@@ -112,17 +131,17 @@
                                                     <th>address</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="sponsorsdata">
+                                            <tbody>
                                             </tbody>
                                         </table>
                                         <div class="row">
-                                            <div class="col-md-4 col-sm-3 col-xs-12">
+                                            <div class="col-md-4 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addSponsorModal" onclick="$( '#addSponsorModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
                                             </div>
-                                            <div class="col-md-4 col-sm-3 col-xs-12">
+                                            <div class="col-md-4 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="updateSponsorModal" onclick="$( '#updateSponsorModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Update Sponsor</button>
                                             </div>
-                                            <div class="col-md-4 col-sm-3 col-xs-12">
+                                            <div class="col-md-4 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteSponsorModal" onclick="$( '#deleteSponsorModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Sponsor</button>
                                             </div>
                                         </div>
@@ -130,13 +149,13 @@
                                     <div class="tab-pane fade" id="friendsoftour" role="tabpanel" aria-labelledby="friendsoftour-tab">
                                         <p class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. </p>
                                         <div class="row">
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Friend of Tour</button>
                                             </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="updateLocationModal" onclick="$( '#updateFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Update Friend of Tour</button>
                                             </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Friend of Tour</button>
                                             </div>
                                         </div>
