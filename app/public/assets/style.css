@@ -171,3 +171,26 @@ input {
     font-family: 'EB Garamond', serif;
     font-size: 18px;
 }
+#loadSpinner {
+    width: 30px;
+    margin: 0 auto;
+}
+.fa-trash-o, .fa-pencil-square-o {
+    cursor: pointer;
+}
+.modal p, .modal .btn {
+    color: #444;
+}
+#shouldMap {
+    display: block;
+}
+textarea {
+    font-family: 'EB Garamond', serif;
+}
+table.checkData {
+    table-layout: fixed;
+}
+table.checkData td {
+    max-height: 50px;
+    overflow: auto;
+}
