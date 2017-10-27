@@ -11,6 +11,10 @@
     <!-- popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" type="text/javascript"></script>
 
+    <script src'jquery-timepicker/jquery.timepicker.js' type="text/javascript"></script>
+    <link href='jquery-timepicker/jquery.timepicker.min.js'>
+
+    <!-- Full Calendar -->
     <link rel='stylesheet' href='fullcalendar-3.6.2/fullcalendar-3.6.2/fullcalendar.css' />
     <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/lib/jquery.min.js'></script>
     <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/lib/moment.min.js'></script>
@@ -70,7 +74,6 @@
                                 <div class="tab-content" id="pills-tabContent">
                                     <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="addEvent" onclick="$( '#addEvent').modal('show')">Add New Event</button>
-                                        <input id="datepicker" width="276" />
                                         <br>
                                         <br>
                                         <div id="calendar">
@@ -182,7 +185,7 @@
                                     <p>All fields are required</p>
 
                                 <input data-input="locName" id="locName" name="locName" type="text" class="form-control" placeholder="Name">
-
+                                <br>
                                 <div id="type" data-name="Type" data-boolean="radio" class="btn-group">
                                     <p>Type:
                                         <label class="radio-inline active">
@@ -196,8 +199,7 @@
                                     </label>
                                     </p>
                                 </div>
-
-
+                                <br>
                                 <div id="shouldMap" data-boolean="radio" data-name="Map?" class="btn-group">
                                     <p>Map?
                                         <label class="radio-inline active">
@@ -211,20 +213,19 @@
                                     </p>
                                 </div>
 
-
                                 <input data-input="locAddress" id="locAddress" type="text" class="form-control" placeholder="Address">
-
+                                <br>
                                 <div class="form-group">
                                     <textarea data-input="locDesc" class="form-control" rows="5" id="locDesc" placeholder="Description"></textarea>
                                 </div>
-
                                 <!-- to do: replace URL input with image uploading -->
                                 <input data-input="locImage" id="locImage" type="text" class="form-control" placeholder="Image (URL)">
-
+                                <br>
                                 <p>Position:</p>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <input data-input="locPosLat" id="locPosLat" type="text" class="form-control" placeholder="Latitude (like 32.0557311)">
                                 </div>
+                                <br>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <input data-input="locPosLng" id="locPosLng" type="text" class="form-control" placeholder="Longitude (like -81.1005919)">
                                 </div>
@@ -344,6 +345,41 @@
                     </div>
                 </div>
 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="addEvent" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title blackFont">Add Event</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <input data-input="addEventTitle" id="addEventTitle" name="addEventTitle" type="text" class="form-control" placeholder="Title">
+                            <br>
+                            <!--Start Datepicker-->
+                            <label class="blackFont">Start Date</label>
+                            <input class="datepicker" placeholder="00/00/00"/>
+                            <br>
+                            <!--End Datepicker-->
+                            <label class="blackFont">End Date</label>
+                            <input class="datepicker" placeholder="00/00/00"/>
+                            <!--Start Timepicker-->
+                            <label class="blackFont">Start Time</label>
+                            <!--End Timepicker-->
+                            <label class="blackFont">End Time</label>
+                        </div>
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>

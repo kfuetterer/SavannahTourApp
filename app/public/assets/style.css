@@ -4,9 +4,14 @@
     font-size: 80px;
 }
 
-h3, h2, p, button {
+h4, h3, h2, p, button {
     font-family: 'EB Garamond', serif;
     color: white;
+}
+
+.blackFont {
+    font-family: 'EB Garamond', serif;
+    color: black;
 }
 
 h3, p, button {

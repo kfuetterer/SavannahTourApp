@@ -4,13 +4,13 @@ var loadSpinner = $("<div>").attr("id","loadSpinner").html("<i class=\"fa fa-ref
 // doc ready function
 $(function(){
 
-    // $('#datepicker').datepicker({
-    //     uiLibrary: 'bootstrap4',
-    //     iconsLibrary: 'fontawesome'
-    // });
+    //date and time picker
+    $('.datepicker').datepicker({
+        uiLibrary: 'bootstrap4',
+        iconsLibrary: 'fontawesome'
+    });
 
-        //var CLIENT_ID = '439243599097-lerjf9s77a5l755l7rklijr6jb23ouu9.apps.googleusercontent.com';
-        //API KEY: AIzaSyCe-TswixIGT0FYQGnCqxUwWPj-urYA6HI
+    //$('.eventtime').timepicker({ 'timeFormat': 'h:i: A' });
 
     $('#calendar').fullCalendar({
         googleCalendarApiKey: 'AIzaSyCe-TswixIGT0FYQGnCqxUwWPj-urYA6HI',
@@ -50,14 +50,6 @@ $(function(){
 
     $('#calendar').fullCalendar( 'renderEvent', event, true);
 
-        // "name": name,
-        // "type": type,
-        // "map": map,
-        // "address": address,
-        // "description": description,
-        // "image": image,
-        // "pos": pos
-
     $("#tourstops-tab").on("click", getLocations);
 
     $("#sponsors-tab").on("click", function(event){
@@ -69,10 +61,6 @@ $(function(){
             // success callback
             function(response) {
                 console.log(response);
-
-                //only retrieve type: sponsor, for all sponsors
-                //only retrieve type: sponsor, map: true, for all sponsors with tourstops
-                //only retrieve type: sponsor, map: false, for all sponsors without tourstops
 
                 var sponsorTableBody = $("sponsorsdata").children().eq(1);
 
