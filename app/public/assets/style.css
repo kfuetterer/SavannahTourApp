@@ -9,6 +9,11 @@ h4, h3, h2, p, button {
     color: white;
 }
 
+.whiteFont {
+    font-family: 'EB Garamond', serif;
+    color: white;
+}
+
 .blackFont {
     font-family: 'EB Garamond', serif;
     color: black;
@@ -198,4 +203,8 @@ table.checkData {
 table.checkData td {
     max-height: 50px;
     overflow: auto;
+}
+
+.datepicker{
+    z-index: 100000000000 !important
 }

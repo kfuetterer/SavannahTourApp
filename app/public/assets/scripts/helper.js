@@ -6,11 +6,15 @@ $(function(){
 
     //date and time picker
     $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
         uiLibrary: 'bootstrap4',
         iconsLibrary: 'fontawesome'
     });
 
-    //$('.eventtime').timepicker({ 'timeFormat': 'h:i: A' });
+    // $('.timepicker').timepicker({
+    //     'showDuration': true,
+    //     'timeFormat': 'g:ia'
+    // });
 
     $('#calendar').fullCalendar({
         googleCalendarApiKey: 'AIzaSyCe-TswixIGT0FYQGnCqxUwWPj-urYA6HI',
@@ -30,25 +34,99 @@ $(function(){
         eventRender: function (event, element) {
             element.attr('href', 'javascript:void(0);');
             element.click(function() {
-                $("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
-                $("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
+                $("#eventTitle").html(event.title);
+                $("#startTime").html((moment(event.start).format('MMMM Do')) + ", " + (moment(event.minTime).format('h:mm A')));
+                $("#endTime").html((moment(event.end).format('MMMM Do')) + ", " + (moment(event.maxTime).format('h:mm A')));
                 $("#eventInfo").html(event.description);
-                $("#eventLink").attr('href', event.url);
-                $("#eventContent").dialog({ modal: true, title: event.title, width:350});
+                $("#eventContent").dialog({ modal: true, width:350});
             });
         },
-        events: [
-
-        ]
+        eventColor: '#378006'
     });
 
     $("events-tab").on("click", function(event){
-
+        renderEvents();
     });
 
-    var event={id:1 , title: 'New event', start:  new Date()};
+    function renderEvents() {
+        ajax.getEvents( 
+            function(response) {
+                console.log("There was an error:",response.message);
+                // update error modal and show it
+                $("#errorDisplay").html("There was an error retrieving your data.");
+                $("#errorModal").modal("show");
+            }, // end error callback
 
-    $('#calendar').fullCalendar( 'renderEvent', event, true);
+            // success callback
+            function(response) {
+                var events = response;
+                console.log(events);
+                $('#calendar').fullCalendar( 'renderEvents', events, true);
+            } // end getEvents success callback
+        ) // end ajax.getEvents call      
+    }
+
+    var count = 1;
+    $("#addNewEventButton").on("click", function(){
+        var startDate = $("#eventStartDate").val().trim();
+        var startTime = $("#eventStartTime").val().trim();
+        var endDate = $("#eventEndDate").val().trim();
+        var endTime = $("#eventEndTime").val().trim();
+
+        var start = startDate + "T" + startTime;
+        var end = endDate + "T" + endTime;
+
+        var event = {
+            id: count ++,
+            title: $("#addEventTitle").val().trim(),
+            description: $("#addEventDescription").val().trim(),
+            start: start,
+            end: end
+        };
+
+        console.log(event);
+
+        ajax.postEvents(event, 
+            // error callback
+            function(response){
+                console.log(response);
+                // update error modal and show it
+                $("#errorDisplay").html("There was an error posting this location.");
+                $("#errorModal").modal("show");
+            },
+            //success callback
+            function(response){
+                renderEvents();
+            }
+        )
+    });
+
+    $(".removeEventButton").on("click", function(){
+        var event = 
+        $('#calendar').fullCalendar( 'removeEvent', event);
+
+        ajax.removeEvent( eventID,
+            //error callback
+            function(response){
+                console.log("There was an error:",response.message)
+            },
+            //success callback
+            function(response){
+                console.log(response);
+                ajax.getEvents(
+                    // error callback
+                    function(response) {
+                        console.log("There was an error:",response.message);
+                    },
+                    // success callback
+                    function(response) {
+                        console.log("Successful:",response);
+                        renderEvents(response);
+                    }
+                );
+            }
+        );
+    });
 
     $("#tourstops-tab").on("click", getLocations);
 
@@ -215,6 +293,8 @@ $("#addFriendButton").on("click",function(){
         });
     };    
 }); // end click function for getting Friends of Tour list
+
+
 
 // update Friend of Tour
 $(".updateFriendButton").on("click", function(){

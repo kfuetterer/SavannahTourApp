@@ -77,10 +77,11 @@
                                         <br>
                                         <br>
                                         <div id="calendar">
-                                            <div id="eventContent" title="Event Details" style="display:none;">
-                                                <h2>Start: </h2><span id="startTime"></span><br>
-                                                <h2>End: </h2><span id="endTime"></span><br><br>
-                                                <p id="eventInfo"></p>
+                                            <div id="eventContent" style="display:none;">
+                                                <h2 class="blackFont" id="eventTitle"></h2>
+                                                <h4 class="blackFont">Start: </h4><span id="startTime"></span><br>
+                                                <h4 class="blackFont">End: </h4><span id="endTime"></span><br><br>
+                                                <p class="blackFont" id="eventInfo"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -123,9 +124,10 @@
                                         <table class="table" id="sponsorsdata">
                                             <thead>
                                                 <tr>
+                                                    <th>actions</th>
                                                     <th>name</th>
-                                                    <th>type</th>
                                                     <th>address</th>
+                                                    <th>mapped</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -133,13 +135,7 @@
                                         </table>
                                         <div class="row">
                                             <div class="col-md-4 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addSponsorModal" onclick="$( '#addSponsorModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="updateSponsorModal" onclick="$( '#updateSponsorModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Update Sponsor</button>
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteSponsorModal" onclick="$( '#deleteSponsorModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Sponsor</button>
+                                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
                                             </div>
                                         </div>
                                     </div>
@@ -358,25 +354,38 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title blackFont">Add Event</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-8">
-                            <input data-input="addEventTitle" id="addEventTitle" name="addEventTitle" type="text" class="form-control" placeholder="Title">
-                            <br>
-                            <!--Start Datepicker-->
-                            <label class="blackFont">Start Date</label>
-                            <input class="datepicker" placeholder="00/00/00"/>
-                            <br>
-                            <!--End Datepicker-->
-                            <label class="blackFont">End Date</label>
-                            <input class="datepicker" placeholder="00/00/00"/>
-                            <!--Start Timepicker-->
-                            <label class="blackFont">Start Time</label>
-                            <!--End Timepicker-->
-                            <label class="blackFont">End Time</label>
+                            <div class="form-group">
+                                <label class="blackFont">Title</label>
+                                <input data-input="addEventTitle" id="addEventTitle" name="addEventTitle" type="text" class="form-control" placeholder="Title">
+                                <br>
+                                <label class="blackFont">Description</label>
+                                <input data-input="addEventDescription" id="addEventDescription" type="text" class="form-control" placeholder="Description">
+                                <br>
+                                <!--Start Datepicker-->
+                                <label class="blackFont">Start Date</label>
+                                <input id="eventStartDate" class="datepicker form-control" placeholder="yyyy-mm-dd"/>
+                                <br>
+                                <!--End Datepicker-->
+                                <label class="blackFont">End Date</label>
+                                <input id="eventEndDate" class="datepicker form control" placeholder="yyyy-mm-dd"/>
+                                <br>
+                                <!--Start Timepicker-->
+                                <label class="blackFont">Start Time</label>
+                                <input id="eventStartTime" class="timepicker form-control" placeholder="00:00:00">
+                                <br>
+                                <!--End Timepicker-->
+                                <label class="blackFont">End Time</label>
+                                <input id="eventEndTime" class="timepicker form-control" placeholder="00:00:00">
+                                <br>
+                                <br>
+                                <button id="addNewEventButton" type="button" class="btn btn-default">Submit</button>
+                            </div>
                         </div>
                     </div>
                 </div>
