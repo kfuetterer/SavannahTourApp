@@ -1,4 +1,5 @@
-const api = "https://savtourapi.herokuapp.com";
+//const api = "https://savtourapi.herokuapp.com";
+const api = "http://localhost:3002";
 
 const ajax = {
     
