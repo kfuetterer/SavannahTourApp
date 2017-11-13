@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="tab-pane fade" id="sponsors" role="tabpanel" aria-labelledby="sponsors-tab">
                                         <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button class="dropdownButton btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Sponsor Type
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -135,22 +135,22 @@
                                         </table>
                                         <div class="row">
                                             <div class="col-md-4 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
+                                                <button type="bu/tton" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="friendsoftour" role="tabpanel" aria-labelledby="friendsoftour-tab">
                                         <p class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. </p>
                                         <div class="row">
-                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Friend of Tour</button>
-                                            </div>
-                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="updateLocationModal" onclick="$( '#updateFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Update Friend of Tour</button>
-                                            </div>
-                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Friend of Tour</button>
-                                            </div>
+                                            <table class="table" id="sponsorsdata">
+                                                <thead>
+                                                    <tr>
+                                                        <th>name</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
