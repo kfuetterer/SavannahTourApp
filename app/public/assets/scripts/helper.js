@@ -250,7 +250,7 @@ $(function(){
                     } // end response "for" loop
                 }); // end dropdownSponsorWLocations function
                 
-                $("dropdownSponsorNoLocations").on("click", function (event) {
+                $("#dropdownSponsorNoLocations").on("click", function (event) {
                     $(loadSpinner).remove();
                     var sponsorTableBody = $("#sponsorsdata").children().eq(1);
                     $(sponsorTableBody).empty();
@@ -563,7 +563,7 @@ $("#addLocationButton").on("click",function(){
 
     // loop through text values
     textInputs.each(function(index,element){
-        if ($(element).val().trim() === "" && $("#type input:radio:checked") === "stop") {
+        if ($(element).val().trim() === "" && $("#type input:radio:checked").val() === "stop") {
             // update error modal and show it
             $("#errorDisplay").html("The value for " + $(element).attr("placeholder") + " cannot be empty.");
             $("#errorModal").modal("show");
