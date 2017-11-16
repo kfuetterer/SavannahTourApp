@@ -4,6 +4,8 @@ var loadSpinner = $("<div>").attr("id","loadSpinner").html("<i class=\"fa fa-ref
 // doc ready function
 $(function(){
 
+    renderEvents();
+
     $(".dropdown-menu").on('click', 'a', function(){
       $(".dropdownButton:first-child").text($(this).text());
       $(".dropdownButton:first-child").val($(this).text());
@@ -43,23 +45,26 @@ $(function(){
             right:  'month, agendaWeek, agendaDay'
         },
         eventRender: function (event, element) {
+            element.attr('data-name', event.title);
+            element.attr('data-id', event._id);
             element.attr('href', 'javascript:void(0);');
             element.click(function() {
                 $("#eventTitle").html(event.title);
-                $("#startTime").html((moment(event.start).format('MMMM Do')) + ", " + (moment(event.minTime).format('h:mm A')));
-                $("#endTime").html((moment(event.end).format('MMMM Do')) + ", " + (moment(event.maxTime).format('h:mm A')));
+                $("#startTime").html((moment(event.start).format('MMMM Do')) + ", " + (moment(event.start).format('h:mm A')));
+                $("#endTime").html((moment(event.end).format('MMMM Do')) + ", " + (moment(event.end).format('h:mm A')));
                 $("#eventInfo").html(event.description);
                 $("#eventContent").dialog({ modal: true, width:350});
             });
         },
-        eventColor: '#378006'
+        eventColor: '#5bc0de'
     });
 
-    $("events-tab").on("click", function(event){
+    $("#events-tab").on("click", function(event){
         renderEvents();
     });
 
     function renderEvents() {
+        $('#calendar').fullCalendar('removeEvents')
         ajax.getEvents( 
             function(response) {
                 console.log("There was an error:",response.message);
@@ -69,9 +74,10 @@ $(function(){
             }, // end error callback
             // success callback
             function(response) {
-                var events;
+                console.log(response.data);
+                var events = [];
                 for(var i = 0; i < response.data.length; i++){
-                    events.push(response.data[i])
+                    events.push(response.data[i]);
                 }
                 $('#calendar').fullCalendar( 'renderEvents', events, true);
             } // end getEvents success callback
@@ -111,27 +117,25 @@ $(function(){
         )
     });
 
-    $(".removeEventButton").on("click", function(){
-        $("[data-action='delete'").on("click", function(){
-            $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-info' data-dismiss='modal'>Yes</div><div type='button' class='btn btn-info' data-dismiss='modal'>No</div>");
-            
-            $("#trueDelete").on("click", function(){
-                    // removeLocation method takes id, error callback, success callback
-                    ajax.removeEvents($(this).attr("data-id"), 
-                    // error callback
-                    function(response){
-                        console.log(response);
-                        // update error modal and show it
-                        $("#errorDisplay").html("There was an error deleting this event.");
-                        $("#errorModal").modal("show");
-                    },
-                    //success callback
-                    function(response){
-                        renderEvents();
-                    }
-                ); // end removeLocation call
-            }); // end "true delete" click
-        });
+    $("#removeEventButton").on("click", function(){
+        $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default btn-space' data-dismiss='modal'>No</button>");
+        
+        $("#trueDelete").on("click", function(){
+            // removeLocation method takes id, error callback, success callback
+            ajax.removeEvents($(this).attr("data-id"), 
+            // error callback
+            function(response){
+                console.log(response);
+                // update error modal and show it
+                $("#errorDisplay").html("There was an error deleting this event.");
+                $("#errorModal").modal("show");
+            },
+            //success callback
+            function(response){
+                renderEvents();
+            }
+            ); // end removeEvent call
+        }); // end "true delete" click
     });
 
     $("#tourstops-tab").on("click", getLocations);
@@ -176,7 +180,7 @@ $(function(){
                             // add click listeners to icons
                             // delete
                             $("[data-action='delete'").on("click", function(){
-                                $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-info' data-dismiss='modal'>Yes</div><div type='button' class='btn btn-info' data-dismiss='modal'>No</div>");
+                                $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-info btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default btn-space' data-dismiss='modal'>No</button>");
 
                                 //delete action
                                 $("#trueDelete").on("click", function(){
@@ -221,7 +225,7 @@ $(function(){
                             // add click listeners to icons
                             // delete
                             $("[data-action='delete'").on("click", function(){
-                                $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-info' data-dismiss='modal'>Yes</div><div type='button' class='btn btn-info' data-dismiss='modal'>No</div>");
+                                $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default btn-space' data-dismiss='modal'>No</button>");
 
                                 //delete action
                                 $("#trueDelete").on("click", function(){
@@ -266,7 +270,7 @@ $(function(){
                             // add click listeners to icons
                             // delete
                             $("[data-action='delete'").on("click", function(){
-                                $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-info' data-dismiss='modal'>Yes</div><div type='button' class='btn btn-info' data-dismiss='modal'>No</div>");
+                                $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default btn-space' data-dismiss='modal'>No</button>");
 
                                 //delete action
                                 $("#trueDelete").on("click", function(){
@@ -515,16 +519,30 @@ function getLocations(){
                     // build contextual icons
                     var deleteIcon = "<i data-action=\"delete\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
                     var editIcon = "<i data-action=\"edit\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                    var detailedIcon = "<i data-action=\"view\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\" data-address=\"" + response.data[i].address + "\" data-description=\"" + response.data[i].description + "\" data-image=\"" + response.data[i].image + "\" data-lat=\"" + response.data[i].pos.lat + "\" data-lng=\"" + response.data[i].pos.lng + "\" class=\"fa fa-id-card-o\" aria-hidden=\"true\"></i>";
 
                     // build row
-                    var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td></tr>");
+                    var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + " " + detailedIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td></tr>");
                     // add row to table
                     tourStopTableBody.append(thisRow);
+
+                    $("[data-action='view'").on("click", function(){
+                        console.log("you clicked view");
+                        $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + " " + $(this).attr("data-lng") + "</p>")
+                
+                        $("#detailedLocation").modal("show");    
+                    });
+
+                    $("[data-action='edit'").on("click", function(){
+                        console.log("you clicked edit");
+                        
+                        $("#editLocationModal").modal("show");
+                    });
                     
                     // add click listeners to icons
                     // delete
                     $("[data-action='delete'").on("click", function(){
-                        $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-info' data-dismiss='modal'>Yes</div><div type='button' class='btn btn-info' data-dismiss='modal'>No</div>");
+                        $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div class='btn-toolbar'><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-secondary btn-space' data-dismiss='modal'>No</button></div>");
 
                         //delete action
                         $("#trueDelete").on("click", function(){

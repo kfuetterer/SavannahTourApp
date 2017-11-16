@@ -77,13 +77,13 @@
                                         <br>
                                         <br>
                                         <div id="calendar">
-                                            <div id="eventContent" style="display:none;">
+                                            <div id="eventContent">
                                                 <h2 class="blackFont" id="eventTitle"></h2>
-                                                <h4 class="blackFont">Start: </h4><span id="startTime"></span><br>
-                                                <h4 class="blackFont">End: </h4><span id="endTime"></span><br><br>
+                                                <h5 class="blackFont">Start: </h5><span id="startTime"></span><br>
+                                                <h5 class="blackFont">End: </h5><span id="endTime"></span><br><br>
                                                 <p class="blackFont" id="eventInfo"></p>
-                                                <button type="button" class"btn btn-danger">Delete</button>
-                                                <button type="button" class"btn btn-warning">Edit</button>
+                                                <button id="removeEventButton" type="button" class"blackFont btn btn-danger" data-toggle="modal" data-target="checkModal" onclick="$( '#checkModal').modal('show')">Delete</button>
+                                                <button type="button" class"blackFont btn btn-warning" data-toggle="modal" data-target="editEvent" onclick="$( '#editEvent').modal('show')">Edit</button>
                                             </div>
                                         </div>
                                     </div>
@@ -137,7 +137,7 @@
                                         </table>
                                         <div class="row">
                                             <div class="col-md-4 col-sm-12 col-xs-12">
-                                                <button type="bu/tton" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
+                                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
                                             </div>
                                         </div>
                                     </div>
@@ -397,7 +397,54 @@
 
         </div>
     </div>
-<!-- end error message modal -->
+<!-- end addEvent modal -->
+
+  <div id="editEvent" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title blackFont">Edit Event</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                <label class="blackFont">New Title</label>
+                                <input data-input="editEventTitle" id="editEventTitle" name="editEventTitle" type="text" class="form-control" placeholder="Title">
+                                <br>
+                                <label class="blackFont">New Description</label>
+                                <input data-input="editEventDescription" id="editEventDescription" type="text" class="form-control" placeholder="Description">
+                                <br>
+                                <!--Start Datepicker-->
+                                <label class="blackFont">New Start Date</label>
+                                <input id="eventStartDate" class="datepicker1 form-control" placeholder="yyyy-mm-dd"/>
+                                <br>
+                                <!--End Datepicker-->
+                                <label class="blackFont">New End Date</label>
+                                <input id="eventEndDate" class="datepicker2 form control" placeholder="yyyy-mm-dd"/>
+                                <br>
+                                <!--Start Timepicker-->
+                                <label class="blackFont">New Start Time</label>
+                                <input id="eventStartTime" class="timepicker form-control" placeholder="00:00:00">
+                                <br>
+                                <!--End Timepicker-->
+                                <label class="blackFont">New End Time</label>
+                                <input id="eventEndTime" class="timepicker form-control" placeholder="00:00:00">
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="addNewEventButton" type="button" class="whiteFont btn btn-primary" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 <!-- "Action check" Modal -->
 <div id="checkModal" class="modal fade" role="dialog">
@@ -407,7 +454,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Just to be sure ...</h4>
+                    <h4 class="modal-title blackFont">Just to be sure ...</h4>
                 </div>
 
                 <div class="modal-body">
@@ -425,7 +472,33 @@
 
         </div>
 </div>
-<!-- end action check modal -->
+
+<div id="detailedLocation" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title blackFont">Detailed View</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="detailedDisplay" class="col-lg-12">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+</div>
+
 </body>
 
 </html>

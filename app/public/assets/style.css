@@ -4,7 +4,7 @@
     font-size: 80px;
 }
 
-h4, h3, h2, p, button {
+h5, h4, h3, h2, p, button {
     font-family: 'EB Garamond', serif;
     color: white;
 }
@@ -21,6 +21,10 @@ h4, h3, h2, p, button {
 .blackFont {
     font-family: 'EB Garamond', serif;
     color: black !important;
+}
+
+.btn-space {
+    margin-right: 10px;
 }
 
 h3, p, button {
@@ -124,23 +128,16 @@ input {
     padding: 10px;
 }
 
-#homepage {
+#homepage, #signuppage {
     background-image: url("images/savannahHomepage.jpg");
     background-repeat: no-repeat;
 }
 
 @media only screen and (min-width: 400px) {
-    #homepage { 
+    #homepage, #signuppage { 
         background-image: url('images/savannahHomepage.jpg');
         height: 600px;
     }
-}
-
-#signuppage {
-    background-image: url("images/savannahHomepage.jpg");
-    width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 #tourpage {

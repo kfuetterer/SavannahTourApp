@@ -130,7 +130,7 @@ const ajax = {
         });
     },
 
-    getEvents: ( event, error, success ) => {
+    getEvents: ( error, success ) => {
         $.get(`${api}/api/events/`, (response)=>{
             if (response.error){
                 error(response)
