@@ -171,11 +171,19 @@ $(function(){
                             // build contextual icons
                             var deleteIcon = "<i data-action=\"delete\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
                             var editIcon = "<i data-action=\"edit\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                            var detailedIcon = "<i data-action=\"view\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\" data-address=\"" + response.data[i].address + "\" data-description=\"" + response.data[i].description + "\" data-image=\"" + response.data[i].image + "\" data-lat=\"" + response.data[i].pos.lat + "\" data-lng=\"" + response.data[i].pos.lng + "\" class=\"fa fa-id-card-o\" aria-hidden=\"true\"></i>";
 
                             // build row
-                            var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td><td>" + response.data[i].map + "</td></tr>");
+                            var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + " " + detailedIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td><td>" + response.data[i].map + "</td></tr>");
                             // add row to table
                             sponsorTableBody.append(thisRow);
+
+                            ("[data-action='view'").on("click", function(){
+                                console.log("you clicked view");
+                                $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                        
+                                $("#detailedLocation").modal("show");    
+                            });
                             
                             // add click listeners to icons
                             // delete
@@ -216,11 +224,19 @@ $(function(){
                             // build contextual icons
                             var deleteIcon = "<i data-action=\"delete\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
                             var editIcon = "<i data-action=\"edit\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                            var detailedIcon = "<i data-action=\"view\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\" data-address=\"" + response.data[i].address + "\" data-description=\"" + response.data[i].description + "\" data-image=\"" + response.data[i].image + "\" data-lat=\"" + response.data[i].pos.lat + "\" data-lng=\"" + response.data[i].pos.lng + "\" class=\"fa fa-id-card-o\" aria-hidden=\"true\"></i>";
 
                             // build row
-                            var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td><td>" + response.data[i].map + "</td></tr>");
+                            var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + " " + detailedIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td><td>" + response.data[i].map + "</td></tr>");
                             // add row to table
                             sponsorTableBody.append(thisRow);
+
+                            $("[data-action='view'").on("click", function(){
+                                console.log("you clicked view");
+                                $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                        
+                                $("#detailedLocation").modal("show");    
+                            });
                             
                             // add click listeners to icons
                             // delete
@@ -261,12 +277,20 @@ $(function(){
                             // build contextual icons
                             var deleteIcon = "<i data-action=\"delete\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
                             var editIcon = "<i data-action=\"edit\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                            var detailedIcon = "<i data-action=\"view\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\" data-address=\"" + response.data[i].address + "\" data-description=\"" + response.data[i].description + "\" data-image=\"" + response.data[i].image + "\" data-lat=\"" + response.data[i].pos.lat + "\" data-lng=\"" + response.data[i].pos.lng + "\" class=\"fa fa-id-card-o\" aria-hidden=\"true\"></i>";
 
                             // build row
-                            var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td><td>" + response.data[i].map + "</td></tr>");
+                            var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + " " + detailedIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td><td>" + response.data[i].map + "</td></tr>");
                             // add row to table
                             sponsorTableBody.append(thisRow);
-                            
+
+                            $("[data-action='view'").on("click", function(){
+                                console.log("you clicked view");
+                                $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                        
+                                $("#detailedLocation").modal("show");    
+                            });
+                                    
                             // add click listeners to icons
                             // delete
                             $("[data-action='delete'").on("click", function(){
@@ -528,7 +552,7 @@ function getLocations(){
 
                     $("[data-action='view'").on("click", function(){
                         console.log("you clicked view");
-                        $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + " " + $(this).attr("data-lng") + "</p>")
+                        $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
                 
                         $("#detailedLocation").modal("show");    
                     });
@@ -617,7 +641,7 @@ $("#addLocationButton").on("click",function(){
 
             // update and show check modal
             $("#checkDisplay").html("<p>Is this what you want to post?</p>").append(dataTable);
-            $("#checkDisplay").append("<div type='button' id='truePost' class='btn btn-info' data-dismiss='modal'>Yes</div><div type='button' class='btn btn-info' data-dismiss='modal'>No</div>");
+            $("#checkDisplay").append("<button type='button' id='truePost' class='btn btn-warning' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default' data-dismiss='modal'>No</button>");
 
             $("#checkModal").modal("show");
 
