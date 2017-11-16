@@ -9,14 +9,18 @@ h4, h3, h2, p, button {
     color: white;
 }
 
+.gj-calendar {
+    z-index: 1051;
+}
+
 .whiteFont {
     font-family: 'EB Garamond', serif;
-    color: white;
+    color: white !important;
 }
 
 .blackFont {
     font-family: 'EB Garamond', serif;
-    color: black;
+    color: black !important;
 }
 
 h3, p, button {
@@ -203,8 +207,4 @@ table.checkData {
 table.checkData td {
     max-height: 50px;
     overflow: auto;
-}
-
-.datepicker{
-    z-index: 100000000000 !important
 }

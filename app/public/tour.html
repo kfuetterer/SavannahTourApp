@@ -82,6 +82,8 @@
                                                 <h4 class="blackFont">Start: </h4><span id="startTime"></span><br>
                                                 <h4 class="blackFont">End: </h4><span id="endTime"></span><br><br>
                                                 <p class="blackFont" id="eventInfo"></p>
+                                                <button type="button" class"btn btn-danger">Delete</button>
+                                                <button type="button" class"btn btn-warning">Edit</button>
                                             </div>
                                         </div>
                                     </div>
@@ -97,7 +99,7 @@
                                             <tbody>
                                             </tbody>
                                         </table>
-                                        <p class="content">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
+                                        <p class="content"></p>
                                         <div class="row">
                                             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Location</button>
@@ -140,7 +142,7 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="friendsoftour" role="tabpanel" aria-labelledby="friendsoftour-tab">
-                                        <p class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. </p>
+                                        <p class="content"></p>
                                         <div class="row">
                                             <table class="table" id="sponsorsdata">
                                                 <thead>
@@ -233,7 +235,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button id="addLocationButton" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                        <button id="addLocationButton" type="button" class="btn btn-primary whiteFont" data-dismiss="modal">Submit</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -312,7 +314,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button id="addLocationButton" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                    <button id="addLocationButton" type="button" class="btn btn-primary whiteFont" data-dismiss="modal">Submit</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -369,11 +371,11 @@
                                 <br>
                                 <!--Start Datepicker-->
                                 <label class="blackFont">Start Date</label>
-                                <input id="eventStartDate" class="datepicker form-control" placeholder="yyyy-mm-dd"/>
+                                <input id="eventStartDate" class="datepicker1 form-control" placeholder="yyyy-mm-dd"/>
                                 <br>
                                 <!--End Datepicker-->
                                 <label class="blackFont">End Date</label>
-                                <input id="eventEndDate" class="datepicker form control" placeholder="yyyy-mm-dd"/>
+                                <input id="eventEndDate" class="datepicker2 form control" placeholder="yyyy-mm-dd"/>
                                 <br>
                                 <!--Start Timepicker-->
                                 <label class="blackFont">Start Time</label>
@@ -383,13 +385,12 @@
                                 <label class="blackFont">End Time</label>
                                 <input id="eventEndTime" class="timepicker form-control" placeholder="00:00:00">
                                 <br>
-                                <br>
-                                <button id="addNewEventButton" type="button" class="btn btn-default">Submit</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button id="addNewEventButton" type="button" class="whiteFont btn btn-primary" data-dismiss="modal">Submit</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>

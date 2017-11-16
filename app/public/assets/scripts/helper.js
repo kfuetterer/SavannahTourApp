@@ -10,7 +10,13 @@ $(function(){
    });
 
     //date and time picker
-    $('.datepicker').datepicker({
+    $('.datepicker1').datepicker({
+        format: 'yyyy-mm-dd',
+        uiLibrary: 'bootstrap4',
+        iconsLibrary: 'fontawesome'
+    });
+
+    $('.datepicker2').datepicker({
         format: 'yyyy-mm-dd',
         uiLibrary: 'bootstrap4',
         iconsLibrary: 'fontawesome'
@@ -61,22 +67,13 @@ $(function(){
                 $("#errorDisplay").html("There was an error retrieving your data.");
                 $("#errorModal").modal("show");
             }, // end error callback
-
             // success callback
             function(response) {
-
+                var events;
                 for(var i = 0; i < response.data.length; i++){
-                    // build contextual icons
-                    var deleteIcon = "<i data-action=\"delete\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].title + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
-                    var editIcon = "<i data-action=\"edit\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].title + "\"  class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
-                    
-                    // build row
-                    var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + "</td><td>" + response.data[i] + "</td></tr>");
-                    // add row to table
-                    events.append(thisRow);
-
-                    $('#calendar').fullCalendar( 'renderEvents', events, true);
+                    events.push(response.data[i])
                 }
+                $('#calendar').fullCalendar( 'renderEvents', events, true);
             } // end getEvents success callback
         ) // end ajax.getEvents call      
     }
@@ -99,7 +96,7 @@ $(function(){
 
         console.log(event);
 
-        ajax.postEvents(event, 
+        ajax.addEvent(event, 
             // error callback
             function(response){
                 console.log(response);
@@ -120,7 +117,7 @@ $(function(){
             
             $("#trueDelete").on("click", function(){
                     // removeLocation method takes id, error callback, success callback
-                    ajax.removeEvent($(this).attr("data-id"), 
+                    ajax.removeEvents($(this).attr("data-id"), 
                     // error callback
                     function(response){
                         console.log(response);
