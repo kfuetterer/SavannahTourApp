@@ -9,9 +9,9 @@ const ajax = {
             }
             else {
                 success(response)
-                }
-            })
-        },
+            }
+        });
+    },
 
     signin: (userInfo,error,success) => {
         $.post(`${api}/api/signin`,userInfo, (response) =>{
@@ -20,9 +20,9 @@ const ajax = {
             }
             else {
                 success(response)
-                }
-            })
-        },
+            }
+        });
+    },
 
    // retrieve locations
     getLocations: (error,success) =>{
@@ -33,7 +33,7 @@ const ajax = {
             else {
                 success(response)
             }
-        })
+        });
     },
 
     // post a location
@@ -46,7 +46,7 @@ const ajax = {
             else {
                 success(response)  
             }    
-        })
+        });
     },
 
     // remove a location
@@ -60,7 +60,7 @@ const ajax = {
             else {
                 success(response)
             }
-        })
+        });
     },
 
     updateLocation: ( location, error, success ) => {
@@ -82,8 +82,8 @@ const ajax = {
             else {
                 success(response)
             }
-        })
-        },
+        });
+    },
 
     removeFriend: ( friendID, error, success ) => {
         $.get(`${api}/api/remove/friend/${friendId}`, (response) => {
@@ -93,8 +93,8 @@ const ajax = {
             else {
                 success(response)
             }
-        })
-        },
+        });
+    },
 
     getFriends: ( error, success ) => {
         $.get(`${api}/api/friendsoftour/`, (response)=>{
@@ -105,8 +105,8 @@ const ajax = {
                 // response will be object where data is in 'data' key
                 success(response)
             }
-            }) 
-        },
+        });
+    },
 
     updateFriend: ( friend, error, success ) => {
         $.post(`${api}/api/update/friend/`, (response)=> {
@@ -118,4 +118,38 @@ const ajax = {
             }
         });        
     },
+
+    addEvent: ( event, error, success ) => {
+        $.post(`${api}/api/new/event`, event, (response) => {
+            if (response.error){
+                error(response)
+            }
+            else {
+                success(response)
+            }
+        });
+    },
+
+    getEvents: ( error, success ) => {
+        $.get(`${api}/api/events/`, (response)=>{
+            if (response.error){
+                error(response)
+            }
+            else {
+                // response will be object where data is in 'data' key
+                success(response)
+            }
+        });
+    },
+
+    removeEvents: ( eventID, error, success ) => {
+        $.get(`${api}/api/remove/event/${eventID}`, (response) => {
+            if (response.error){
+                error(response)
+            }
+            else {
+                success(response)
+            }
+        });
+    }
 }
