@@ -83,7 +83,7 @@
                                                 <h5 class="blackFont">End: </h5><span id="endTime"></span><br><br>
                                                 <p class="blackFont" id="eventInfo"></p>
                                                 <button id="removeEventButton" type="button" class"blackFont btn btn-danger" data-toggle="modal" data-target="checkModal" onclick="$( '#checkModal').modal('show')">Delete</button>
-                                                <button type="button" class"blackFont btn btn-warning" data-toggle="modal" data-target="editEvent" onclick="$( '#editEvent').modal('show')">Edit</button>
+                                                <button id="editEventButton" type="button" class"blackFont btn btn-warning" data-toggle="modal" data-target="editEvent" onclick="$( '#editEvent').modal('show')">Edit</button>
                                             </div>
                                         </div>
                                     </div>
@@ -174,7 +174,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add a location</h4>
+                        <h4 class="modal-title blackFont">Add Location</h4>
                     </div>
 
                     <div class="modal-body">
@@ -251,62 +251,69 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Edit a location</h4>
+                    <h4 class="modal-title blackFont">Edit Location</h4>
                 </div>
-
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <p>All fields are required</p>
+                        <div id="locationEditDisplay" class="col-lg-6 col-sm-6 col-md-6">
 
-                            <input data-input="editLocName" id="editLocName" name="editLocName" type="text" class="form-control" placeholder="Name">
-
-                            <div id="editType" class="btn-group">
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-md-6">
+                            <button type="button" class="btn btn-default display" data-target="#editLocName">Change Name</button>
+                            <br>
+                            <input data-input="editLocName" id="editLocName" name="editLocName" type="text" style="display:none; margin-top: 20px" class="form-control" placeholder="Name">
+                            <br>
+                            <button type="button" class="btn btn-default display" data-target="#editType">Change Type</button>
+                            <br>
+                            <div id="editType" style="display:none; margin-top: 20px" class="btn-group">
                                 <p>Type:
                                     <label class="radio-inline active">
-                                    <input name="editType" type="radio" value="stop" checked="">
-                                    Tour Stop
-                                </label>
-
+                                        <input name="editType" type="radio" value="stop" checked="">
+                                        Tour Stop
+                                    </label>
                                     <label class="radio-inline">
-                                    <input name="editType" type="radio" value="sponsor">
-                                    Sponsor
-                                </label>
+                                        <input name="editType" type="radio" value="sponsor">
+                                        Sponsor
+                                    </label>
                                 </p>
                             </div>
-
-
-                            <div id="editShouldMap" class="btn-group">
+                            <br>
+                            <button type="button" class="btn btn-default display" data-target="#editShouldMap">Change Map</button>
+                            <br>
+                            <div id="editShouldMap" style="display:none; margin-top: 20px" class="btn-group">
                                 <p>Map?
                                     <label class="radio-inline active">
-                                    <input type="radio" value=true name="editMapOpt" checked="">
-                                    Yes
-                                </label>
+                                        <input type="radio" value=true name="editMapOpt" checked="">
+                                        Yes
+                                    </label>
                                     <label class="radio-inline">
-                                    <input type="radio" value=false name="editMapOpt">
-                                    No
-                                </label>
+                                        <input type="radio" value=false name="editMapOpt">
+                                        No
+                                    </label>
                                 </p>
                             </div>
-
-
-                            <input data-input="editLocAddress" id="editLocAddress" type="text" class="form-control" placeholder="Address">
-
-                            <div class="form-group">
+                            <br>
+                            <button type="button" class="btn btn-default display" data-target="#editLocAddress">Change Address</button>
+                            <br>
+                            <input data-input="editLocAddress" style="display:none; margin-top: 20px" id="editLocAddress" type="text" class="form-control" placeholder="Address">
+                            <br>
+                            <button type="button" class="btn btn-default display" data-target="#editLocDescription">Change Description</button>
+                            <br>
+                            <div class="form-group" id="editLocDescription" style="display:none; margin-top: 20px">
                                 <textarea data-input="editLocDesc" class="form-control" rows="5" id="editLocDesc" placeholder="Description"></textarea>
                             </div>
-
+                            <br>
                             <!-- to do: replace URL input with image uploading -->
-                            <input data-input="editLocImage" id="editLocImage" type="text" class="form-control" placeholder="Image (URL)">
-
-                            <p>Position:</p>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <button type="button" class="btn btn-default display" data-target="#editLocImage">Change Image</button>
+                            <br>
+                            <input data-input="editLocImage" style="display:none; margin-top: 20px" id="editLocImage" type="text" class="form-control" placeholder="Image (URL)">
+                            <br>
+                            <button type="button" class="btn btn-default display" data-target="#editLocPos">Change Position</button>
+                            <div id="editLocPos" style="display:none; margin-top: 20px">
+                                <p>Position:</p>
                                 <input data-input="editLocPosLat" id="editLocPosLat" type="text" class="form-control" placeholder="Latitude">
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <input data-input="editLocPosLng" id="editLocPosLng" type="text" class="form-control" placeholder="Longitude">
                             </div>
-
                         </div>
                         <!-- end col-lg-12 -->
                     </div>
@@ -373,7 +380,6 @@
                                 <label class="blackFont">Start Date</label>
                                 <input id="eventStartDate" class="datepicker1 form-control" placeholder="yyyy-mm-dd"/>
                                 <br>
-                                <!--End Datepicker-->
                                 <label class="blackFont">End Date</label>
                                 <input id="eventEndDate" class="datepicker2 form control" placeholder="yyyy-mm-dd"/>
                                 <br>
@@ -381,10 +387,8 @@
                                 <label class="blackFont">Start Time</label>
                                 <input id="eventStartTime" class="timepicker form-control" placeholder="00:00:00">
                                 <br>
-                                <!--End Timepicker-->
                                 <label class="blackFont">End Time</label>
                                 <input id="eventEndTime" class="timepicker form-control" placeholder="00:00:00">
-                                <br>
                             </div>
                         </div>
                     </div>
@@ -409,30 +413,36 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div id="eventEditDisplay" class="col-lg-6 col-md-6 col-sm-6">
+
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="form-group">
-                                <label class="blackFont">New Title</label>
-                                <input data-input="editEventTitle" id="editEventTitle" name="editEventTitle" type="text" class="form-control" placeholder="Title">
+                                <button type="button" class="btn btn-default display" data-target="#editEventTitle">Change Title</button>
                                 <br>
-                                <label class="blackFont">New Description</label>
-                                <input data-input="editEventDescription" id="editEventDescription" type="text" class="form-control" placeholder="Description">
+                                <input data-input="editEventTitle" style="display:none; margin-top: 20px" id="editEventTitle" name="editEventTitle" type="text" class="form-control" placeholder="Title">
+                                <br>
+                                <button type="button" class="btn btn-default display" data-target="#editEventDescription">Change Description</button>
+                                <br>
+                                <input data-input="editEventDescription" style="display:none; margin-top: 20px" id="editEventDescription" type="text" class="form-control" placeholder="Description">
                                 <br>
                                 <!--Start Datepicker-->
-                                <label class="blackFont">New Start Date</label>
-                                <input id="eventStartDate" class="datepicker1 form-control" placeholder="yyyy-mm-dd"/>
+                                <button type="button" class="btn btn-default display" data-target="#editEventStartDate">Change Start Date</button>
                                 <br>
-                                <!--End Datepicker-->
-                                <label class="blackFont">New End Date</label>
-                                <input id="eventEndDate" class="datepicker2 form control" placeholder="yyyy-mm-dd"/>
+                                <input id="editEventStartDate" style="display:none; margin-top: 20px" class="datepicker3 form-control" placeholder="yyyy-mm-dd"/>
+                                <br>
+                                <button type="button" class="btn btn-default display" data-target="#editEventEndDate">Change End Date</button>
+                                <br>
+                                <input id="editEventEndDate" style="display:none; margin-top: 20px" class="datepicker4 form control" placeholder="yyyy-mm-dd"/>
                                 <br>
                                 <!--Start Timepicker-->
-                                <label class="blackFont">New Start Time</label>
-                                <input id="eventStartTime" class="timepicker form-control" placeholder="00:00:00">
+                                <button type="button" class="btn btn-default display" data-target="#editEventStartTime">Change Start Time</button>
                                 <br>
-                                <!--End Timepicker-->
-                                <label class="blackFont">New End Time</label>
-                                <input id="eventEndTime" class="timepicker form-control" placeholder="00:00:00">
+                                <input id="editEventStartTime" style="display:none; margin-top: 20px" class="timepicker form-control" placeholder="00:00:00">
                                 <br>
+                                <button type="button" class="btn btn-default display" data-target="#editEventEndTime">Change End Time</button>
+                                <br>             
+                                <input id="editEventEndTime" style="display:none; margin-top: 20px" class="timepicker form-control" placeholder="00:00:00">
                             </div>
                         </div>
                     </div>
