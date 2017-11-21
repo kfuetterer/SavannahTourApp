@@ -192,6 +192,12 @@ input {
 .modal p, .modal .btn {
     color: #444;
 }
+
+.modal-content {
+    width: 600px !important;
+    margin: 0 auto;
+}
+
 #shouldMap {
     display: block;
 }

@@ -70,7 +70,23 @@ $(function(){
             element.attr('href', 'javascript:void(0);');
             element.click(function() {
                 $("#eventEditDisplay").html("<h4 class='blackFont'>" + event.title + "</h4><br><h5 class='blackFont'>Start:</h5><p class='blackFont'>" + (moment(event.start).format('MMMM Do')) + ", " + (moment(event.start).format('h:mm A')) + "</p><h5 class='blackFont'>End:</h5><p class='blackFont'>" + (moment(event.end).format('MMMM Do')) + ", " + (moment(event.end).format('h:mm A')) + "</p><br><p>" + event.description + "</p>")                       
-                $("#checkDisplay").html("<p>Delete "+ event.title + "?</p><button type='button' id='trueDelete' data-id='" + event._id + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default btn-space' data-dismiss='modal'>No</button>");
+                $("#checkDisplay").html("<p>Delete "+ event.title + "?</p><button type='button' id='trueDeleteEvent' data-id='" + event._id + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default btn-space' data-dismiss='modal'>No</button>");
+                    $("#trueDeleteEvent").on("click", function(){
+                        console.log("It is reading the trueDeleteEvent button");
+                        // removeLocation method takes id, error callback, success callback
+                        ajax.removeEvents($(this).attr("data-id"), 
+                        // error callback
+                        function(response){
+                            console.log(response);
+                            // update error modal and show it
+                            $("#errorDisplay").html("There was an error deleting this event.");
+                            $("#errorModal").modal("show");
+                        },
+                        //success callback
+                        function(response){
+                            renderEvents();
+                        }); // end removeEvent call
+                    }); // end "true delete" click
                 $("#eventTitle").html(event.title);
                 $("#startTime").html((moment(event.start).format('MMMM Do')) + ", " + (moment(event.start).format('h:mm A')));
                 $("#endTime").html((moment(event.end).format('MMMM Do')) + ", " + (moment(event.end).format('h:mm A')));
@@ -139,21 +155,7 @@ $(function(){
         )
     });
 
-    $("#trueDelete").on("click", function(){
-        // removeLocation method takes id, error callback, success callback
-        ajax.removeEvents($(this).attr("data-id"), 
-        // error callback
-        function(response){
-            console.log(response);
-            // update error modal and show it
-            $("#errorDisplay").html("There was an error deleting this event.");
-            $("#errorModal").modal("show");
-        },
-        //success callback
-        function(response){
-            renderEvents();
-        }); // end removeEvent call
-    }); // end "true delete" click
+
 
     $("#tourstops-tab").on("click", getLocations);
 
