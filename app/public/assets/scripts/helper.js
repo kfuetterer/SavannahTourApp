@@ -59,6 +59,8 @@ $(function(){
             }
         ],
         editable: true,
+        eventStartEditable: true,
+        eventDurationEditable: true,
         weekMode: 'liquid',
         defaultView: 'month',
         header: {
@@ -93,6 +95,24 @@ $(function(){
                 $("#eventInfo").html(event.description);
                 $("#eventContent").dialog({ modal: true, width:450});
             });
+        },
+        eventDrop: function (event, element) {
+            
+            var editDropEvent = {
+                title: event.title,
+                description: event.description,
+                start: event.start,
+                end: event.end
+            };
+
+            ajax.editEvent(editDropEvent),
+            function(response){
+                console.log(response);
+                $("#errorDisplay").html("There was an error deleting this event.");
+            },
+            function(response){
+                renderEvents();
+            }
         },
         eventColor: '#5bc0de'
     });
