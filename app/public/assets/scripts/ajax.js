@@ -130,6 +130,17 @@ const ajax = {
         });
     },
 
+    updateEvent: ( event, error, success ) => {
+        $.post(`${api}/api/update/event`, event, (response) => {
+            if (response.error){
+                error(response)
+            }
+            else {
+                success(response)
+            }
+        });
+    },
+
     getEvents: ( error, success ) => {
         $.get(`${api}/api/events/`, (response)=>{
             if (response.error){
