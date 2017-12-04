@@ -70,97 +70,7 @@ $(function(){
         },
         eventRender: function (event, element) {
             element.attr('href', 'javascript:void(0);');
-            element.click(function() {
-                $("#eventEditDisplay").html("<h4 class='blackFont'>" + event.title + "</h4><br><h5 class='blackFont'>Start:</h5><p class='blackFont'>" + (moment(event.start).format('MMMM Do')) + ", " + (moment(event.start).format('h:mm A')) + "</p><h5 class='blackFont'>End:</h5><p class='blackFont'>" + (moment(event.end).format('MMMM Do')) + ", " + (moment(event.end).format('h:mm A')) + "</p><br><p>" + event.description + "</p>")                       
-                $("#checkDisplay").html("<p>Delete "+ event.title + "?</p><button type='button' id='trueDeleteEvent' data-id='" + event._id + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default btn-space' data-dismiss='modal'>No</button>");
-                    $("#trueDeleteEvent").on("click", function(){
-                        // removeLocation method takes id, error callback, success callback
-                        ajax.removeEvents($(this).attr("data-id"), 
-                        // error callback
-                        function(response){
-                            console.log(response);
-                            // update error modal and show it
-                            $("#errorDisplay").html("There was an error deleting this event.");
-                            $("#errorModal").modal("show");
-                        },
-                        //success callback
-                        function(response){
-                            renderEvents();
-                        }); // end removeEvent call
-                    }); // end "true delete" click
-                    $("updateEventButton").on("click", function(){
-                        var updateTitle;
-                        var updateDescription;
-                        var updateStartDate;
-                        var updateStartTime;
-                        var updateEndDate;
-                        var updateEndTime;
-
-                        if ($("#editEventTitle").val().trim() !== "") {
-                            updateTitle = $("#editEventTitle").val().trim();
-                        } else {
-                            updateTitle = event.title;
-                        }
-
-                        if ($("#editEventDescription").val().trim() !== "") {
-                            updateDescription = $("#editEventDescription").val().trim();
-                        } else {
-                            updateDescription = event.description;
-                        }
-
-                        if ($("#editEventStartDate").val().trim() !== "") {
-                            updateStartDate = $("#editEventStartDate").val().trim();
-                        } else {
-                            updateStartDate = (moment(event.start).format('YYYY-MM-DD'));
-                        }
-
-                        if ($("#editEventStartTime").val().trim() !== "") {
-                            updateStartTime = $("#editEventStartTime").val().trim();
-                        } else {
-                            updateStartTime = (moment(event.start).format('hh:mm:ss'));
-                        }
-
-                        if ($("#editEventEndDate").val().trim() !== "") {
-                            updateEndDate = $("#editEventEndDate").val().trim();
-                        } else {
-                            updateEndDate = (moment(event.end).format('YYYY-MM-DD'));
-                        }
-
-                        if ($("#editEventEndTime").val().trim() !== "") {
-                            updateEndTime = $("#editEventEndTime").val().trim();
-                        } else {
-                            updateEndTime = (moment(event.end).format('hh:mm:ss'));
-                        }
-
-                        var updateStart = updateStartDate + "T" + updateStartTime;
-                        var updateEnd = updateEndDate + "T" + updateEndTime;
-
-                        var updatedEvent = {
-                            _id: event._id,
-                            title: updateTitle,
-                            description: updateDescription,
-                            start: updateStart,
-                            end: updateEnd
-                        }    
-
-                        console.log(updatedEvent);   
-
-                        ajax.updateEvent(updateEvent),
-                        function(response){
-                            console.log(response);
-                            $("#errorDisplay").html("There was an error deleting this event.");
-                        },
-                        function(response){
-                            renderEvents();
-                        }
-
-                    });
-                $("#eventTitle").html(event.title);
-                $("#startTime").html((moment(event.start).format('MMMM Do')) + ", " + (moment(event.start).format('h:mm A')));
-                $("#endTime").html((moment(event.end).format('MMMM Do')) + ", " + (moment(event.end).format('h:mm A')));
-                $("#eventInfo").html(event.description);
-                $("#eventContent").dialog({ modal: true, width:450});
-            });
+            eventClick(event, element);
         },
         eventDrop: function (event, element) {
 
@@ -185,6 +95,101 @@ $(function(){
         },
         eventColor: '#5bc0de'
     });
+
+function eventClick(event, element) {
+    $(element).on("click", function(){
+        console.log('clicked');
+        $("#eventEditDisplay").html("<h4 class='blackFont'>" + event.title + "</h4><br><h5 class='blackFont'>Start:</h5><p class='blackFont'>" + (moment(event.start).format('MMMM Do')) + ", " + (moment(event.start).format('h:mm A')) + "</p><h5 class='blackFont'>End:</h5><p class='blackFont'>" + (moment(event.end).format('MMMM Do')) + ", " + (moment(event.end).format('h:mm A')) + "</p><br><p>" + event.description + "</p>")                       
+        $("#checkDisplay").html("<p>Delete "+ event.title + "?</p><button type='button' id='trueDeleteEvent' data-id='" + event._id + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default btn-space' data-dismiss='modal'>No</button>");
+        $("#trueDeleteEvent").on("click", function(){
+            // removeLocation method takes id, error callback, success callback
+            ajax.removeEvents($(this).attr("data-id"), 
+            // error callback
+            function(response){
+                console.log(response);
+                // update error modal and show it
+                $("#errorDisplay").html("There was an error deleting this event.");
+                $("#errorModal").modal("show");
+            },
+            //success callback
+            function(response){
+                renderEvents();
+            }); // end removeEvent call
+        }); // end "true delete" click
+        $("updateEventButton").on("click", function(){
+            var updateTitle;
+            var updateDescription;
+            var updateStartDate;
+            var updateStartTime;
+            var updateEndDate;
+            var updateEndTime;
+
+            if ($("#editEventTitle").val().trim() !== "") {
+                updateTitle = $("#editEventTitle").val().trim();
+            } else {
+                updateTitle = event.title;
+            }
+
+            if ($("#editEventDescription").val().trim() !== "") {
+                updateDescription = $("#editEventDescription").val().trim();
+            } else {
+                updateDescription = event.description;
+            }
+
+            if ($("#editEventStartDate").val().trim() !== "") {
+                updateStartDate = $("#editEventStartDate").val().trim();
+            } else {
+                updateStartDate = (moment(event.start).format('YYYY-MM-DD'));
+            }
+
+            if ($("#editEventStartTime").val().trim() !== "") {
+                updateStartTime = $("#editEventStartTime").val().trim();
+            } else {
+                updateStartTime = (moment(event.start).format('hh:mm:ss'));
+            }
+
+            if ($("#editEventEndDate").val().trim() !== "") {
+                updateEndDate = $("#editEventEndDate").val().trim();
+            } else {
+                updateEndDate = (moment(event.end).format('YYYY-MM-DD'));
+            }
+
+                            if ($("#editEventEndTime").val().trim() !== "") {
+                                updateEndTime = $("#editEventEndTime").val().trim();
+                            } else {
+                                updateEndTime = (moment(event.end).format('hh:mm:ss'));
+                            }
+
+                            var updateStart = updateStartDate + "T" + updateStartTime;
+                            var updateEnd = updateEndDate + "T" + updateEndTime;
+
+                            var updatedEvent = {
+                                _id: event._id,
+                                title: updateTitle,
+                                description: updateDescription,
+                                start: updateStart,
+                                end: updateEnd
+                            }    
+
+                            console.log(updatedEvent);   
+
+                            ajax.updateEvent(updateEvent),
+                            function(response){
+                                console.log(response);
+                                $("#errorDisplay").html("There was an error deleting this event.");
+                            },
+                            function(response){
+                                renderEvents();
+                            }
+
+                        });
+                    $("#eventTitle").html(event.title);
+                    $("#startTime").html((moment(event.start).format('MMMM Do')) + ", " + (moment(event.start).format('h:mm A')));
+                    $("#endTime").html((moment(event.end).format('MMMM Do')) + ", " + (moment(event.end).format('h:mm A')));
+                    $("#eventInfo").html(event.description);
+                    $("#eventContent").dialog({ modal: true, width:450});
+                });
+            };
 
     $("#events-tab").on("click", function(event){
         renderEvents();
@@ -449,7 +454,29 @@ $(function(){
     }); 
 
     $("#friendsoftour-tab").on("click", function(event){
+        $("#friendsoftour").append(loadSpinner);
+        ajax.getFriends( 
+            function(response) {
+                $(loadSpinner).remove();
+                console.log("There was an error:",response.message);
+                // update error modal and show it
+                $("#errorDisplay").html("There was an error retrieving your data.");
+                $("#errorModal").modal("show");
+            }, // end error callback
+            // success callback
+            function(response) {
+                $(loadSpinner).remove();
+                var friendsTableBody = $("#friendsdata").children().eq(1);
+                $(friendsTableBody).empty();
+                console.log(response.data);
 
+                for(var i = 0; i < response.data.length; i++){
+                    var thisRow = $("<tr><td>" + response.data[i] + "</td></tr>");
+                    // add row to table
+                    friendsTableBody.append(thisRow);
+                }
+            } // end getEvents success callback
+        ) // end ajax.getEvents call   
     });
 
     /*****************
@@ -520,116 +547,6 @@ $(function(){
 
         };
     }); // end click function for user sign in
-
-/*****************
- * FRIENDS OF TOUR OPERATIONS
- ****************/
-
-// get all friends of tour
-$("#friendsButton").on("click",function(){
-    ajax.getFriends( 
-        // error callback
-        function(response) {
-            console.log("There was an error:",response.message);
-        },
-        // success callback
-        function(response) {
-            console.log("Successful:",response);
-            renderFriends(response);
-            // to do: create a function to render friends list to page and call it here; we'll do it that way because we'll call ajax.getFriends() from other places, not just as a click function. 
-            // The renderFriends() function must include adding data-id attributes both to a "remove" button and the element containing the friend name
-        }
-    )
-}) // end click function for Friends of Tour list button
-
-// add Friend of Tour
-$("#addFriendButton").on("click",function(){
-    if ($("#friendName").val()==="") 
-        return false
-    else {
-        var friend = {"name": $("#friendName").val()};
-        console.log("friend:",friend);
-        ajax.addFriend( friend,
-        //error callback
-        function(response){
-            console.log("Error:",response)
-        },
-    
-        //success callback
-        function(response){
-            console.log(response);
-            // after adding, get full list again
-            ajax.getFriends(
-                // error callback
-                function(response) {
-                    console.log("There was an error:",response.message);
-                },
-                // success callback
-                function(response) {
-                    console.log(response);
-                    renderFriends(response);
-                }
-            );   
-        });
-    };    
-}); // end click function for getting Friends of Tour list
-
-
-
-// update Friend of Tour
-$(".updateFriendButton").on("click", function(){
-    // todo: matchup jQuery selector here ($(this)) with what we use in HTML
-    var id = $(this).attr("data-id");
-    var friend = { 
-        "name": $(".friendContainer['data-id'=id]").val().trim(), 
-        "id": id
-    };
-    ajax.updateFriend(friend,
-        // error callback
-        function(response){
-            console.log("There was an error:",response.message);
-        },
-        //success callback
-        function(response){
-            console.log(response);
-            // after adding, get full list again
-            ajax.getFriends(
-                // error callback
-                function(response) {
-                    console.log("There was an error:",response.message);
-                },
-                // success callback
-                function(response) {
-                    console.log(response);
-                    renderFriends(response);
-                }
-            );   
-        });
-}); // end click function for updating Friends of Tour item
-
-
-$(".removeFriendButton").on("click",function(){
-    ajax.removeFriend( friendID,
-    //error callback
-    function(response){
-        console.log("There was an error:",response.message)
-    },
-    //success callback
-    function(response){
-        console.log(response);
-        ajax.getFriends(
-            // error callback
-            function(response) {
-                console.log("There was an error:",response.message);
-            },
-            // success callback
-            function(response) {
-                console.log("Successful:",response);
-                renderFriends(response);
-            }
-        );
-    });
-});
 
 /*****************
  * LOCATIONS OPERATIONS

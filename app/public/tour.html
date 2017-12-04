@@ -85,6 +85,9 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="tourstops" role="tabpanel" aria-labelledby="tourstops-tab">
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Location</button>
+                                        <br>
+                                        <br>
                                         <table class="table" id="tourstopdata">
                                             <thead>
                                                 <tr>
@@ -96,30 +99,22 @@
                                             <tbody>
                                             </tbody>
                                         </table>
-                                        <p class="content"></p>
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Location</button>
-                                            </div>
-                                            <!-- <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="updateLocationModal" onclick="$( '#updateLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Update Location</button>
-                                            </div>
-                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteLocationModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Location</button>
-                                            </div> -->
-                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="sponsors" role="tabpanel" aria-labelledby="sponsors-tab">
-                                        <div class="dropdown">
-                                            <button class="dropdownButton btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Sponsor Type
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a id="dropdownAllSponsors" class="dropdown-item" href="#">All Sponsors</a>
-                                                <a id="dropdownSponsorWLocations" class="dropdown-item" href="#">Sponsors with locations</a>
-                                                <a id="dropdownSponsorNoLocations" class="dropdown-item" href="#">Sponsors without locations</a>
+                                        <div class="row">
+                                            <button type="button" class="btn btn-info btn-space" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
+                                            <div class="dropdown">
+                                                <button class="dropdownButton btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Sponsor Type
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a id="dropdownAllSponsors" class="dropdown-item" href="#">All Sponsors</a>
+                                                    <a id="dropdownSponsorWLocations" class="dropdown-item" href="#">Sponsors with locations</a>
+                                                    <a id="dropdownSponsorNoLocations" class="dropdown-item" href="#">Sponsors without locations</a>
+                                                </div>
                                             </div>
                                         </div>
+                                        <br>
                                         <table class="table" id="sponsorsdata">
                                             <thead>
                                                 <tr>
@@ -132,25 +127,17 @@
                                             <tbody>
                                             </tbody>
                                         </table>
-                                        <div class="row">
-                                            <div class="col-md-4 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="friendsoftour" role="tabpanel" aria-labelledby="friendsoftour-tab">
-                                        <p class="content"></p>
-                                        <div class="row">
-                                            <table class="table" id="sponsorsdata">
-                                                <thead>
-                                                    <tr>
-                                                        <th>name</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        <table class="table" id="friendsdata">
+                                            <thead>
+                                                <tr>
+                                                    <th>name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
                                     </div>
                             </div>
                         </div>

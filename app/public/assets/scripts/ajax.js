@@ -74,30 +74,8 @@ const ajax = {
         });        
     },
 
-    addFriend: ( friend, error, success ) => {
-        $.post(`${api}/api/new/friend`, friend, (response) => {
-            if (response.error){
-                error(response)
-            }
-            else {
-                success(response)
-            }
-        });
-    },
-
-    removeFriend: ( friendID, error, success ) => {
-        $.get(`${api}/api/remove/friend/${friendId}`, (response) => {
-            if (response.error){
-                error(response)
-            }
-            else {
-                success(response)
-            }
-        });
-    },
-
     getFriends: ( error, success ) => {
-        $.get(`${api}/api/friendsoftour/`, (response)=>{
+        $.get(`${api}/api/friends?source=https://savannahtourofhomes.org/friends-of-the-tour/`, (response)=>{
             if (response.error){
                 error(response)
             }
@@ -106,17 +84,6 @@ const ajax = {
                 success(response)
             }
         });
-    },
-
-    updateFriend: ( friend, error, success ) => {
-        $.post(`${api}/api/update/friend/`, (response)=> {
-            if (!response.success) {
-                error(response.message)
-            }
-            else {
-                success(response)
-            }
-        });        
     },
 
     addEvent: ( event, error, success ) => {
