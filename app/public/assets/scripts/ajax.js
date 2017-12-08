@@ -1,9 +1,9 @@
-const api = "https://savtourapi.herokuapp.com";
+var api = "https://savtourapi.herokuapp.com";
 
-const ajax = {
+var ajax = {
     
-    signup: (userInfo,error,success) =>  {
-         $.post(`${api}/api/signup`,userInfo, (response)=>{
+    signup: function(userInfo,error,success) {
+         $.post(api + "/api/signup",userInfo, function(response){
             if (!response.success) {
                 error(response.message)
             }
@@ -13,8 +13,8 @@ const ajax = {
         });
     },
 
-    signin: (userInfo,error,success) => {
-        $.post(`${api}/api/signin`,userInfo, (response) =>{
+    signin: function(userInfo,error,success){
+        $.post( api + "/api/signin",userInfo, function(response){
             if(!response.success) {
                 error(response.message)
             }
@@ -25,8 +25,8 @@ const ajax = {
     },
 
    // retrieve locations
-    getLocations: (error,success) =>{
-        $.get(`${api}/api/locations`, (response) => {
+    getLocations: function(error,success) {
+        $.get( api + "/api/locations", function(response){
             if(!response.success) {
                 error(response.message)
             }
@@ -37,9 +37,8 @@ const ajax = {
     },
 
     // post a location
-    postLocation: ( location, error, success ) => {
-        console.log("posting:",location);
-        $.post(`${api}/api/new/location`, location, (response) => {
+    postLocation: function (location, error, success){
+        $.post(api + "/api/new/location", location, function(response){
             if (!response.success) {
                 error(response.message)
             }
@@ -51,8 +50,8 @@ const ajax = {
 
     // remove a location
     // here, we only need location _id
-    removeLocation: ( locationId, error, success ) => { 
-        $.get(`${api}/api/remove/location/${locationId}`, (response) => {
+    removeLocation: function( locationId, error, success ){ 
+        $.get(api + "/api/remove/location/" + locationId, function(response){
           
             if (!response.success) {
                 error(response.message)
@@ -63,8 +62,8 @@ const ajax = {
         });
     },
 
-    updateLocation: ( location, error, success ) => {
-        $.post(`${api}/api/update/location/`, (response)=> {
+    updateLocation: function( location, error, success ){
+        $.post(api + "/api/update/location/", function(response) {
             if (!response.success) {
                 error(response.message)
             }
@@ -74,8 +73,8 @@ const ajax = {
         });        
     },
 
-    getFriends: ( error, success ) => {
-        $.get(`${api}/api/friends?source=https://savannahtourofhomes.org/friends-of-the-tour/`, (response)=>{
+    getFriends: function( error, success ){
+        $.get(api + "/api/friends?source=https://savannahtourofhomes.org/friends-of-the-tour/", function(response){
             if (response.error){
                 error(response)
             }
@@ -86,8 +85,8 @@ const ajax = {
         });
     },
 
-    addEvent: ( event, error, success ) => {
-        $.post(`${api}/api/new/event`, event, (response) => {
+    addEvent: function( event, error, success ){
+        $.post(api + "/api/new/event", event, function(response){
             if (response.error){
                 error(response)
             }
@@ -97,8 +96,8 @@ const ajax = {
         });
     },
 
-    updateEvent: ( event, error, success ) => {
-        $.post(`${api}/api/update/event`, event, (response) => {
+    updateEvent: function( event, error, success ){
+        $.post(api + "/api/update/event", event, function(response){
             if (response.error){
                 error(response)
             }
@@ -108,8 +107,8 @@ const ajax = {
         });
     },
 
-    getEvents: ( error, success ) => {
-        $.get(`${api}/api/events/`, (response)=>{
+    getEvents: function( error, success ){
+        $.get(api + "/api/events/", function(response){
             if (response.error){
                 error(response)
             }
@@ -120,8 +119,8 @@ const ajax = {
         });
     },
 
-    removeEvents: ( eventID, error, success ) => {
-        $.get(`${api}/api/remove/event/${eventID}`, (response) => {
+    removeEvents: function( eventID, error, success ){
+        $.get(api + "/api/remove/event/" + eventID, function(response){
             if (response.error){
                 error(response)
             }
