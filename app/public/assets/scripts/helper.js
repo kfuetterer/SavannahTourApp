@@ -4,6 +4,24 @@ var loadSpinner = $("<div>").attr("id","loadSpinner").html("<i class=\"fa fa-ref
 // doc ready function
 $(function(){
 
+    // anyone logged in?
+    if (localStorage.getItem("savTourUser")){
+        // welcome them and provide a log-out mechanism
+        $("#control-panel-header").append("<span class=\"pull-right\">Welcome, "+localStorage.getItem("savTourUser")+" (<span data-button=\"sign-out\">Sign out</span>)</span>");
+        $("[data-button='sign-out']").on("click",function(){
+            //remove token, user info from localStorage
+            localStorage.clear();
+            // return to home
+            location.href="home.html";
+        })
+    }
+    // no? send them to home.html with a sign-in button
+    else {
+        $("#control-panel-header").append("<button class=\"btn btn-info pull-right\" data-button=\"sign-in\">Sign in</div>");
+        $("[data-button='sign-in']").on("click",function(){
+            location.href="home.html"
+        })
+    }
 
 
     $("#tourstops-tab").on("click", getLocations);
@@ -295,10 +313,14 @@ $(function(){
                 function(response) {
                     console.log(response)
                 },
-                // success callback
+                // success callback: 
                 function(response) {
+                    console.log(response);
+                    // add token and user name to localStorage
                     localStorage.setItem("savTourToken", response.token);
                     localStorage.setItem("savTourUser", response.user);
+                    
+                    //redirect to tour.html page
                     location.href="tour.html";
                 }
             );

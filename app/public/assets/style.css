@@ -164,7 +164,6 @@ input {
     border-radius: 8px !important;
     border-width: 2px !important;
 }
-
 #navtabs {
     float: left;
 }
@@ -218,7 +217,9 @@ input {
     height: 30px;
     width: 300px;
 }
-
+[data-button="sign-out"] {
+    cursor: pointer;
+}
 .btn {
     cursor: pointer;
 }
