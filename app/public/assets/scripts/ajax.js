@@ -1,16 +1,29 @@
-var api = "https://savtourapi.herokuapp.com";
+var api = "http://localhost:3000";
+//var api = "https://savtourapi.herokuapp.com";
 
 var ajax = {
     
     signup: function(userInfo,error,success) {
-         $.post(api + "/api/signup",userInfo, function(response){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/signup",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+            },
+            data: userInfo
+        })
+        .done( function(response){
             if (!response.success) {
                 error(response.message)
             }
             else {
                 success(response)
-            }
-        });
+            }        
+        })
+        .fail( function(err){
+            console.log("Signup error:",err);
+            error(err);
+        })
     },
 
     signin: function(userInfo,error,success){
@@ -26,55 +39,102 @@ var ajax = {
 
    // retrieve locations
     getLocations: function(error,success) {
-        $.get( api + "/api/locations", function(response){
+        $.ajax({
+            method: "GET",
+            url: api + "/api/locations",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                }
+            })
+        .done( function(response){
             if(!response.success) {
                 error(response.message)
             }
             else {
                 success(response)
             }
-        });
+        })
+        .fail( function(err){
+            console.log("Error getting locations:",err);
+        })    
     },
 
     // post a location
     postLocation: function (location, error, success){
-        $.post(api + "/api/new/location", location, function(response){
-            if (!response.success) {
-                error(response.message)
-            }
-            else {
-                success(response)  
-            }    
-        });
+        $.ajax({
+            method: "POST",
+            url: api + "/api/new/location", beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                },
+            data: location
+            })
+            .done ( function(response){
+                if (!response.success) {
+                    error(response.message)
+                }
+                else {
+                    success(response)  
+                } 
+            })
+            .fail ( function(err) {
+                console.log("Error posting a location:",err);
+            })
     },
 
     // remove a location
     // here, we only need location _id
     removeLocation: function( locationId, error, success ){ 
-        $.get(api + "/api/remove/location/" + locationId, function(response){
-          
+        $.ajax({
+            method: "GET",
+            url: api + "/api/remove/location/",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                } 
+        })
+        .done( function(response){         
             if (!response.success) {
                 error(response.message)
             }
             else {
-                success(response)
+                sauccess(response)
             }
-        });
+        })
+        .fail (function(err){
+            console.log("Error removing location:",err);
+        })
     },
 
     updateLocation: function( location, error, success ){
-        $.post(api + "/api/update/location/", function(response) {
+        $.ajax({
+            method: "POST",
+            url: api + "/api/update/location/",
+            data: location,
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                }    
+        })
+        .done( function(response){
             if (!response.success) {
                 error(response.message)
             }
             else {
                 success(response)
             }
-        });        
+        })
+        .fail( function(err){
+            console.log("Error updating location:",err)
+        });    
     },
 
     getFriends: function( error, success ){
-        $.get(api + "/api/friends?source=https://savannahtourofhomes.org/friends-of-the-tour/", function(response){
+        $.ajax({
+            method: "GET",
+            url: api + "/api/friends?source=https://savannahtourofhomes.org/friends-of-the-tour/",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                } 
+        })
+        .done( function(response){
             if (response.error){
                 error(response)
             }
@@ -82,33 +142,65 @@ var ajax = {
                 // response will be object where data is in 'data' key
                 success(response)
             }
-        });
+        })
+        .fail( function(err){
+            console.log("Error retrieving Friends of the Tour:",err)
+        })
     },
 
     addEvent: function( event, error, success ){
-        $.post(api + "/api/new/event", event, function(response){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/new/event",
+            data: event, 
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                } 
+        })
+        .done( function(response){
             if (response.error){
                 error(response)
             }
             else {
                 success(response)
             }
-        });
+        })
+        .fail( function(err){
+            console.log("Error adding event:",err);
+        })
     },
 
     updateEvent: function( event, error, success ){
-        $.post(api + "/api/update/event", event, function(response){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/update/event",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                },
+            data: event
+        })
+        .done( function(response){
             if (response.error){
                 error(response)
             }
             else {
                 success(response)
             }
-        });
+        })
+        .fail( function(err){
+            console.log("Error updating event:",err);
+        })
     },
 
     getEvents: function( error, success ){
-        $.get(api + "/api/events/", function(response){
+        $.ajax({
+            method: "GET",
+            url: api + "/api/events/",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                }
+        })
+        .done( function(response){
             if (response.error){
                 error(response)
             }
@@ -116,17 +208,30 @@ var ajax = {
                 // response will be object where data is in 'data' key
                 success(response)
             }
-        });
+        })
+        .fail( function(err){
+            console.log("Error getting events:",err);
+        })
     },
 
     removeEvents: function( eventID, error, success ){
-        $.get(api + "/api/remove/event/" + eventID, function(response){
+        $.ajax({
+            method: "GET",
+            url: api + "/api/remove/event/" + eventID,
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                }
+        }).
+        done( function(response){
             if (response.error){
                 error(response)
             }
             else {
                 success(response)
             }
-        });
+        })
+        .fail( function(err){
+            console.log("Error removing event:",err);
+        })
     }
 }

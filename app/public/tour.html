@@ -7,7 +7,19 @@
     <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
 
     <!-- JQUERY -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+    
+    <!-- tether and bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+      
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+    <!-- bootstrap js -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
     <!-- popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" type="text/javascript"></script>
 
@@ -16,7 +28,7 @@
 
     <!-- Full Calendar -->
     <link rel='stylesheet' href='fullcalendar-3.6.2/fullcalendar-3.6.2/fullcalendar.css' />
-    <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/lib/jquery.min.js'></script>
+    <!-- <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/lib/jquery.min.js'></script> -->
     <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/lib/moment.min.js'></script>
     <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/fullcalendar.js'></script>
     <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/gcal.js'></script>
@@ -24,10 +36,9 @@
     <script src="http://code.gijgo.com/1.5.1/js/gijgo.js" type="text/javascript"></script>
     <link href="http://code.gijgo.com/1.5.1/css/gijgo.css" rel="stylesheet" type="text/css" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
     <!-- font awesome -->
     <script src="https://use.fontawesome.com/b1a9ff9812.js"></script><link rel="stylesheet" href="https://use.fontawesome.com/b1a9ff9812.css" media="all">
+    
     
     <!-- app stylesheet -->
     <link rel="stylesheet" type="text/css" href="assets/style.css">
@@ -35,116 +46,113 @@
     <script src="assets/scripts/ajax.js"></script>
     <!-- helper functions -->
     <script src="assets/scripts/helper.js"></script>
+    <script src="assets/scripts/calendar.js"></script>
+
 </head>
-	
-	
-	<!-- these scripts go just above the /body tag -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
 <body class="tourpage">
-        <br>
-        <br>
-        <div id="tourpage">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="card">
-                            <div class="card-header">
-                                Control Panel
-                            </div>
-                            <div class="card-body">
-                                <ul class="nav nav-tabs">
-                                    <li class="nav-item">
-                                        <a id="events-tab" role="tab" data-toggle="tab"class="nav-link active" href="#events">Events</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a id="tourstops-tab" role="tab" data-toggle="tab" class="nav-link" href="#tourstops">Tour Stops</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a id="sponsors-tab" role="tab" data-toggle="tab" class="nav-link" href="#sponsors">Sponsors</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a id="friendsoftour-tab" role="tab" data-toggle="tab" class="nav-link" href="#friendsoftour">Friends of Tour</a>
-                                    </li>
-                                </ul>
-                                <br>
-                                <div class="tab-content" id="pills-tabContent">
-                                    <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
-                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="addEvent" onclick="$( '#addEvent').modal('show')">Add New Event</button>
-                                        <br>
-                                        <br>
-                                        <div id="calendar">
-                                            <div id="eventContent">
-                                                <h2 class="blackFont" id="eventTitle"></h2>
-                                                <h5 class="blackFont">Start: </h5><span id="startTime"></span><br>
-                                                <h5 class="blackFont">End: </h5><span id="endTime"></span><br><br>
-                                                <p class="blackFont" id="eventInfo"></p>
-                                                <button id="removeEventButton" type="button" class"blackFont btn btn-warning" data-toggle="modal" data-target="checkModal" onclick="$( '#checkModal').modal('show')">Delete</button>
-                                                <button id="editEventButton" type="button" class"blackFont btn btn-info" data-toggle="modal" data-target="editEvent" onclick="$( '#editEvent').modal('show')">Edit</button>
+    <br>
+    <br>
+    <div id="tourpage">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Control Panel
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a id="events-tab" role="tab" data-toggle="tab"class="nav-link active" href="#events">Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="tourstops-tab" role="tab" data-toggle="tab" class="nav-link" href="#tourstops">Tour Stops</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="sponsors-tab" role="tab" data-toggle="tab" class="nav-link" href="#sponsors">Sponsors</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="friendsoftour-tab" role="tab" data-toggle="tab" class="nav-link" href="#friendsoftour">Friends of Tour</a>
+                                </li>
+                            </ul>
+                            <br>
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="addEvent">Add New Event</button>
+                                    <br>
+                                    <br>
+                                    <div id="calendar">
+                                        <div id="eventContent">
+                                            <h2 class="blackFont" id="eventTitle"></h2>
+                                            <h5 class="blackFont">Start: </h5><span id="startTime"></span><br>
+                                            <h5 class="blackFont">End: </h5><span id="endTime"></span><br><br>
+                                            <p class="blackFont" id="eventInfo"></p>
+                                            <button id="removeEventButton" type="button" class"blackFont btn btn-warning" data-toggle="modal" data-target="checkModal" onclick="$( '#checkModal').modal('show')">Delete</button>
+                                            <button id="editEventButton" type="button" class"blackFont btn btn-info" data-toggle="modal" data-target="editEvent" onclick="$( '#editEvent').modal('show')">Edit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tourstops" role="tabpanel" aria-labelledby="tourstops-tab">
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Location</button>
+                                    <br>
+                                    <br>
+                                    <table class="table" id="tourstopdata">
+                                        <thead>
+                                            <tr>
+                                                <th>actions</th>
+                                                <th>name</th>
+                                                <th>address</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="sponsors" role="tabpanel" aria-labelledby="sponsors-tab">
+                                    <div class="row">
+                                        <button type="button" class="btn btn-info btn-space" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
+                                        <div class="dropdown">
+                                            <button class="dropdownButton btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Sponsor Type
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a id="dropdownAllSponsors" class="dropdown-item" href="#">All Sponsors</a>
+                                                <a id="dropdownSponsorWLocations" class="dropdown-item" href="#">Sponsors with locations</a>
+                                                <a id="dropdownSponsorNoLocations" class="dropdown-item" href="#">Sponsors without locations</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="tourstops" role="tabpanel" aria-labelledby="tourstops-tab">
-                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Location</button>
-                                        <br>
-                                        <br>
-                                        <table class="table" id="tourstopdata">
-                                            <thead>
-                                                <tr>
-                                                    <th>actions</th>
-                                                    <th>name</th>
-                                                    <th>address</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane fade" id="sponsors" role="tabpanel" aria-labelledby="sponsors-tab">
-                                        <div class="row">
-                                            <button type="button" class="btn btn-info btn-space" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
-                                            <div class="dropdown">
-                                                <button class="dropdownButton btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Sponsor Type
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <a id="dropdownAllSponsors" class="dropdown-item" href="#">All Sponsors</a>
-                                                    <a id="dropdownSponsorWLocations" class="dropdown-item" href="#">Sponsors with locations</a>
-                                                    <a id="dropdownSponsorNoLocations" class="dropdown-item" href="#">Sponsors without locations</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <table class="table" id="sponsorsdata">
-                                            <thead>
-                                                <tr>
-                                                    <th>actions</th>
-                                                    <th>name</th>
-                                                    <th>address</th>
-                                                    <th>mapped</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane fade" id="friendsoftour" role="tabpanel" aria-labelledby="friendsoftour-tab">
-                                        <table class="table" id="friendsdata">
-                                            <thead>
-                                                <tr>
-                                                    <th>name</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                            </div>
+                                    <br>
+                                    <table class="table" id="sponsorsdata">
+                                        <thead>
+                                            <tr>
+                                                <th>actions</th>
+                                                <th>name</th>
+                                                <th>address</th>
+                                                <th>mapped</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="friendsoftour" role="tabpanel" aria-labelledby="friendsoftour-tab">
+                                    <table class="table" id="friendsdata">
+                                        <thead>
+                                            <tr>
+                                                <th>name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <br>
+        </div>
+        <br>
 
         </div>
         
@@ -489,8 +497,7 @@
             </div>
 
         </div>
-</div>
-
+    </div>
 </body>
 
 </html>
