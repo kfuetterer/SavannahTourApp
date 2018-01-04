@@ -437,7 +437,7 @@ function getUsers(){
                         if ( currentName !== $("[data-input='editUsername']").val().trim() && $("[data-input='editPassword']").val().trim() === $("[data-input='confirmEditPassword']").val().trim() ) {
                             // create editedUser object
                             var editedUser = {
-                                _id: $(this).attr("data-id"),
+                                id: $(this).attr("data-id"),
                                 username: $("[data-input='editUsername']").val().trim()
                             };
                             if ($("[data-input='editPassword']").val().trim() !== "") {
@@ -540,7 +540,7 @@ function getClients(){
                         var editedClient = {
                             name: $("[data-input='editClientName']").val().trim(),
                             clientEmail: $("[data-input='editClientEmail']").val().trim(),
-                            _id: $(this).attr("data-id")
+                            id: $(this).attr("data-id")
                         };
 
                         if ( currentName !== editedClient.name || currentEmail !== editedClient.clientEmail) {
