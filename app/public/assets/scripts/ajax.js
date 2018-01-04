@@ -1,5 +1,5 @@
-var api = "http://localhost:3000";
-//var api = "https://savtourapi.herokuapp.com";
+//var api = "http://localhost:3000";
+var api = "https://savtourapi.herokuapp.com";
 
 var ajax = {
     
