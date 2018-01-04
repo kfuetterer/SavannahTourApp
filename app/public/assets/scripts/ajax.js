@@ -1,5 +1,5 @@
-//var api = "http://localhost:3000";
-var api = "https://savtourapi.herokuapp.com";
+var api = "http://localhost:3000";
+//var api = "https://savtourapi.herokuapp.com";
 
 var ajax = {
     
@@ -46,6 +46,7 @@ var ajax = {
                 }
         })
         .done( function(response){
+            console.log(response);
             if (response.error){
                 error(response)
             }
@@ -104,6 +105,100 @@ var ajax = {
             console.log("Error removing user:",err);
         })
     },
+
+    // retrieve all client users
+    getClients: function( error, success ){
+        $.ajax({
+            method: "GET",
+            url: api + "/api/clients/",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                }
+        })
+        .done( function(response){
+            console.log(response);
+            if (response.error){
+                error(response)
+            }
+            else {
+                // response will be object where data is in 'data' key
+                success(response.data)
+            }
+        })
+        .fail( function(err){
+            console.log("Error getting clients:",err);
+        })
+    },
+
+    // add a client
+    addClient: function( client, error, success){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/new/client",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                },
+            data: client
+        })
+        .done( function(response){
+            if (response.error){
+                error(response)
+            }
+            else {
+                success(response)
+            }
+        })
+        .fail( function(err){
+            console.log("Error updating client:",err);
+        })
+    }, // end add new client
+    
+    // update a client
+    updateClient: function( client, error, success ){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/update/client",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                },
+            data: client
+        })
+        .done( function(response){
+            if (response.error){
+                error(response)
+            }
+            else {
+                success(response)
+            }
+        })
+        .fail( function(err){
+            console.log("Error updating client:",err);
+        })
+    },
+    
+    // remove a client
+    // here, we only need client _id
+    removeClient: function( clientId, error, success ){ 
+        $.ajax({
+            method: "GET",
+            url: api + "/api/remove/client/" + clientId,
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                } 
+        })
+        .done( function(response){         
+            if (!response.success) {
+                error(response.message)
+            }
+            else {
+                success(response)
+            }
+        })
+        .fail (function(err){
+            console.log("Error removing client:",err);
+        })
+    },
+
 
    // retrieve locations
     getLocations: function(error,success) {

@@ -75,7 +75,7 @@
                                     <a id="friendsoftour-tab" role="tab" data-toggle="tab" class="nav-link" href="#friendsoftour">Friends of Tour</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a id="adduser-tab" role="tab" data-toggle="tab" class="nav-link" href="#adduser">Manager users</a>
+                                    <a id="adduser-tab" role="tab" data-toggle="tab" class="nav-link" href="#adduser">Manager users/clients</a>
                                 </li>
                             </ul>
                             <br>
@@ -151,7 +151,9 @@
                                     </table>
                                 </div>
                                 <div class="tab-pane fade" id="adduser" role="tabpanel" aria-labelledby="adduser-tab">
+                                    <p class="blackFont">Users</p>
                                     <div class="btn btn-info" data-button="add user">Add user</div>
+                                    
                                     <table class="table" id="usersdata">
                                         <thead>
                                             <tr>
@@ -161,6 +163,18 @@
                                         </thead>
                                         <tbody></tbody>
                                     </table>
+                                    <p class="blackFont">Clients</p>
+                                    <div class="btn btn-info" data-button="add client">Add client</div>
+                                    <table class="table" id="clientsdata">
+                                            <thead>
+                                                <tr>
+                                                    <th>Actions</th>
+                                                    <th>Client</th>
+                                                    <th>Email</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>    
                                 </div>
                             </div>
                         </div>
@@ -375,6 +389,44 @@
         </div>
     </div>
 
+    <!-- "add client" Modal -->
+<div id="addClientModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add a new client</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="addClientForm" class="col-lg-12">
+                            <div class="input-group addClient">
+                                <input id="addClientName" type="text" class="form-control" placeholder="Name">
+                            </div>
+                            <br>
+                            <div class="input-group addClient">
+                                <input id="addClientEmail" type="text" class="form-control" placeholder="Email">
+                            </div>
+                            <br>
+                            <div class="wrapper">
+                                <button id="addClientButton" type="button" class="btn btn-outline-light">Submit</button>
+                            </div>
+                            <div id="addClientMessage"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- "Edit User" Modal -->
     <div id="editUserModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -409,6 +461,43 @@
         </div>
     
     <!-- end edit user modal -->
+ 
+    <!-- "Edit Client" Modal -->
+    <div id="editClientModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+    
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title blackFont">Edit Client</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div id="clientEditDisplay" class="col-lg-12">
+                                <div class="input-group">
+                                    <input data-input="editClientName" type="text" name="editClientName">
+                                    <input data-input="editClientEmail" type="text" name="editClientEmail">
+                                </div>
+                            </div>
+                            <!-- end col-lg-12 -->
+                        </div>
+                        <!-- end row -->
+                        <div class="row">
+                            <div id="clientEditMessage" class="col-lg-12"></div>
+                        </div>
+                    </div>
+    
+                    <div class="modal-footer">
+                        <button id="updateClient" type="button" class="btn btn-primary whiteFont">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    
+    <!-- end edit client modal -->
     
 
 <!-- "Error message" Modal -->

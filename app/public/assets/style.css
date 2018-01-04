@@ -223,7 +223,9 @@ input {
 .btn {
     cursor: pointer;
 }
-
+textarea {
+    width: 100%;
+}
 .card-header {
     color: darkslategray;
     font-family: 'EB Garamond', serif;

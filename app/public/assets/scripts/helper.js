@@ -260,11 +260,17 @@ $(function(){
     $("#adduser-tab").on("click", function(event){
         event.preventDefault();
         getUsers();
+        getClients();
     })
 
     // click function to launch add-user modal
     $("[data-button='add user']").on("click", function(){
         $("#addUserModal").modal("show");
+    });
+
+    // click function to launch add-client modal
+    $("[data-button='add client']").on("click", function(){
+        $("#addClientModal").modal("show");
     });
 
     // submit button on add user modal
@@ -304,6 +310,44 @@ $(function(){
 
         };
     }) // end click function for user sign up
+
+    // submit button on add client modal
+    $("#addClientButton").on("click",function(event){
+        event.preventDefault();
+        if ($("#addClientName").val()==="") {
+            $("#addClientName").addClass("has-error");
+            return false;
+        }
+        else if ($("#addClientEmail").val()==="") {
+            $("#addClientEmail").addClass("has-error");
+            return false;
+        }
+
+        // validated form; attempt new user creation
+        else {
+            // remove any text from inputs
+            $("#addClientName","#addClientEmail").val("");
+            var clientInfo = {
+                "name": $("#addClientName").val().trim(),
+                "clientEmail": $("#addClientEmail").val().trim()
+            };
+            // the signup method (in ajax.js) takes the clientInfo object plus error and success callback fns as arguments
+            ajax.addClient( clientInfo,
+                // error callback
+                function(response) {
+                    console.log(response);
+                    $("#addClientMessage").html(response.message);
+                },
+                // success callback
+                function(response) {
+                    // remove any text from inputs
+                    $("#addClientName","#addClientEmail").val("");
+                    $("#addClientMessage").html(response.message);
+                    getClients();                 
+                }
+            );
+        };
+    }) // end click function for adding new client
 
     $("#signinButton").on("click",function(event){
         event.preventDefault();
@@ -444,6 +488,109 @@ function getUsers(){
             } // end response "for" loop
         }) // end getUsers success callback
 } // end getUsers function
+
+function getClients(){
+    // add spinner
+    $("#adduser").append(loadSpinner);
+    
+    // retrieve user data
+    ajax.getClients(
+        // error callback
+        function(response) {
+            console.log(response);
+            loadSpinner.remove();
+            // update error modal and show it
+            $("#errorDisplay").html("There was an error getting clients.");
+            $("#errorModal").modal("show");
+        },
+        // success callback
+        function(clients){
+            loadSpinner.remove();
+            var clientTableBody = $("#clientsdata").children().eq(1);
+            clientTableBody.empty();
+
+            for(var i = 0; i < clients.length; i++){
+            
+                // build action elements
+                var deleteClientIcon = "<i data-action=\"deleteClient\" data-id=\"" + clients[i]._id + "\" data-name=\"" + clients[i].name + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
+                
+                var editClientIcon = "<i data-action=\"editClient\" data-id=\"" + clients[i]._id + "\" data-name=\"" + clients[i].name + "\" data-email=\"" + clients[i].clientEmail + "\" class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                
+                // build row
+                var thisRow = $("<tr><td>" + editClientIcon + " " + deleteClientIcon + "</td><td>" + clients[i].name + "</td><td>" + clients[i].clientEmail + "</td></tr>");
+        
+                // add row to table
+                clientTableBody.append(thisRow);
+
+                // action icon click functions
+                // edit user icon
+                $("[data-action='editClient'").on("click", function(){
+                    
+                    // fill in the modal form with this client's current name
+                    var currentName = $(this).attr("data-name");
+                    $("[data-input='editClientName']").val(currentName);
+                    var currentEmail = $(this).attr("data-email");
+                    $("[data-input='editClientEmail']").val(currentEmail);
+
+                    // add this client's data-id to the modal submit button as an attribute and add a click function, after removing any existing click function
+                    $("#updateClient").attr("data-id",$(this).attr("data-id"));
+                    $("#updateClient").off().on("click", function(){
+
+                        // form validation: Are client name or email changed?
+                        var editedClient = {
+                            name: $("[data-input='editClientName']").val().trim(),
+                            clientEmail: $("[data-input='editClientEmail']").val().trim(),
+                            _id: $(this).attr("data-id")
+                        };
+
+                        if ( currentName !== editedClient.name || currentEmail !== editedClient.clientEmail) {
+                        
+                            // something's changed; update this client
+                            ajax.updateClient(editedClient, 
+                            // error callback
+                            function(error){
+                                $("#adduser").append(error);
+                            },
+                            // success callback
+                            function(response){
+                                $("#clientEditMessage").html(response.message);
+                                getClients();
+                            }); // end ajax method
+                        }; // end form validation condition
+                    }); // end update client click function
+                    
+                    // show the client edit modal, after clearing out any old messages
+                    $("#clientEditMessage").html("");
+                    $("#editClientModal").modal("show");
+                }); // end edit client icon click function
+                    
+                // delete client icon
+                $("[data-action='deleteClient'").on("click", function(){
+                    $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div class='btn-toolbar'><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-secondary btn-space' data-dismiss='modal'>No</button></div>");
+
+                    //delete action
+                    $("#trueDelete").off().on("click", function(){
+                        // removeClient method takes id, error callback, success callback
+                        ajax.removeClient($(this).attr("data-id"), 
+                        // error callback
+                        function(response){
+                            console.log(response);
+                            // update error modal and show it
+                            $("#errorDisplay").html("There was an error deleting this client.");
+                            $("#errorModal").modal("show");
+                        },
+                        //success callback
+                        function(response){
+                            getClients();
+                        }
+                    ); // end removeClient call
+                }); // end "true delete" click
+
+                $("#checkModal").modal("show");
+                }); // end "delete" button click
+            } // end response "for" loop
+        }) // end getClients success callback
+} // end getClients function
 
 /*****************
  * LOCATIONS OPERATIONS
