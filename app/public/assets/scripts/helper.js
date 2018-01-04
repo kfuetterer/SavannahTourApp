@@ -242,7 +242,6 @@ $(function(){
                 $(loadSpinner).remove();
                 var friendsTableBody = $("#friendsdata").children().eq(1);
                 $(friendsTableBody).empty();
-                console.log(response.data);
 
                 for(var i = 0; i < response.data.length; i++){
                     var thisRow = $("<tr><td>" + response.data[i] + "</td></tr>");
@@ -362,9 +361,9 @@ function getUsers(){
         // success callback
         function(users){
             loadSpinner.remove();
-
             var userTableBody = $("#usersdata").children().eq(1);
             userTableBody.empty();
+
             for(var i = 0; i < users.length; i++){
             
                 // build action elements
