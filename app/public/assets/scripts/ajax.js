@@ -1,5 +1,5 @@
-//var api = "http://localhost:3000";
-var api = "https://savtourapi.herokuapp.com";
+var api = "http://localhost:3000";
+//var api = "https://savtourapi.herokuapp.com";
 
 var ajax = {
     
@@ -35,6 +35,74 @@ var ajax = {
                 success(response)
             }
         });
+    },
+
+    getUsers: function( error, success ){
+        $.ajax({
+            method: "GET",
+            url: api + "/api/users/",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                }
+        })
+        .done( function(response){
+            if (response.error){
+                error(response)
+            }
+            else {
+                // response will be object where data is in 'data' key
+                success(response.data)
+            }
+        })
+        .fail( function(err){
+            console.log("Error getting users:",err);
+        })
+    },
+
+    // update an admin user
+    updateUser: function( user, error, success ){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/update/user",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                },
+            data: user
+        })
+        .done( function(response){
+            if (response.error){
+                error(response)
+            }
+            else {
+                success(response)
+            }
+        })
+        .fail( function(err){
+            console.log("Error updating user:",err);
+        })
+    },
+
+    // remove an admin user
+    // here, we only need user _id
+    removeUser: function( userId, error, success ){ 
+        $.ajax({
+            method: "GET",
+            url: api + "/api/remove/user/" + userId,
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                } 
+        })
+        .done( function(response){         
+            if (!response.success) {
+                error(response.message)
+            }
+            else {
+                success(response)
+            }
+        })
+        .fail (function(err){
+            console.log("Error removing user:",err);
+        })
     },
 
    // retrieve locations
@@ -86,7 +154,7 @@ var ajax = {
     removeLocation: function( locationId, error, success ){ 
         $.ajax({
             method: "GET",
-            url: api + "/api/remove/location/",
+            url: api + "/api/remove/location/" + locationId,
             beforeSend: function(request){
                 request.setRequestHeader("x-access-token", localStorage.savTourToken) 
                 } 
@@ -96,7 +164,7 @@ var ajax = {
                 error(response.message)
             }
             else {
-                sauccess(response)
+                success(response)
             }
         })
         .fail (function(err){

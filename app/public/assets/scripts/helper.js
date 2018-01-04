@@ -254,8 +254,21 @@ $(function(){
     });
 
     /*****************
-        USER SIGN UP and SIGN IN BUTTONS
+        USER SIGN UP and SIGN IN FUNCTIONS
     ******************/ 
+    
+    // click function for add user (ie, manage users) tab
+    $("#adduser-tab").on("click", function(event){
+        event.preventDefault();
+        getUsers();
+    })
+
+    // click function to launch add-user modal
+    $("[data-button='add user']").on("click", function(){
+        $("#addUserModal").modal("show");
+    });
+
+    // submit button on add user modal
     $("#signupButton").on("click",function(event){
         event.preventDefault();
         if ($("#signupUser").val()==="") {
@@ -278,11 +291,15 @@ $(function(){
             ajax.signup( userInfo,
                 // error callback
                 function(response) {
-                    console.log(response)
+                    console.log(response);
+                    $("#addUserMessage").html(response);
                 },
                 // success callback
                 function(response) {
-                    console.log(response)
+                    // remove any text from inputs
+                    $("#signupUser","#signupPass").val("");
+                    $("#addUserMessage").html("New user " + userInfo.username + " created.");   
+                    getUsers();                 
                 }
             );
 
@@ -327,6 +344,107 @@ $(function(){
 
         };
     }); // end click function for user sign in
+
+function getUsers(){
+    // add spinner
+    $("#adduser").append(loadSpinner);
+    
+    // retrieve user data
+    ajax.getUsers(
+        // error callback
+        function(response) {
+            console.log(response);
+            loadSpinner.remove();
+            // update error modal and show it
+            $("#errorDisplay").html("There was an error getting users.");
+            $("#errorModal").modal("show");
+        },
+        // success callback
+        function(users){
+            loadSpinner.remove();
+
+            var userTableBody = $("#usersdata").children().eq(1);
+            userTableBody.empty();
+            for(var i = 0; i < users.length; i++){
+            
+                // build action elements
+
+                var deleteIcon = "<i data-action=\"deleteUser\" data-id=\"" + users[i]._id + "\" data-name=\"" + users[i].username + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
+                
+                var editIcon = "<i data-action=\"editUser\" data-id=\"" + users[i]._id + "\" data-name=\"" + users[i].username + "\" class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                
+                // build row
+                var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + "</td><td>" + users[i].username + "</td></tr>");
+        
+                // add row to table
+                userTableBody.append(thisRow);
+
+                // action icon click functions
+                // edit user icon
+                $("[data-action='editUser'").on("click", function(){
+                    // fill in the modal form with this user's current name
+                    var currentName = $(this).attr("data-name");
+                    $("[data-input='editUsername']").val(currentName);
+
+                    // add this user's data-id to the modal submit button as an attribute and add a click function, after removing any existing click function
+                    $("#updateUser").attr("data-id",$(this).attr("data-id"));
+                    $("#updateUser").off().on("click", function(){
+
+                        // form validation: Is username changed and do password/password confirm fields match?
+                        if ( currentName !== $("[data-input='editUsername']").val().trim() && $("[data-input='editPassword']").val().trim() === $("[data-input='confirmEditPassword']").val().trim() ) {
+                            // create editedUser object
+                            var editedUser = {
+                                _id: $(this).attr("data-id"),
+                                username: $("[data-input='editUsername']").val().trim()
+                            };
+                            if ($("[data-input='editPassword']").val().trim() !== "") {
+                                editedUser.password = $("[data-input='editPassword']").val().trim();
+                            }
+                            
+                            ajax.updateUser(editedUser, 
+                            // error callback
+                            function(error){
+                                $("#adduser").append(error);
+                            },
+                            // success callback
+                            function(response){
+                                $("editUserModal").modal("hide");
+                                getUsers();
+                            }); // end ajax method
+                        }; // end form validation condition
+                    }); // end update user click function
+                    
+                    // show the user edit modal
+                    $("#editUserModal").modal("show");
+                }); // end edit user icon click function
+                    
+                // delete user icon
+                $("[data-action='deleteUser'").on("click", function(){
+                    $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div class='btn-toolbar'><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-secondary btn-space' data-dismiss='modal'>No</button></div>");
+
+                    //delete action
+                    $("#trueDelete").off().on("click", function(){
+                        // removeLocation method takes id, error callback, success callback
+                        ajax.removeUser($(this).attr("data-id"), 
+                        // error callback
+                        function(response){
+                            console.log(response);
+                            // update error modal and show it
+                            $("#errorDisplay").html("There was an error deleting this user.");
+                            $("#errorModal").modal("show");
+                        },
+                        //success callback
+                        function(response){
+                            getUsers();
+                        }
+                    ); // end removeUser call
+                }); // end "true delete" click
+
+                $("#checkModal").modal("show");
+                }); // end "delete" button click
+            } // end response "for" loop
+        }) // end getUsers success callback
+} // end getUsers function
 
 /*****************
  * LOCATIONS OPERATIONS

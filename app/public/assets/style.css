@@ -236,7 +236,7 @@ input {
 .fa-trash-o, .fa-pencil-square-o {
     cursor: pointer;
 }
-.modal p, .modal .btn {
+.modal p, .modal .btn, .modal h4 {
     color: #444;
 }
 

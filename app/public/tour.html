@@ -74,6 +74,9 @@
                                 <li class="nav-item">
                                     <a id="friendsoftour-tab" role="tab" data-toggle="tab" class="nav-link" href="#friendsoftour">Friends of Tour</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a id="adduser-tab" role="tab" data-toggle="tab" class="nav-link" href="#adduser">Manager users</a>
+                                </li>
                             </ul>
                             <br>
                             <div class="tab-content" id="pills-tabContent">
@@ -147,6 +150,19 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="tab-pane fade" id="adduser" role="tabpanel" aria-labelledby="adduser-tab">
+                                    <div class="btn btn-info" data-button="add user">Add user</div>
+                                    <table class="table" id="usersdata">
+                                        <thead>
+                                            <tr>
+                                                <th>Actions</th>
+                                                <th>Username</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -320,6 +336,80 @@
     </div>
 
 <!-- end Add Location modal -->
+
+<!-- "add user" Modal -->
+<div id="addUserModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add a new user</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="addUserForm" class="col-lg-12">
+                            <div class="input-group signin">
+                                <input id="signupUser" type="text" class="form-control" placeholder="Username">
+                            </div>
+                            <br>
+                            <div class="input-group signin">
+                                <input id="signupPass" type="password" class="form-control" placeholder="Password">
+                            </div>
+                            <br>
+                            <div class="wrapper">
+                                <button id="signupButton" type="button" class="btn btn-outline-light">Submit</button>
+                            </div>
+                            <div id="addUserMessage"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- "Edit User" Modal -->
+    <div id="editUserModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+    
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title blackFont">Edit User</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div id="userEditDisplay" class="col-lg-12">
+                                <div class="input-group">
+                                    <input data-input="editUsername" type="text" name="editUsername">
+                                    <input data-input="editPassword" type="password" name="editPassword" placeholder="Password">
+                                    <input data-input="confirmEditPassword" type="confirmEditPassword" name="confirmEditPassword" placeholder="Confirm">
+                                </div>
+                            </div>
+                            <!-- end col-lg-12 -->
+                        </div>
+                        <!-- end row -->
+                    </div>
+    
+                    <div class="modal-footer">
+                        <button id="updateUser" type="button" class="btn btn-primary whiteFont" data-dismiss="modal">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    
+    <!-- end edit user modal -->
+    
 
 <!-- "Error message" Modal -->
 <div id="errorModal" class="modal fade" role="dialog">
