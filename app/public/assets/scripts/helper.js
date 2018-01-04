@@ -270,6 +270,7 @@ $(function(){
 
     // click function to launch add-client modal
     $("[data-button='add client']").on("click", function(){
+        $("#addClientMessage").html("");
         $("#addClientModal").modal("show");
     });
 
@@ -497,7 +498,6 @@ function getClients(){
     ajax.getClients(
         // error callback
         function(response) {
-            console.log(response);
             loadSpinner.remove();
             // update error modal and show it
             $("#errorDisplay").html("There was an error getting clients.");
@@ -553,14 +553,14 @@ function getClients(){
                             },
                             // success callback
                             function(response){
-                                $("#clientEditMessage").html(response.message);
+                                $("#editClientMessage").html(response.message);
                                 getClients();
                             }); // end ajax method
                         }; // end form validation condition
                     }); // end update client click function
                     
                     // show the client edit modal, after clearing out any old messages
-                    $("#clientEditMessage").html("");
+                    $("#editClientMessage").html("");
                     $("#editClientModal").modal("show");
                 }); // end edit client icon click function
                     
