@@ -164,7 +164,6 @@ input {
     border-radius: 8px !important;
     border-width: 2px !important;
 }
-
 #navtabs {
     float: left;
 }
@@ -218,11 +217,15 @@ input {
     height: 30px;
     width: 300px;
 }
-
+[data-button="sign-out"] {
+    cursor: pointer;
+}
 .btn {
     cursor: pointer;
 }
-
+textarea {
+    width: 100%;
+}
 .card-header {
     color: darkslategray;
     font-family: 'EB Garamond', serif;
@@ -235,7 +238,7 @@ input {
 .fa-trash-o, .fa-pencil-square-o {
     cursor: pointer;
 }
-.modal p, .modal .btn {
+.modal p, .modal .btn, .modal h4 {
     color: #444;
 }
 
