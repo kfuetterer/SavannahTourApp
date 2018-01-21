@@ -201,7 +201,9 @@ input {
 .tab-content {
     padding: 20px;
 }
-
+#detailMap {
+    height: 400px;
+}
 .tourpage {
     background-image: url("images/savannahHomepage.jpg");
     background-size: cover;
