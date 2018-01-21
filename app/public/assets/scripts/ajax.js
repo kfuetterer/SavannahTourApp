@@ -1,60 +1,263 @@
-//const api = "https://savtourapi.herokuapp.com";
-const api = "http://localhost:3002";
+var api = "http://localhost:3002";
+//var api = "https://savtourapi.herokuapp.com";
 
-const ajax = {
+var ajax = {
     
-    signup: (userInfo,error,success) =>  {
-         $.post(`${api}/api/signup`,userInfo, (response)=>{
+    signup: function(userInfo,error,success) {
+        $.ajax({
+            method: "POST",
+            url: api + "/api/signup",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+            },
+            data: userInfo
+        })
+        .done( function(response){
             if (!response.success) {
                 error(response.message)
             }
             else {
                 success(response)
-                }
-            })
-        },
-
-    signin: (userInfo,error,success) => {
-        $.post(`${api}/api/signin`,userInfo, (response) =>{
-            if(!response.success) {
-                error(response.message)
-            }
-            else {
-                success(response)
-                }
-            })
-        },
-
-   // retrieve locations
-    getLocations: (error,success) =>{
-        $.get(`${api}/api/locations`, (response) => {
-            if(!response.success) {
-                error(response.message)
-            }
-            else {
-                success(response)
-            }
+            }        
+        })
+        .fail( function(err){
+            console.log("Signup error:",err);
+            error(err);
         })
     },
 
-    // post a location
-    postLocation: ( location, error, success ) => {
-        console.log("posting:",location);
-        $.post(`${api}/api/new/location`, location, (response) => {
+    signin: function(userInfo,error,success){
+        console.log("API",api);
+        $.post( api + "/api/signin",userInfo, function(response){
+            if(!response.success) {
+                console.log("Signin error");
+                error(response.message)
+            }
+            else {
+                console.log("Signin success");
+                success(response)
+            }
+        });
+    },
+
+    getUsers: function( error, success ){
+        $.ajax({
+            method: "GET",
+            url: api + "/api/users/",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                }
+        })
+        .done( function(response){
+            console.log(response);
+            if (response.error){
+                error(response)
+            }
+            else {
+                // response will be object where data is in 'data' key
+                success(response.data)
+            }
+        })
+        .fail( function(err){
+            console.log("Error getting users:",err);
+        })
+    },
+
+    // update an admin user
+    updateUser: function( user, error, success ){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/update/user",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                },
+            data: user
+        })
+        .done( function(response){
+            if (response.error){
+                error(response)
+            }
+            else {
+                success(response)
+            }
+        })
+        .fail( function(err){
+            console.log("Error updating user:",err);
+        })
+    },
+
+    // remove an admin user
+    // here, we only need user _id
+    removeUser: function( userId, error, success ){ 
+        $.ajax({
+            method: "GET",
+            url: api + "/api/remove/user/" + userId,
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                } 
+        })
+        .done( function(response){         
             if (!response.success) {
                 error(response.message)
             }
             else {
-                success(response)  
-            }    
+                success(response)
+            }
         })
+        .fail (function(err){
+            console.log("Error removing user:",err);
+        })
+    },
+
+    // retrieve all client users
+    getClients: function( error, success ){
+        $.ajax({
+            method: "GET",
+            url: api + "/api/clients/",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                }
+        })
+        .done( function(response){
+            console.log(response);
+            if (response.error){
+                error(response)
+            }
+            else {
+                // response will be object where data is in 'data' key
+                success(response.data)
+            }
+        })
+        .fail( function(err){
+            console.log("Error getting clients:",err);
+        })
+    },
+
+    // add a client
+    addClient: function( client, error, success){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/new/client",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                },
+            data: client
+        })
+        .done( function(response){
+            if (response.error){
+                error(response)
+            }
+            else {
+                success(response)
+            }
+        })
+        .fail( function(err){
+            console.log("Error updating client:",err);
+        })
+    }, // end add new client
+    
+    // update a client
+    updateClient: function( client, error, success ){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/update/client",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                },
+            data: client
+        })
+        .done( function(response){
+            if (response.error){
+                error(response)
+            }
+            else {
+                success(response)
+            }
+        })
+        .fail( function(err){
+            console.log("Error updating client:",err);
+        })
+    },
+    
+    // remove a client
+    // here, we only need client _id
+    removeClient: function( clientId, error, success ){ 
+        $.ajax({
+            method: "GET",
+            url: api + "/api/remove/client/" + clientId,
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                } 
+        })
+        .done( function(response){         
+            if (!response.success) {
+                error(response.message)
+            }
+            else {
+                success(response)
+            }
+        })
+        .fail (function(err){
+            console.log("Error removing client:",err);
+        })
+    },
+
+
+   // retrieve locations
+    getLocations: function(error,success) {
+        $.ajax({
+            method: "GET",
+            url: api + "/api/locations",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                }
+            })
+        .done( function(response){
+            if(!response.success) {
+                error(response.message)
+            }
+            else {
+                success(response)
+            }
+        })
+        .fail( function(err){
+            console.log("Error getting locations:",err);
+        })    
+    },
+
+    // post a location
+    postLocation: function (location, error, success){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/new/location", beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                },
+            data: location
+            })
+            .done ( function(response){
+                if (!response.success) {
+                    error(response.message)
+                }
+                else {
+                    success(response)  
+                } 
+            })
+            .fail ( function(err) {
+                console.log("Error posting a location:",err);
+            })
     },
 
     // remove a location
     // here, we only need location _id
-    removeLocation: ( locationId, error, success ) => { 
-        $.get(`${api}/api/remove/location/${locationId}`, (response) => {
-          
+    removeLocation: function( locationId, error, success ){ 
+        $.ajax({
+            method: "GET",
+            url: api + "/api/remove/location/" + locationId,
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                } 
+        })
+        .done( function(response){         
             if (!response.success) {
                 error(response.message)
             }
@@ -62,43 +265,42 @@ const ajax = {
                 success(response)
             }
         })
+        .fail (function(err){
+            console.log("Error removing location:",err);
+        })
     },
 
-    updateLocation: ( location, error, success ) => {
-        $.post(`${api}/api/update/location/`, (response)=> {
+    updateLocation: function( location, error, success ){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/update/location/",
+            data: location,
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                }    
+        })
+        .done( function(response){
             if (!response.success) {
                 error(response.message)
             }
             else {
                 success(response)
             }
-        });        
+        })
+        .fail( function(err){
+            console.log("Error updating location:",err)
+        });    
     },
 
-    addFriend: ( friend, error, success ) => {
-        $.post(`${api}/api/new/friend`, friend, (response) => {
-            if (response.error){
-                error(response)
-            }
-            else {
-                success(response)
-            }
+    getFriends: function( error, success ){
+        $.ajax({
+            method: "GET",
+            url: api + "/api/friends?source=https://savannahtourofhomes.org/friends-of-the-tour/",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                } 
         })
-        },
-
-    removeFriend: ( friendID, error, success ) => {
-        $.get(`${api}/api/remove/friend/${friendId}`, (response) => {
-            if (response.error){
-                error(response)
-            }
-            else {
-                success(response)
-            }
-        })
-        },
-
-    getFriends: ( error, success ) => {
-        $.get(`${api}/api/friendsoftour/`, (response)=>{
+        .done( function(response){
             if (response.error){
                 error(response)
             }
@@ -106,17 +308,96 @@ const ajax = {
                 // response will be object where data is in 'data' key
                 success(response)
             }
-            }) 
-        },
+        })
+        .fail( function(err){
+            console.log("Error retrieving Friends of the Tour:",err)
+        })
+    },
 
-    updateFriend: ( friend, error, success ) => {
-        $.post(`${api}/api/update/friend/`, (response)=> {
-            if (!response.success) {
-                error(response.message)
+    addEvent: function( event, error, success ){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/new/event",
+            data: event, 
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                } 
+        })
+        .done( function(response){
+            if (response.error){
+                error(response)
             }
             else {
                 success(response)
             }
-        });        
+        })
+        .fail( function(err){
+            console.log("Error adding event:",err);
+        })
     },
+
+    updateEvent: function( event, error, success ){
+        $.ajax({
+            method: "POST",
+            url: api + "/api/update/event",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                },
+            data: event
+        })
+        .done( function(response){
+            if (response.error){
+                error(response)
+            }
+            else {
+                success(response)
+            }
+        })
+        .fail( function(err){
+            console.log("Error updating event:",err);
+        })
+    },
+
+    getEvents: function( error, success ){
+        $.ajax({
+            method: "GET",
+            url: api + "/api/events/",
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                }
+        })
+        .done( function(response){
+            if (response.error){
+                error(response)
+            }
+            else {
+                // response will be object where data is in 'data' key
+                success(response)
+            }
+        })
+        .fail( function(err){
+            console.log("Error getting events:",err);
+        })
+    },
+
+    removeEvents: function( eventID, error, success ){
+        $.ajax({
+            method: "GET",
+            url: api + "/api/remove/event/" + eventID,
+            beforeSend: function(request){
+                request.setRequestHeader("x-access-token", localStorage.savTourToken) 
+                }
+        }).
+        done( function(response){
+            if (response.error){
+                error(response)
+            }
+            else {
+                success(response)
+            }
+        })
+        .fail( function(err){
+            console.log("Error removing event:",err);
+        })
+    }
 }

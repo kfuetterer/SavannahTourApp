@@ -7,12 +7,28 @@
     <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
 
     <!-- JQUERY -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+    
+    <!-- tether and bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+      
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+    <!-- bootstrap js -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
     <!-- popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" type="text/javascript"></script>
 
+    <script src'jquery-timepicker/jquery.timepicker.js' type="text/javascript"></script>
+    <link href='jquery-timepicker/jquery.timepicker.min.js'>
+
+    <!-- Full Calendar -->
     <link rel='stylesheet' href='fullcalendar-3.6.2/fullcalendar-3.6.2/fullcalendar.css' />
-    <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/lib/jquery.min.js'></script>
+    <!-- <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/lib/jquery.min.js'></script> -->
     <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/lib/moment.min.js'></script>
     <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/fullcalendar.js'></script>
     <script src='fullcalendar-3.6.2/fullcalendar-3.6.2/gcal.js'></script>
@@ -20,10 +36,9 @@
     <script src="http://code.gijgo.com/1.5.1/js/gijgo.js" type="text/javascript"></script>
     <link href="http://code.gijgo.com/1.5.1/css/gijgo.css" rel="stylesheet" type="text/css" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
     <!-- font awesome -->
     <script src="https://use.fontawesome.com/b1a9ff9812.js"></script><link rel="stylesheet" href="https://use.fontawesome.com/b1a9ff9812.css" media="all">
+    
     
     <!-- app stylesheet -->
     <link rel="stylesheet" type="text/css" href="assets/style.css">
@@ -31,14 +46,12 @@
     <script src="assets/scripts/ajax.js"></script>
     <!-- helper functions -->
     <script src="assets/scripts/helper.js"></script>
+    <script src="assets/scripts/calendar.js"></script>
+
 </head>
-	
-	
-	<!-- these scripts go just above the /body tag -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
 <body class="tourpage">
+<<<<<<< HEAD
         <br>
         <br>
         <div id="tourpage">
@@ -104,11 +117,73 @@
                                             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteLocationModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Location</button>
                                             </div> -->
+=======
+    <br>
+    <br>
+    <div class="container" id="tourpage">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div id="control-panel-header" class="card-header">
+                            Control Panel
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a id="events-tab" role="tab" data-toggle="tab"class="nav-link active" href="#events">Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="tourstops-tab" role="tab" data-toggle="tab" class="nav-link" href="#tourstops">Tour Stops</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="sponsors-tab" role="tab" data-toggle="tab" class="nav-link" href="#sponsors">Sponsors</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="friendsoftour-tab" role="tab" data-toggle="tab" class="nav-link" href="#friendsoftour">Friends of Tour</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="adduser-tab" role="tab" data-toggle="tab" class="nav-link" href="#adduser">Manager users/clients</a>
+                                </li>
+                            </ul>
+                            <br>
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="addEvent">Add New Event</button>
+                                    <br>
+                                    <br>
+                                    <div id="calendar">
+                                        <div id="eventContent">
+                                            <h2 class="blackFont" id="eventTitle"></h2>
+                                            <h5 class="blackFont">Start: </h5><span id="startTime"></span><br>
+                                            <h5 class="blackFont">End: </h5><span id="endTime"></span><br><br>
+                                            <p class="blackFont" id="eventInfo"></p>
+                                            <button id="removeEventButton" type="button" class"blackFont btn btn-warning" data-toggle="modal" data-target="checkModal" onclick="$( '#checkModal').modal('show')">Delete</button>
+                                            <button id="editEventButton" type="button" class"blackFont btn btn-info" data-toggle="modal" data-target="editEvent" onclick="$( '#editEvent').modal('show')">Edit</button>
+>>>>>>> 5a1b9c15503f4be3f7f12da5b03abde4604ef8e1
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="sponsors" role="tabpanel" aria-labelledby="sponsors-tab">
+                                </div>
+                                <div class="tab-pane fade" id="tourstops" role="tabpanel" aria-labelledby="tourstops-tab">
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Location</button>
+                                    <br>
+                                    <br>
+                                    <table class="table" id="tourstopdata">
+                                        <thead>
+                                            <tr>
+                                                <th>actions</th>
+                                                <th>name</th>
+                                                <th>address</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="sponsors" role="tabpanel" aria-labelledby="sponsors-tab">
+                                    <div class="row">
+                                        <button type="button" class="btn btn-info btn-space" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addLocationModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
                                         <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button class="dropdownButton btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Sponsor Type
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -117,51 +192,65 @@
                                                 <a id="dropdownSponsorNoLocations" class="dropdown-item" href="#">Sponsors without locations</a>
                                             </div>
                                         </div>
-                                        <table class="table" id="sponsorsdata">
+                                    </div>
+                                    <br>
+                                    <table class="table" id="sponsorsdata">
+                                        <thead>
+                                            <tr>
+                                                <th>actions</th>
+                                                <th>name</th>
+                                                <th>address</th>
+                                                <th>mapped</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="friendsoftour" role="tabpanel" aria-labelledby="friendsoftour-tab">
+                                    <table class="table" id="friendsdata">
+                                        <thead>
+                                            <tr>
+                                                <th>name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="adduser" role="tabpanel" aria-labelledby="adduser-tab">
+                                    <p class="blackFont">Users</p>
+                                    <div class="btn btn-info" data-button="add user">Add user</div>
+                                    
+                                    <table class="table" id="usersdata">
+                                        <thead>
+                                            <tr>
+                                                <th>Actions</th>
+                                                <th>Username</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                    <p class="blackFont">Clients</p>
+                                    <div class="btn btn-info" data-button="add client">Add client</div>
+                                    <table class="table" id="clientsdata">
                                             <thead>
                                                 <tr>
-                                                    <th>name</th>
-                                                    <th>type</th>
-                                                    <th>address</th>
+                                                    <th>Actions</th>
+                                                    <th>Client</th>
+                                                    <th>Email</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                        <div class="row">
-                                            <div class="col-md-4 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addSponsorModal" onclick="$( '#addSponsorModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Sponsor</button>
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="updateSponsorModal" onclick="$( '#updateSponsorModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Update Sponsor</button>
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteSponsorModal" onclick="$( '#deleteSponsorModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Sponsor</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="friendsoftour" role="tabpanel" aria-labelledby="friendsoftour-tab">
-                                        <p class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. </p>
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-info" data-toggle="modal" data-target="addLocationModal" onclick="$( '#addFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Add Friend of Tour</button>
-                                            </div>
-                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-warning" data-toggle="modal" data-target="updateLocationModal" onclick="$( '#updateFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-pushpin"></span> Update Friend of Tour</button>
-                                            </div>
-                                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn-tour btn btn-lg btn-danger" data-toggle="modal" data-target="deleteLocationModal" onclick="$( '#deleteFriendofTourModal').modal('show')"><span class="glyphicon glyphicon-remove"></span> Delete Friend of Tour</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                    </div>
+                                            <tbody></tbody>
+                                        </table>    
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <br>
+        </div>
+        <br>
 
         </div>
         
@@ -173,7 +262,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add a location</h4>
+                        <h4 class="modal-title blackFont">Add Location</h4>
                     </div>
 
                     <div class="modal-body">
@@ -182,7 +271,7 @@
                                     <p>All fields are required</p>
 
                                 <input data-input="locName" id="locName" name="locName" type="text" class="form-control" placeholder="Name">
-
+                                <br>
                                 <div id="type" data-name="Type" data-boolean="radio" class="btn-group">
                                     <p>Type:
                                         <label class="radio-inline active">
@@ -196,8 +285,7 @@
                                     </label>
                                     </p>
                                 </div>
-
-
+                                <br>
                                 <div id="shouldMap" data-boolean="radio" data-name="Map?" class="btn-group">
                                     <p>Map?
                                         <label class="radio-inline active">
@@ -211,20 +299,19 @@
                                     </p>
                                 </div>
 
-
                                 <input data-input="locAddress" id="locAddress" type="text" class="form-control" placeholder="Address">
-
+                                <br>
                                 <div class="form-group">
                                     <textarea data-input="locDesc" class="form-control" rows="5" id="locDesc" placeholder="Description"></textarea>
                                 </div>
-
                                 <!-- to do: replace URL input with image uploading -->
                                 <input data-input="locImage" id="locImage" type="text" class="form-control" placeholder="Image (URL)">
-
+                                <br>
                                 <p>Position:</p>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <input data-input="locPosLat" id="locPosLat" type="text" class="form-control" placeholder="Latitude (like 32.0557311)">
                                 </div>
+                                <br>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <input data-input="locPosLng" id="locPosLng" type="text" class="form-control" placeholder="Longitude (like -81.1005919)">
                                 </div>
@@ -236,7 +323,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button id="addLocationButton" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                        <button id="addLocationButton" type="button" class="btn btn-primary whiteFont" data-dismiss="modal">Submit</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -252,62 +339,69 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Edit a location</h4>
+                    <h4 class="modal-title blackFont">Edit Location</h4>
                 </div>
-
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <p>All fields are required</p>
+                        <div id="locationEditDisplay" class="col-lg-7 col-sm-7 col-md-7" style="border-right: .5px solid lightgray">
 
-                            <input data-input="editLocName" id="editLocName" name="editLocName" type="text" class="form-control" placeholder="Name">
-
-                            <div id="editType" class="btn-group">
+                        </div>
+                        <div class="col-lg-5 col-sm-5 col-md-5">
+                            <button type="button" class="btn btn-default display" data-target="#editLocName">Change Name</button>
+                            <br>
+                            <input data-input="editLocName" id="editLocName" name="editLocName" type="text" style="display:none; margin-top: 20px" class="form-control" placeholder="Name">
+                            <br>
+                            <button type="button" class="btn btn-default display" data-target="#editType">Change Type</button>
+                            <br>
+                            <div id="editType" style="display:none; margin-top: 20px" class="btn-group">
                                 <p>Type:
                                     <label class="radio-inline active">
-                                    <input name="editType" type="radio" value="stop" checked="">
-                                    Tour Stop
-                                </label>
-
+                                        <input name="editType" type="radio" value="stop" checked="">
+                                        Tour Stop
+                                    </label>
                                     <label class="radio-inline">
-                                    <input name="editType" type="radio" value="sponsor">
-                                    Sponsor
-                                </label>
+                                        <input name="editType" type="radio" value="sponsor">
+                                        Sponsor
+                                    </label>
                                 </p>
                             </div>
-
-
-                            <div id="editShouldMap" class="btn-group">
+                            <br>
+                            <button type="button" class="btn btn-default display" data-target="#editShouldMap">Change Map</button>
+                            <br>
+                            <div id="editShouldMap" style="display:none; margin-top: 20px" class="btn-group">
                                 <p>Map?
                                     <label class="radio-inline active">
-                                    <input type="radio" value=true name="editMapOpt" checked="">
-                                    Yes
-                                </label>
+                                        <input type="radio" value=true name="editMapOpt" checked="">
+                                        Yes
+                                    </label>
                                     <label class="radio-inline">
-                                    <input type="radio" value=false name="editMapOpt">
-                                    No
-                                </label>
+                                        <input type="radio" value=false name="editMapOpt">
+                                        No
+                                    </label>
                                 </p>
                             </div>
-
-
-                            <input data-input="editLocAddress" id="editLocAddress" type="text" class="form-control" placeholder="Address">
-
-                            <div class="form-group">
+                            <br>
+                            <button type="button" class="btn btn-default display" data-target="#editLocAddress">Change Address</button>
+                            <br>
+                            <input data-input="editLocAddress" style="display:none; margin-top: 20px" id="editLocAddress" type="text" class="form-control" placeholder="Address">
+                            <br>
+                            <button type="button" class="btn btn-default display" data-target="#editLocDescription">Change Description</button>
+                            <br>
+                            <div class="form-group" id="editLocDescription" style="display:none; margin-top: 20px">
                                 <textarea data-input="editLocDesc" class="form-control" rows="5" id="editLocDesc" placeholder="Description"></textarea>
                             </div>
-
+                            <br>
                             <!-- to do: replace URL input with image uploading -->
-                            <input data-input="editLocImage" id="editLocImage" type="text" class="form-control" placeholder="Image (URL)">
-
-                            <p>Position:</p>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <button type="button" class="btn btn-default display" data-target="#editLocImage">Change Image</button>
+                            <br>
+                            <input data-input="editLocImage" style="display:none; margin-top: 20px" id="editLocImage" type="text" class="form-control" placeholder="Image (URL)">
+                            <br>
+                            <button type="button" class="btn btn-default display" data-target="#editLocPos">Change Position</button>
+                            <div id="editLocPos" style="display:none; margin-top: 20px">
+                                <p>Position:</p>
                                 <input data-input="editLocPosLat" id="editLocPosLat" type="text" class="form-control" placeholder="Latitude">
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <input data-input="editLocPosLng" id="editLocPosLng" type="text" class="form-control" placeholder="Longitude">
                             </div>
-
                         </div>
                         <!-- end col-lg-12 -->
                     </div>
@@ -315,7 +409,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button id="addLocationButton" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                    <button id="addLocationButton" type="button" class="btn btn-primary whiteFont" data-dismiss="modal">Submit</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -324,6 +418,155 @@
     </div>
 
 <!-- end Add Location modal -->
+
+<!-- "add user" Modal -->
+<div id="addUserModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add a new user</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="addUserForm" class="col-lg-12">
+                            <div class="input-group signin">
+                                <input id="signupUser" type="text" class="form-control" placeholder="Username">
+                            </div>
+                            <br>
+                            <div class="input-group signin">
+                                <input id="signupPass" type="password" class="form-control" placeholder="Password">
+                            </div>
+                            <br>
+                            <div class="wrapper">
+                                <button id="signupButton" type="button" class="btn btn-outline-light">Submit</button>
+                            </div>
+                            <div id="addUserMessage"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- "add client" Modal -->
+<div id="addClientModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add a new client</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="addClientForm" class="col-lg-12">
+                            <div class="input-group addClient">
+                                <input id="addClientName" type="text" class="form-control" placeholder="Name">
+                            </div>
+                            <br>
+                            <div class="input-group addClient">
+                                <input id="addClientEmail" type="text" class="form-control" placeholder="Email">
+                            </div>
+                            <br>
+                            <div class="wrapper">
+                                <button id="addClientButton" type="button" class="btn btn-outline-light">Submit</button>
+                            </div>
+                            <div id="addClientMessage"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- "Edit User" Modal -->
+    <div id="editUserModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+    
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title blackFont">Edit User</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div id="userEditDisplay" class="col-lg-12">
+                                <div class="input-group">
+                                    <input data-input="editUsername" type="text" name="editUsername">
+                                    <input data-input="editPassword" type="password" name="editPassword" placeholder="Password">
+                                    <input data-input="confirmEditPassword" type="confirmEditPassword" name="confirmEditPassword" placeholder="Confirm">
+                                </div>
+                            </div>
+                            <!-- end col-lg-12 -->
+                        </div>
+                        <!-- end row -->
+                    </div>
+    
+                    <div class="modal-footer">
+                        <button id="updateUser" type="button" class="btn btn-primary whiteFont" data-dismiss="modal">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    
+    <!-- end edit user modal -->
+ 
+    <!-- "Edit Client" Modal -->
+    <div id="editClientModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+    
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title blackFont">Edit Client</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div id="clientEditDisplay" class="col-lg-12">
+                                <div class="input-group">
+                                    <input data-input="editClientName" type="text" name="editClientName">
+                                    <input data-input="editClientEmail" type="text" name="editClientEmail">
+                                </div>
+                            </div>
+                            <!-- end col-lg-12 -->
+                        </div>
+                        <!-- end row -->
+                        <div class="row">
+                            <div id="editClientMessage" class="col-lg-12"></div>
+                        </div>
+                    </div>
+    
+                    <div class="modal-footer">
+                        <button id="updateClient" type="button" class="btn btn-primary whiteFont">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    
+    <!-- end edit client modal -->
+    
 
 <!-- "Error message" Modal -->
 <div id="errorModal" class="modal fade" role="dialog">
@@ -351,7 +594,104 @@
 
         </div>
     </div>
-<!-- end error message modal -->
+
+    <div id="addEvent" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title blackFont">Add Event</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                <label class="blackFont">Title</label>
+                                <input data-input="addEventTitle" id="addEventTitle" name="addEventTitle" type="text" class="form-control" placeholder="Title">
+                                <br>
+                                <label class="blackFont">Description</label>
+                                <input data-input="addEventDescription" id="addEventDescription" type="text" class="form-control" placeholder="Description">
+                                <br>
+                                <!--Start Datepicker-->
+                                <label class="blackFont">Start Date</label>
+                                <input id="eventStartDate" class="datepicker1 form-control" placeholder="yyyy-mm-dd"/>
+                                <br>
+                                <label class="blackFont">End Date</label>
+                                <input id="eventEndDate" class="datepicker2 form control" placeholder="yyyy-mm-dd"/>
+                                <br>
+                                <!--Start Timepicker-->
+                                <label class="blackFont">Start Time</label>
+                                <input id="eventStartTime" class="timepicker form-control" placeholder="00:00:00">
+                                <br>
+                                <label class="blackFont">End Time</label>
+                                <input id="eventEndTime" class="timepicker form-control" placeholder="00:00:00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="addNewEventButton" type="button" class="whiteFont btn btn-primary" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<!-- end addEvent modal -->
+
+  <div id="editEvent" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title blackFont">Edit Event</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="eventEditDisplay" class="col-lg-7 col-md-7 col-sm-7" style="border-right: .5px solid lightgray">
+
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-5">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-default display" data-target="#editEventTitle">Change Title</button>
+                                <br>
+                                <input data-input="editEventTitle" style="display:none; margin-top: 20px" id="editEventTitle" name="editEventTitle" type="text" class="form-control" placeholder="Title">
+                                <br>
+                                <button type="button" class="btn btn-default display" data-target="#editEventDescription">Change Description</button>
+                                <br>
+                                <input data-input="editEventDescription" style="display:none; margin-top: 20px" id="editEventDescription" type="text" class="form-control" placeholder="Description">
+                                <br>
+                                <!--Start Datepicker-->
+                                <button type="button" class="btn btn-default display" data-target="#editEventStartDate">Change Start Date</button>
+                                <br>
+                                <input id="editEventStartDate" style="display:none; margin-top: 20px" class="datepicker3 form-control" placeholder="yyyy-mm-dd"/>
+                                <br>
+                                <button type="button" class="btn btn-default display" data-target="#editEventEndDate">Change End Date</button>
+                                <br>
+                                <input id="editEventEndDate" style="display:none; margin-top: 20px" class="datepicker4 form control" placeholder="yyyy-mm-dd"/>
+                                <br>
+                                <!--Start Timepicker-->
+                                <button type="button" class="btn btn-default display" data-target="#editEventStartTime">Change Start Time</button>
+                                <br>
+                                <input id="editEventStartTime" style="display:none; margin-top: 20px" class="timepicker form-control" placeholder="00:00:00">
+                                <br>
+                                <button type="button" class="btn btn-default display" data-target="#editEventEndTime">Change End Time</button>
+                                <br>             
+                                <input id="editEventEndTime" style="display:none; margin-top: 20px" class="timepicker form-control" placeholder="00:00:00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="updateEventButton" type="button" class="whiteFont btn btn-primary" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 <!-- "Action check" Modal -->
 <div id="checkModal" class="modal fade" role="dialog">
@@ -361,7 +701,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Just to be sure ...</h4>
+                    <h4 class="modal-title blackFont">Just to be sure ...</h4>
                 </div>
 
                 <div class="modal-body">
@@ -379,7 +719,32 @@
 
         </div>
 </div>
-<!-- end action check modal -->
+
+<div id="detailedLocation" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title blackFont">Detailed View</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="detailedDisplay" class="col-lg-12">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </body>
 
 </html>

@@ -1,110 +1,282 @@
 // load spinner
 var loadSpinner = $("<div>").attr("id","loadSpinner").html("<i class=\"fa fa-refresh fa-spin fa-3x fa-fw\"></i><span class=\"sr-only\">Loading...</span>");
 
+var googleApi = "";
+
 // doc ready function
 $(function(){
 
-    // $('#datepicker').datepicker({
-    //     uiLibrary: 'bootstrap4',
-    //     iconsLibrary: 'fontawesome'
-    // });
+    // anyone logged in?
+    if (localStorage.getItem("savTourUser")){
+        // welcome them and provide a log-out mechanism
+        $("#control-panel-header").append("<span class=\"pull-right\">Welcome, "+localStorage.getItem("savTourUser")+" (<span data-button=\"sign-out\">Sign out</span>)</span>");
+        $("[data-button='sign-out']").on("click",function(){
+            //remove token, user info from localStorage
+            localStorage.clear();
+            // return to home
+            location.href="home.html";
+        })
+    }
+    // no? send them to home.html with a sign-in button
+    else {
+        $("#control-panel-header").append("<button class=\"btn btn-info pull-right\" data-button=\"sign-in\">Sign in</div>");
+        $("[data-button='sign-in']").on("click",function(){
+            location.href="home.html"
+        })
+    }
 
-        //var CLIENT_ID = '439243599097-lerjf9s77a5l755l7rklijr6jb23ouu9.apps.googleusercontent.com';
-        //API KEY: AIzaSyCe-TswixIGT0FYQGnCqxUwWPj-urYA6HI
-
-    $('#calendar').fullCalendar({
-        googleCalendarApiKey: 'AIzaSyCe-TswixIGT0FYQGnCqxUwWPj-urYA6HI',
-        eventSources: [
-            {
-                googleCalendarId: 'u7lunt18utajm5dd2ifbqsiegk@group.calendar.google.com'
-            }
-        ],
-        editable: true,
-        weekMode: 'liquid',
-        defaultView: 'month',
-        header: {
-            left:   'today prev,next',
-            center: 'title',
-            right:  'month, agendaWeek, agendaDay'
-        },
-        eventRender: function (event, element) {
-            element.attr('href', 'javascript:void(0);');
-            element.click(function() {
-                $("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
-                $("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
-                $("#eventInfo").html(event.description);
-                $("#eventLink").attr('href', event.url);
-                $("#eventContent").dialog({ modal: true, title: event.title, width:350});
-            });
-        },
-        events: [
-
-        ]
-    });
-
-    $("events-tab").on("click", function(event){
-
-    });
-
-    var event={id:1 , title: 'New event', start:  new Date()};
-
-    $('#calendar').fullCalendar( 'renderEvent', event, true);
-
-        // "name": name,
-        // "type": type,
-        // "map": map,
-        // "address": address,
-        // "description": description,
-        // "image": image,
-        // "pos": pos
 
     $("#tourstops-tab").on("click", getLocations);
 
     $("#sponsors-tab").on("click", function(event){
+    
+        // add load spinner
+        $("#tourstops").append(loadSpinner);
+
         ajax.getLocations( 
+            
             // error callback
             function(response) {
+
+                // remove load spinner
+                $(loadSpinner).remove();
                 console.log("There was an error:",response.message);
-            },
+                // update error modal and show it
+                $("#errorDisplay").html("There was an error retrieving your data.");
+                $("#errorModal").modal("show");
+            }, // end error callback
+
             // success callback
             function(response) {
-                console.log(response);
-
-                //only retrieve type: sponsor, for all sponsors
-                //only retrieve type: sponsor, map: true, for all sponsors with tourstops
-                //only retrieve type: sponsor, map: false, for all sponsors without tourstops
-
-                var sponsorTableBody = $("sponsorsdata").children().eq(1);
-
+                googleApi = response.data.googleApi;
                 $("#dropdownAllSponsors").on("click", function (event) {
+                    $(loadSpinner).remove();
+                    var sponsorTableBody = $("#sponsorsdata").children().eq(1);
+                    $(sponsorTableBody).empty();
                     for(var i = 0; i < response.data.length; i++){
                         if (response.data[i].type === "sponsor") {
-                            $(sponsorTableBody).append("<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>");
-                        }
-                    }
-                });
 
-                $("#dropdownSponsorWLocations").on("click", function (event) {
-                    for(var i = 0; i < response.data.length; i++){
-                        if (response.data[i].type === "sponsor" && response.data[i].map === "true") {
-                            $(sponsorTableBody).append("<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>");
-                        }
-                    }
-                });
+                            // build contextual icons
+                            var deleteIcon = "<i data-action=\"delete\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
+                            var editIcon = "<i data-action=\"edit\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\" data-address=\"" + response.data[i].address + "\" data-description=\"" + response.data[i].description + "\" data-image=\"" + response.data[i].image + "\" data-lat=\"" + response.data[i].pos.lat + "\" data-lng=\"" + response.data[i].pos.lng + "\" class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                            var detailedIcon = "<i data-action=\"view\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\" data-address=\"" + response.data[i].address + "\" data-description=\"" + response.data[i].description + "\" data-image=\"" + response.data[i].image + "\" data-lat=\"" + response.data[i].pos.lat + "\" data-lng=\"" + response.data[i].pos.lng + "\" class=\"fa fa-id-card-o\" aria-hidden=\"true\"></i>";
+
+                            // build row
+                            var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + " " + detailedIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td><td>" + response.data[i].map + "</td></tr>");
+                            // add row to table
+                            sponsorTableBody.append(thisRow);
+
+                            $("[data-action='view'").on("click", function(){
+                                console.log("you clicked view");
+                                $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                        
+                                $("#detailedLocation").modal("show");    
+                            });
+
+                            $("[data-action='edit'").on("click", function(){
+                                $("#locationEditDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                                            
+                                $("#editLocationModal").modal("show");
+                            });
+                            
+                            // add click listeners to icons
+                            // delete
+                            $("[data-action='delete'").on("click", function(){
+                                $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-info btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default btn-space' data-dismiss='modal'>No</button>");
+
+                                //delete action
+                                $("#trueDelete").on("click", function(){
+                                    // removeLocation method takes id, error callback, success callback
+                                    ajax.removeLocation($(this).attr("data-id"), 
+                                    // error callback
+                                    function(response){
+                                        console.log(response);
+                                        // update error modal and show it
+                                        $("#errorDisplay").html("There was an error deleting this tour stop.");
+                                        $("#errorModal").modal("show");
+                                    },
+                                    //success callback
+                                    function(response){
+                                        getLocations();
+                                    }
+                                ); // end removeLocation call
+                            }); // end "true delete" click
+
+                            $("#checkModal").modal("show");
+                            }) // end "delete" button click
+                        } // end type is "stop" condition
+                    } // end response "for" loop
+                }); // end dropdownAllSponsors function
                 
-                $("dropdownSponsorNoLocations").on("click", function (event) {
+                $("#dropdownSponsorWLocations").on("click", function (event) {
+                    $(loadSpinner).remove();
+                    var sponsorTableBody = $("#sponsorsdata").children().eq(1);
+                    $(sponsorTableBody).empty();
                     for(var i = 0; i < response.data.length; i++){
-                        if (response.data[i].type === "sponsor" && response.data[i].map === "false") {
-                            $(sponsorTableBody).append("<tr><td>" + response.data[i].name + "</td><td>" + response.data[i].type + "</td><td>" + response.data[i].address + "</td></tr>");
-                        }
-                    }
-                });
-            });
+                        if (response.data[i].type === "sponsor" && response.data[i].map === true) {
+
+                            // build contextual icons
+                            var deleteIcon = "<i data-action=\"delete\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
+                            var editIcon = "<i data-action=\"edit\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\" data-address=\"" + response.data[i].address + "\" data-description=\"" + response.data[i].description + "\" data-image=\"" + response.data[i].image + "\" data-lat=\"" + response.data[i].pos.lat + "\" data-lng=\"" + response.data[i].pos.lng + "\" class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                            var detailedIcon = "<i data-action=\"view\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\" data-address=\"" + response.data[i].address + "\" data-description=\"" + response.data[i].description + "\" data-image=\"" + response.data[i].image + "\" data-lat=\"" + response.data[i].pos.lat + "\" data-lng=\"" + response.data[i].pos.lng + "\" class=\"fa fa-id-card-o\" aria-hidden=\"true\"></i>";
+
+                            // build row
+                            var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + " " + detailedIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td><td>" + response.data[i].map + "</td></tr>");
+                            // add row to table
+                            sponsorTableBody.append(thisRow);
+
+                            $("[data-action='view'").on("click", function(){
+                                console.log("you clicked view");
+                                $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                        
+                                $("#detailedLocation").modal("show");    
+                            });
+
+                            $("[data-action='edit'").on("click", function(){
+                                $("#locationEditDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                                            
+                                $("#editLocationModal").modal("show");
+                            });
+                            
+                            // add click listeners to icons
+                            // delete
+                            $("[data-action='delete'").on("click", function(){
+                                $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default btn-space' data-dismiss='modal'>No</button>");
+
+                                //delete action
+                                $("#trueDelete").on("click", function(){
+                                    // removeLocation method takes id, error callback, success callback
+                                    ajax.removeLocation($(this).attr("data-id"), 
+                                    // error callback
+                                    function(response){
+                                        console.log(response);
+                                        // update error modal and show it
+                                        $("#errorDisplay").html("There was an error deleting this tour stop.");
+                                        $("#errorModal").modal("show");
+                                    },
+                                    //success callback
+                                    function(response){
+                                        getLocations();
+                                    }
+                                ); // end removeLocation call
+                            }); // end "true delete" click
+
+                            $("#checkModal").modal("show");
+                            }) // end "delete" button click
+                        } // end type is "stop" condition
+                    } // end response "for" loop
+                }); // end dropdownSponsorWLocations function
+                
+                $("#dropdownSponsorNoLocations").on("click", function (event) {
+                    $(loadSpinner).remove();
+                    var sponsorTableBody = $("#sponsorsdata").children().eq(1);
+                    $(sponsorTableBody).empty();
+                    for(var i = 0; i < response.data.length; i++){
+                        if (response.data[i].type === "sponsor" && response.data[i].map === false) {
+
+                            // build contextual icons
+                            var deleteIcon = "<i data-action=\"delete\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
+                            var editIcon = "<i data-action=\"edit\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\" data-address=\"" + response.data[i].address + "\" data-description=\"" + response.data[i].description + "\" data-image=\"" + response.data[i].image + "\" data-lat=\"" + response.data[i].pos.lat + "\" data-lng=\"" + response.data[i].pos.lng + "\" class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                            var detailedIcon = "<i data-action=\"view\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\" data-address=\"" + response.data[i].address + "\" data-description=\"" + response.data[i].description + "\" data-image=\"" + response.data[i].image + "\" data-lat=\"" + response.data[i].pos.lat + "\" data-lng=\"" + response.data[i].pos.lng + "\" class=\"fa fa-id-card-o\" aria-hidden=\"true\"></i>";
+
+                            // build row
+                            var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + " " + detailedIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td><td>" + response.data[i].map + "</td></tr>");
+                            // add row to table
+                            sponsorTableBody.append(thisRow);
+
+                            $("[data-action='view'").on("click", function(){
+                                console.log("you clicked view");
+                                $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                        
+                                $("#detailedLocation").modal("show");    
+                            });
+
+                            $("[data-action='edit'").on("click", function(){
+                                $("#locationEditDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                                            
+                                $("#editLocationModal").modal("show");
+                            });
+                                            
+                            // add click listeners to icons
+                            // delete
+                            $("[data-action='delete'").on("click", function(){
+                                $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default btn-space' data-dismiss='modal'>No</button>");
+
+                                //delete action
+                                $("#trueDelete").on("click", function(){
+                                    // removeLocation method takes id, error callback, success callback
+                                    ajax.removeLocation($(this).attr("data-id"), 
+                                    // error callback
+                                    function(response){
+                                        console.log(response);
+                                        // update error modal and show it
+                                        $("#errorDisplay").html("There was an error deleting this tour stop.");
+                                        $("#errorModal").modal("show");
+                                    },
+                                    //success callback
+                                    function(response){
+                                        getLocations();
+                                    }
+                                ); // end removeLocation call
+                            }); // end "true delete" click
+
+                            $("#checkModal").modal("show");
+                            }) // end "delete" button click
+                        } // end type is "stop" condition
+                    } // end response "for" loop
+                }); // end dropdownSponsorNoLocations function
+            } // end getLocations success callback
+        ) // end ajax.getLocations call      
+    }); 
+
+    $("#friendsoftour-tab").on("click", function(event){
+        $("#friendsoftour").append(loadSpinner);
+        ajax.getFriends( 
+            function(response) {
+                $(loadSpinner).remove();
+                console.log("There was an error:",response.message);
+                // update error modal and show it
+                $("#errorDisplay").html("There was an error retrieving your data.");
+                $("#errorModal").modal("show");
+            }, // end error callback
+            // success callback
+            function(response) {
+                $(loadSpinner).remove();
+                var friendsTableBody = $("#friendsdata").children().eq(1);
+                $(friendsTableBody).empty();
+
+                for(var i = 0; i < response.data.length; i++){
+                    var thisRow = $("<tr><td>" + response.data[i] + "</td></tr>");
+                    // add row to table
+                    friendsTableBody.append(thisRow);
+                }
+            } // end getEvents success callback
+        ) // end ajax.getEvents call   
     });
 
     /*****************
-        USER SIGN UP and SIGN IN BUTTONS
+        USER SIGN UP and SIGN IN FUNCTIONS
     ******************/ 
+    
+    // click function for add user (ie, manage users) tab
+    $("#adduser-tab").on("click", function(event){
+        event.preventDefault();
+        getUsers();
+        getClients();
+    })
+
+    // click function to launch add-user modal
+    $("[data-button='add user']").on("click", function(){
+        $("#addUserModal").modal("show");
+    });
+
+    // click function to launch add-client modal
+    $("[data-button='add client']").on("click", function(){
+        $("#addClientMessage").html("");
+        $("#addClientModal").modal("show");
+    });
+
+    // submit button on add user modal
     $("#signupButton").on("click",function(event){
         event.preventDefault();
         if ($("#signupUser").val()==="") {
@@ -127,16 +299,58 @@ $(function(){
             ajax.signup( userInfo,
                 // error callback
                 function(response) {
-                    console.log(response)
+                    console.log(response);
+                    $("#addUserMessage").html(response);
                 },
                 // success callback
                 function(response) {
-                    console.log(response)
+                    // remove any text from inputs
+                    $("#signupUser","#signupPass").val("");
+                    $("#addUserMessage").html("New user " + userInfo.username + " created.");   
+                    getUsers();                 
                 }
             );
 
         };
     }) // end click function for user sign up
+
+    // submit button on add client modal
+    $("#addClientButton").on("click",function(event){
+        event.preventDefault();
+        if ($("#addClientName").val()==="") {
+            $("#addClientName").addClass("has-error");
+            return false;
+        }
+        else if ($("#addClientEmail").val()==="") {
+            $("#addClientEmail").addClass("has-error");
+            return false;
+        }
+
+        // validated form; attempt new user creation
+        else {
+            // remove any text from inputs
+            $("#addClientName","#addClientEmail").val("");
+            var clientInfo = {
+                "name": $("#addClientName").val().trim(),
+                "clientEmail": $("#addClientEmail").val().trim()
+            };
+            // the signup method (in ajax.js) takes the clientInfo object plus error and success callback fns as arguments
+            ajax.addClient( clientInfo,
+                // error callback
+                function(response) {
+                    console.log(response);
+                    $("#addClientMessage").html(response.message);
+                },
+                // success callback
+                function(response) {
+                    // remove any text from inputs
+                    $("#addClientName","#addClientEmail").val("");
+                    $("#addClientMessage").html(response.message);
+                    getClients();                 
+                }
+            );
+        };
+    }) // end click function for adding new client
 
     $("#signinButton").on("click",function(event){
         event.preventDefault();
@@ -162,128 +376,223 @@ $(function(){
                 function(response) {
                     console.log(response)
                 },
-                // success callback
+                // success callback: 
                 function(response) {
-                    console.log(response)
+                    console.log(response);
+                    // add token and user name to localStorage
+                    localStorage.setItem("savTourToken", response.token);
+                    localStorage.setItem("savTourUser", response.user);
+                    
+                    //redirect to tour.html page
+                    location.href="tour.html";
                 }
             );
 
         };
     }); // end click function for user sign in
 
-/*****************
- * FRIENDS OF TOUR OPERATIONS
- ****************/
-
-// get all friends of tour
-$("#friendsButton").on("click",function(){
-    ajax.getFriends( 
+function getUsers(){
+    // add spinner
+    $("#adduser").append(loadSpinner);
+    
+    // retrieve user data
+    ajax.getUsers(
         // error callback
         function(response) {
-            console.log("There was an error:",response.message);
+            console.log(response);
+            loadSpinner.remove();
+            // update error modal and show it
+            $("#errorDisplay").html("There was an error getting users.");
+            $("#errorModal").modal("show");
         },
         // success callback
-        function(response) {
-            console.log("Successful:",response);
-            renderFriends(response);
-            // to do: create a function to render friends list to page and call it here; we'll do it that way because we'll call ajax.getFriends() from other places, not just as a click function. 
-            // The renderFriends() function must include adding data-id attributes both to a "remove" button and the element containing the friend name
-        }
-    )
-}) // end click function for Friends of Tour list button
+        function(users){
+            loadSpinner.remove();
+            var userTableBody = $("#usersdata").children().eq(1);
+            userTableBody.empty();
 
-// add Friend of Tour
-$("#addFriendButton").on("click",function(){
-    if ($("#friendName").val()==="") 
-        return false
-    else {
-        var friend = {"name": $("#friendName").val()};
-        console.log("friend:",friend);
-        ajax.addFriend( friend,
-        //error callback
-        function(response){
-            console.log("Error:",response)
-        },
+            for(var i = 0; i < users.length; i++){
+            
+                // build action elements
+
+                var deleteIcon = "<i data-action=\"deleteUser\" data-id=\"" + users[i]._id + "\" data-name=\"" + users[i].username + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
+                
+                var editIcon = "<i data-action=\"editUser\" data-id=\"" + users[i]._id + "\" data-name=\"" + users[i].username + "\" class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                
+                // build row
+                var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + "</td><td>" + users[i].username + "</td></tr>");
+        
+                // add row to table
+                userTableBody.append(thisRow);
+
+                // action icon click functions
+                // edit user icon
+                $("[data-action='editUser'").on("click", function(){
+                    // fill in the modal form with this user's current name
+                    var currentName = $(this).attr("data-name");
+                    $("[data-input='editUsername']").val(currentName);
+
+                    // add this user's data-id to the modal submit button as an attribute and add a click function, after removing any existing click function
+                    $("#updateUser").attr("data-id",$(this).attr("data-id"));
+                    $("#updateUser").off().on("click", function(){
+
+                        // form validation: Is username changed and do password/password confirm fields match?
+                        if ( currentName !== $("[data-input='editUsername']").val().trim() && $("[data-input='editPassword']").val().trim() === $("[data-input='confirmEditPassword']").val().trim() ) {
+                            // create editedUser object
+                            var editedUser = {
+                                id: $(this).attr("data-id"),
+                                username: $("[data-input='editUsername']").val().trim()
+                            };
+                            if ($("[data-input='editPassword']").val().trim() !== "") {
+                                editedUser.password = $("[data-input='editPassword']").val().trim();
+                            }
+                            
+                            ajax.updateUser(editedUser, 
+                            // error callback
+                            function(error){
+                                $("#adduser").append(error);
+                            },
+                            // success callback
+                            function(response){
+                                $("editUserModal").modal("hide");
+                                getUsers();
+                            }); // end ajax method
+                        }; // end form validation condition
+                    }); // end update user click function
+                    
+                    // show the user edit modal
+                    $("#editUserModal").modal("show");
+                }); // end edit user icon click function
+                    
+                // delete user icon
+                $("[data-action='deleteUser'").on("click", function(){
+                    $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div class='btn-toolbar'><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-secondary btn-space' data-dismiss='modal'>No</button></div>");
+
+                    //delete action
+                    $("#trueDelete").off().on("click", function(){
+                        // removeLocation method takes id, error callback, success callback
+                        ajax.removeUser($(this).attr("data-id"), 
+                        // error callback
+                        function(response){
+                            console.log(response);
+                            // update error modal and show it
+                            $("#errorDisplay").html("There was an error deleting this user.");
+                            $("#errorModal").modal("show");
+                        },
+                        //success callback
+                        function(response){
+                            getUsers();
+                        }
+                    ); // end removeUser call
+                }); // end "true delete" click
+
+                $("#checkModal").modal("show");
+                }); // end "delete" button click
+            } // end response "for" loop
+        }) // end getUsers success callback
+} // end getUsers function
+
+function getClients(){
+    // add spinner
+    $("#adduser").append(loadSpinner);
     
-        //success callback
-        function(response){
-            console.log(response);
-            // after adding, get full list again
-            ajax.getFriends(
-                // error callback
-                function(response) {
-                    console.log("There was an error:",response.message);
-                },
-                // success callback
-                function(response) {
-                    console.log(response);
-                    renderFriends(response);
-                }
-            );   
-        });
-    };    
-}); // end click function for getting Friends of Tour list
-
-// update Friend of Tour
-$(".updateFriendButton").on("click", function(){
-    // todo: matchup jQuery selector here ($(this)) with what we use in HTML
-    var id = $(this).attr("data-id");
-    var friend = { 
-        "name": $(".friendContainer['data-id'=id]").val().trim(), 
-        "id": id
-    };
-    ajax.updateFriend(friend,
+    // retrieve user data
+    ajax.getClients(
         // error callback
-        function(response){
-            console.log("There was an error:",response.message);
+        function(response) {
+            loadSpinner.remove();
+            // update error modal and show it
+            $("#errorDisplay").html("There was an error getting clients.");
+            $("#errorModal").modal("show");
         },
-        //success callback
-        function(response){
-            console.log(response);
-            // after adding, get full list again
-            ajax.getFriends(
-                // error callback
-                function(response) {
-                    console.log("There was an error:",response.message);
-                },
-                // success callback
-                function(response){
-                    renderFriends(response)
-                }
-            );   
-        });
-}); // end click function for updating Friends of Tour item
+        // success callback
+        function(clients){
+            loadSpinner.remove();
+            var clientTableBody = $("#clientsdata").children().eq(1);
+            clientTableBody.empty();
 
+            for(var i = 0; i < clients.length; i++){
+            
+                // build action elements
+                var deleteClientIcon = "<i data-action=\"deleteClient\" data-id=\"" + clients[i]._id + "\" data-name=\"" + clients[i].name + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
+                
+                var editClientIcon = "<i data-action=\"editClient\" data-id=\"" + clients[i]._id + "\" data-name=\"" + clients[i].name + "\" data-email=\"" + clients[i].clientEmail + "\" class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                
+                // build row
+                var thisRow = $("<tr><td>" + editClientIcon + " " + deleteClientIcon + "</td><td>" + clients[i].name + "</td><td>" + clients[i].clientEmail + "</td></tr>");
+        
+                // add row to table
+                clientTableBody.append(thisRow);
 
-$(".removeFriendButton").on("click",function(){
-    ajax.removeFriend( friendID,
-    //error callback
-    function(response){
-        console.log("There was an error:",response.message)
-    },
-    //success callback
-    function(response){
-        console.log(response);
-        ajax.getFriends(
-            // error callback
-            function(response) {
-                console.log("There was an error:",response.message);
-            },
-            // success callback
-            function(response) {
-                console.log("Successful:",response);
-                ajax.getFriends( 
-                    //error callback
-                    function(response){
-                        console.log(response);
-                    },
-                    //success callback
-                    renderFriends(response)
-                );
-            }
-        );
-    });
-});
+                // action icon click functions
+                // edit user icon
+                $("[data-action='editClient'").on("click", function(){
+                    
+                    // fill in the modal form with this client's current name
+                    var currentName = $(this).attr("data-name");
+                    $("[data-input='editClientName']").val(currentName);
+                    var currentEmail = $(this).attr("data-email");
+                    $("[data-input='editClientEmail']").val(currentEmail);
+
+                    // add this client's data-id to the modal submit button as an attribute and add a click function, after removing any existing click function
+                    $("#updateClient").attr("data-id",$(this).attr("data-id"));
+                    $("#updateClient").off().on("click", function(){
+
+                        // form validation: Are client name or email changed?
+                        var editedClient = {
+                            name: $("[data-input='editClientName']").val().trim(),
+                            clientEmail: $("[data-input='editClientEmail']").val().trim(),
+                            id: $(this).attr("data-id")
+                        };
+
+                        if ( currentName !== editedClient.name || currentEmail !== editedClient.clientEmail) {
+                        
+                            // something's changed; update this client
+                            ajax.updateClient(editedClient, 
+                            // error callback
+                            function(error){
+                                $("#adduser").append(error);
+                            },
+                            // success callback
+                            function(response){
+                                $("#editClientMessage").html(response.message);
+                                getClients();
+                            }); // end ajax method
+                        }; // end form validation condition
+                    }); // end update client click function
+                    
+                    // show the client edit modal, after clearing out any old messages
+                    $("#editClientMessage").html("");
+                    $("#editClientModal").modal("show");
+                }); // end edit client icon click function
+                    
+                // delete client icon
+                $("[data-action='deleteClient'").on("click", function(){
+                    $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div class='btn-toolbar'><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-secondary btn-space' data-dismiss='modal'>No</button></div>");
+
+                    //delete action
+                    $("#trueDelete").off().on("click", function(){
+                        // removeClient method takes id, error callback, success callback
+                        ajax.removeClient($(this).attr("data-id"), 
+                        // error callback
+                        function(response){
+                            console.log(response);
+                            // update error modal and show it
+                            $("#errorDisplay").html("There was an error deleting this client.");
+                            $("#errorModal").modal("show");
+                        },
+                        //success callback
+                        function(response){
+                            getClients();
+                        }
+                    ); // end removeClient call
+                }); // end "true delete" click
+
+                $("#checkModal").modal("show");
+                }); // end "delete" button click
+            } // end response "for" loop
+        }) // end getClients success callback
+} // end getClients function
 
 /*****************
  * LOCATIONS OPERATIONS
@@ -321,17 +630,30 @@ function getLocations(){
 
                     // build contextual icons
                     var deleteIcon = "<i data-action=\"delete\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>";
-                    var editIcon = "<i data-action=\"edit\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\"  class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                    var editIcon = "<i data-action=\"edit\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\" data-address=\"" + response.data[i].address + "\" data-description=\"" + response.data[i].description + "\" data-image=\"" + response.data[i].image + "\" data-lat=\"" + response.data[i].pos.lat + "\" data-lng=\"" + response.data[i].pos.lng + "\" class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                    var detailedIcon = "<i data-action=\"view\" data-id=\"" + response.data[i]._id + "\" data-name=\"" + response.data[i].name + "\" data-address=\"" + response.data[i].address + "\" data-description=\"" + response.data[i].description + "\" data-image=\"" + response.data[i].image + "\" data-lat=\"" + response.data[i].pos.lat + "\" data-lng=\"" + response.data[i].pos.lng + "\" class=\"fa fa-id-card-o\" aria-hidden=\"true\"></i>";
 
                     // build row
-                    var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td></tr>");
+                    var thisRow = $("<tr><td>" + editIcon + " " + deleteIcon + " " + detailedIcon + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].address + "</td></tr>");
                     // add row to table
                     tourStopTableBody.append(thisRow);
+
+                    $("[data-action='view'").on("click", function(){
+                        $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                
+                        $("#detailedLocation").modal("show");    
+                    });
+
+                    $("[data-action='edit'").on("click", function(){
+                        $("#locationEditDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                                       
+                        $("#editLocationModal").modal("show");
+                    });
                     
                     // add click listeners to icons
                     // delete
                     $("[data-action='delete'").on("click", function(){
-                        $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-info' data-dismiss='modal'>Yes</div><div type='button' class='btn btn-info' data-dismiss='modal'>No</div>");
+                        $("#checkDisplay").html("<p>Delete "+ $(this).attr("data-name") + "?</p><div class='btn-toolbar'><button type='button' id='trueDelete' data-id='" + $(this).attr('data-id') + "' class='btn btn-warning btn-space' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-secondary btn-space' data-dismiss='modal'>No</button></div>");
 
                         //delete action
                         $("#trueDelete").on("click", function(){
@@ -367,7 +689,7 @@ $("#addLocationButton").on("click",function(){
 
     // loop through text values
     textInputs.each(function(index,element){
-        if ($(element).val().trim() === "") {
+        if ($(element).val().trim() === "" && $("#type input:radio:checked").val() === "stop") {
             // update error modal and show it
             $("#errorDisplay").html("The value for " + $(element).attr("placeholder") + " cannot be empty.");
             $("#errorModal").modal("show");
@@ -406,7 +728,7 @@ $("#addLocationButton").on("click",function(){
 
             // update and show check modal
             $("#checkDisplay").html("<p>Is this what you want to post?</p>").append(dataTable);
-            $("#checkDisplay").append("<div type='button' id='truePost' class='btn btn-info' data-dismiss='modal'>Yes</div><div type='button' class='btn btn-info' data-dismiss='modal'>No</div>");
+            $("#checkDisplay").append("<button type='button' id='truePost' class='btn btn-warning' data-dismiss='modal'>Yes</button><button type='button' class='btn btn-default' data-dismiss='modal'>No</button>");
 
             $("#checkModal").modal("show");
 
@@ -485,16 +807,4 @@ $("#addLocationButton").on("click",function(){
             });    
     }); // end click function for updating Location item
 
-})// end doc ready
-
-/*************
- * Other helper functions 
- * ***************/
-
-function renderLocations(locations) {
-     console.log("Rendering locations",locations.data);
- };
-
-function renderFriends(friends) {
-     console.log("Rendering friends list",friends.data)
- };
+}); //end doc ready
