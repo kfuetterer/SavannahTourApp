@@ -1,4 +1,4 @@
-//var api = "http://localhost:3000";
+//var api = "http://localhost:3002";
 var api = "https://savtourapi.herokuapp.com";
 
 var ajax = {
@@ -27,11 +27,14 @@ var ajax = {
     },
 
     signin: function(userInfo,error,success){
+        console.log("API",api);
         $.post( api + "/api/signin",userInfo, function(response){
             if(!response.success) {
+                console.log("Signin error");
                 error(response.message)
             }
             else {
+                console.log("Signin success");
                 success(response)
             }
         });

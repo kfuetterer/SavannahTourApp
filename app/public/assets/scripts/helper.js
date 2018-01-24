@@ -1,11 +1,17 @@
 // load spinner
 var loadSpinner = $("<div>").attr("id","loadSpinner").html("<i class=\"fa fa-refresh fa-spin fa-3x fa-fw\"></i><span class=\"sr-only\">Loading...</span>");
 
+var googleApi = "";
+var detailMap;
+    
 // doc ready function
 $(function(){
 
     // anyone logged in?
     if (localStorage.getItem("savTourUser")){
+        // set some variables
+        var googleMapScript = $("script").attr("src","https://maps.googleapis.com/maps/api/js?key="+localStorage.getItem("savTourGoogleApi"));
+        $("head").append(googleMapScript);
         // welcome them and provide a log-out mechanism
         $("#control-panel-header").append("<span class=\"pull-right\">Welcome, "+localStorage.getItem("savTourUser")+" (<span data-button=\"sign-out\">Sign out</span>)</span>");
         $("[data-button='sign-out']").on("click",function(){
@@ -46,7 +52,7 @@ $(function(){
 
             // success callback
             function(response) {
-
+                googleApi = response.data.googleApi;
                 $("#dropdownAllSponsors").on("click", function (event) {
                     $(loadSpinner).remove();
                     var sponsorTableBody = $("#sponsorsdata").children().eq(1);
@@ -65,15 +71,18 @@ $(function(){
                             sponsorTableBody.append(thisRow);
 
                             $("[data-action='view'").on("click", function(){
-                                console.log("you clicked view");
-                                $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                                $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p><div id=\"detailMap\"></div>")
                         
+                                // add map centered on this location
+                                var center = {"lat": Number($(this).attr("data-lat")),"lng":Number($(this).attr("data-lng"))};
+                                initMap(center);
+
                                 $("#detailedLocation").modal("show");    
                             });
 
                             $("[data-action='edit'").on("click", function(){
                                 $("#locationEditDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
-                                            
+                         
                                 $("#editLocationModal").modal("show");
                             });
                             
@@ -124,14 +133,19 @@ $(function(){
                             sponsorTableBody.append(thisRow);
 
                             $("[data-action='view'").on("click", function(){
-                                console.log("you clicked view");
-                                $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                                $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p><div id=\"detailMap\"></div>")
+                        
+                                // add map centered on this location
+                                var center = {"lat": Number($(this).attr("data-lat")),"lng":Number($(this).attr("data-lng"))};
+                                initMap(center);
                         
                                 $("#detailedLocation").modal("show");    
                             });
 
                             $("[data-action='edit'").on("click", function(){
                                 $("#locationEditDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                        
+                                
                                             
                                 $("#editLocationModal").modal("show");
                             });
@@ -184,7 +198,11 @@ $(function(){
 
                             $("[data-action='view'").on("click", function(){
                                 console.log("you clicked view");
-                                $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                                $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p><div id=\"detailMap\"></div>")
+                        
+                                // add map centered on this location
+                                var center = {"lat": Number($(this).attr("data-lat")),"lng":Number($(this).attr("data-lng"))};
+                                initMap(center);
                         
                                 $("#detailedLocation").modal("show");    
                             });
@@ -380,6 +398,7 @@ $(function(){
                     // add token and user name to localStorage
                     localStorage.setItem("savTourToken", response.token);
                     localStorage.setItem("savTourUser", response.user);
+                    localStorage.setItem("savTourGoogleApi", response.googleApi);
                     
                     //redirect to tour.html page
                     location.href="tour.html";
@@ -637,7 +656,11 @@ function getLocations(){
                     tourStopTableBody.append(thisRow);
 
                     $("[data-action='view'").on("click", function(){
-                        $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p>")
+                        $("#detailedDisplay").html("<h4 class='blackFont'>" + $(this).attr("data-name") + "</h4><br><h5 class='blackFont'>" + $(this).attr("data-address") + "</h5><br><p>" + $(this).attr("data-description") + "</p><img src=" + $(this).attr("data-image") + " width=100%><br><br><h5 class='blackFont'>Position:</h5><p>" + $(this).attr("data-lat") + ", " + $(this).attr("data-lng") + "</p><div id=\"detailMap\"></div>")
+                        
+                        // add map centered on this location
+                        var center = {"lat": Number($(this).attr("data-lat")),"lng":Number($(this).attr("data-lng"))};
+                        initMap(center);
                 
                         $("#detailedLocation").modal("show");    
                     });
@@ -730,7 +753,6 @@ $("#addLocationButton").on("click",function(){
 
             $("#checkModal").modal("show");
 
-            
             //true post action
             $("#truePost").on("click", function(){
 
@@ -795,8 +817,28 @@ $("#addLocationButton").on("click",function(){
             //success callback
             function(response){
                 console.log(response);
-                renderLocations(response);
+                ajax.getLocations( 
+                    //error callback
+                    function(response){
+                        console.log(response)
+                    },
+                    // success callback
+                    renderLocations(response)
+                );
             });    
     }); // end click function for updating Location item
 
+    // detail view map initialization function
+    function initMap(center) {
+        var mapDiv = document.getElementById("detailMap");
+        var map = new google.maps.Map(mapDiv, {
+          center: center,
+          zoom: 12
+        });
+        var marker = new google.maps.Marker({
+            position: center,
+            map: map
+        });
+    }// end initMap function
+    
 }); //end doc ready
